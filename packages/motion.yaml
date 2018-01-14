@@ -1,0 +1,79 @@
+homeassistant:
+  customize:
+    packages.motion_lights: &customize
+      package: 'motion'
+
+    input_select.last_motion_triggered:
+      <<: *customize
+      friendly_name: 'Ostatnio wykryto ruch w:'
+
+input_select:
+  last_motion_triggered:
+    initial: (R) Salon
+    options:
+      - (R) Salon
+      - (R) Kuchnia
+      - (R) WC
+      - (R) Hall Dół
+      - (R) Wiatrołap
+      - (R) Biuro
+      - (R) Serwerownia
+      - (R) Spiżarnia
+      - (R) Garderoba Dół
+      - (R) Garaż
+      - (R) Garaż Tył
+      - (R) Schody Dół
+      - (R) Schody Góra
+      - (R) Pokój Julii
+      - (R) Garderoba Julii
+      - (R) Łazienka Główna
+      - (R) Sypialnia
+      - (R) Sypialnia Wejście
+      - (R) Korytarz Góra
+      - (R) Korytarz Góra2
+      - (R) Garderoba Sypialnia
+      - (R) Pokój Emilii
+      - (R) Garderoba Emilii
+      - (R) Pokój Alicji
+      - (R) Pralnia
+      - (R) Łazienka
+
+automation:
+  - alias: Update last motion triggered from motion sensors last triggered
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id:
+        - binary_sensor.m_salon
+        - binary_sensor.m_kitchen
+        - binary_sensor.m_wc
+        - binary_sensor.m_hall_groundfloor
+        - binary_sensor.m_antreroom
+        - binary_sensor.m_office
+        - binary_sensor.m_serverroom
+        - binary_sensor.m_pantry
+        - binary_sensor.m_wardrobe_ground
+        - binary_sensor.m_garage
+        - binary_sensor.m_garage_garden
+        - binary_sensor.m_curtain_groundfloor
+        - binary_sensor.m_curtain_firstfloor
+        - binary_sensor.m_julia
+        - binary_sensor.m_julia_wardrobe
+        - binary_sensor.m_masterbathroom
+        - binary_sensor.m_masterbedroom
+        - binary_sensor.m_masterbedroom_hall
+        - binary_sensor.m_hall_firstfloor
+        - binary_sensor.m_hall_firstfloor2
+        - binary_sensor.m_masterbedroom_wardrobe
+        - binary_sensor.m_emily
+        - binary_sensor.m_emily_wardrobe
+        - binary_sensor.m_alice
+        - binary_sensor.m_laundry
+        - binary_sensor.m_bathroom
+      to: 'on'
+
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.last_motion_triggered
+          option: "{{ trigger.to_state.attributes.friendly_name }}"

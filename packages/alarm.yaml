@@ -1,0 +1,283 @@
+
+
+automation:
+  - alias: Zone 1 armed
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_armed_1
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Parter uzbrojony"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Parter uzbrojony'
+  
+  - alias: Zone 2 armed
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_armed_2
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Piętro uzbrojone"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Piętro uzbrojone'
+  
+  - alias: Zone 3 armed
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_armed_3
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Strefa zewnętrzna uzbrojona"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Strefa zewnętrzna uzbrojona'
+          
+  
+  - alias: Zone 1 arming
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_arming_1
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Uzbrajanie parteru rozpoczęte"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Uzbrajanie parteru rozpoczęte'
+  
+  - alias: Zone 2 arming
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_arming_2
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Uzbrajanie piętra rozpoczęte"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Uzbrajanie piętra rozpoczęte'
+  
+  - alias: Zone 3 arming
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_arming_3
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Uzbrajanie strefy zewnętrznej rozpoczęte"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Uzbrajanie strefy zewnętrznej rozpoczęt'
+          
+  
+  - alias: Zone 1 disarmed
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_armed_1
+      to: 'off'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Parter rozbrojony"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Parter rozbrojony'
+  
+  - alias: Zone 2 disarmed
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_armed_2
+      to: 'off'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Piętro rozbrojone"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Piętro rozbrojone'
+  
+  - alias: Zone 3 disarmed
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_armed_3
+      to: 'off'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Strefa zewnętrzna rozbrojona"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Strefa zewnętrzna rozbrojona'
+          
+    
+  - alias: Zone 1 breached
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_breached_1
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Parter naruszony"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Parter naruszony'
+  
+  - alias: Zone 2 breached
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_breached_2
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Piętro naruszone"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Piętro naruszone'
+  
+  - alias: Zone 3 breached
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.00001ecc_breached_3
+      to: 'on'
+    action:
+      - service: notify.mr_homn
+        data:
+          title: "Alarm"
+          message: "Strefa zewnętrzna naruszona"
+      - service: notify.telegram
+        data:
+          title: '*Alarm*'
+          message: 'Strefa zewnętrzna naruszona'
+          
+# send push with camera snapshot when movement detected and the main entrance
+  - alias: entrance_movement
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.m_entrance
+      to: 'on'
+    action:
+      - service: automation.turn_off
+        entity_id: automation.entrance_movement
+      - service: notify.ios_emperor
+        data:
+          message: Ruch przed wejściem
+          data:
+            attachment:
+              content-type: jpeg
+            push:
+              category: camera
+            entity_id: camera.doorbird_live
+      - service: camera.snapshot
+        data:
+          entity_id: camera.wschodponoc_front
+          filename: '/tmp/snapshot_wschodponoc_front.jpg'
+      - service: camera.snapshot
+        data:
+          entity_id: camera.doorbird_live
+          filename: '/tmp/snapshot_doorbird_live.jpg'
+      - service: notify.telegram
+        data:
+         title: Ruch
+         message: Ruch przed wejściem
+         data:
+           photo:
+             - file: '/tmp/snapshot_wschodponoc_front.jpg'
+               capture: Wschód-Północ (Front)
+             - file: '/tmp/snapshot_doorbird_live.jpg'
+               capture: Wejście
+      - delay:
+          minutes: 5
+      - service: automation.turn_on
+        entity_id: automation.entrance_movement
+
+  - alias: Alarm Triggered
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.00001ecc_alarm_1
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.00001ecc_alarm_2
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.00001ecc_alarm_3
+        to: 'on'
+    action:
+      - service: shell_command.cam_snapshot
+      - delay:
+          seconds: 15
+      - service: notify.telegram
+        data:
+         title: '*Alarm*'
+         message: 'Alarm'
+         data:
+           inline_keyboard:
+             - 'Task 1:/command1, Task 2:/command2'
+             - 'Task 3:/command3, Task 4:/command4'
+           video:
+             - file: '/tmp/capture_cam1.mp4'
+               caption: Wschód-Północ (Front)
+             - file: '/tmp/capture_cam2.mp4'
+               caption: Południe->Zachód (Ogródek)
+             - file: '/tmp/capture_cam3.mp4'
+               caption: Zachód->Północ (Plac)
+             - file: '/tmp/capture_cam4.mp4'
+               caption: Zachód->Południe
+             - file: '/tmp/capture_cam5.mp4'
+               caption: Północ->Wschód
+             - file: '/tmp/capture_cam6.mp4'
+               caption: Północ->Zachód
+             - file: '/tmp/capture_cam7.mp4'
+               caption: Wschód-Południe (Front)
+             - file: '/tmp/capture_cam8.mp4'
+               caption: Zachód-Południe (Taras)
+               
+
+shell_command:
+  cam_snapshot: scripts/cam_snapshot.sh

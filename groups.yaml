@@ -1,0 +1,194 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.external_doors
+    - group.alarm
+    - group.weather
+    
+weather:
+  view: no
+  name: Pogoda
+  entities:
+    - sensor.date__time
+    - sensor.buderus_outside_temperature
+    - camera.pogoda
+    - history_graph.smog
+    - input_select.smog_pm10_level
+    - sensor.smog_pm_10
+    - sensor.smog_pm_25
+
+alarm:
+  view: no
+  name: Alarm
+  entities:
+    - alarm_control_panel.a_ground_floor
+    - alarm_control_panel.a_upper_floor
+    - alarm_control_panel.a_outside
+
+  
+climate:
+  view: yes
+  name: Klimat
+  entities:
+    - climate.h_hallway
+    - climate.h_garage
+    - climate.h_salon
+    - climate.h_office
+    - climate.h_wc
+    - climate.h_room_julia
+    - climate.h_room_emily
+    - climate.h_master_bathroom
+    - climate.h_master_bedroom
+    - climate.h_room_alice
+    - climate.h_bathroom
+
+room_occupancy:
+  view: no
+  name: Obecność w Pomieszczeniach
+  entities:
+   - input_select.room_alice_occupancy
+   - input_select.room_bathroom_occupancy
+   - input_select.room_emily_occupancy
+   - input_select.room_julia_occupancy
+   - input_select.room_masterbathroom_occupancy
+   - input_select.room_masterbedroom_occupancy
+   - input_select.room_office_occupancy
+   - input_select.room_wc_occupancy
+  
+ 
+occupancy:
+  view: yes
+  name: Obecność
+  entities:
+   - input_select.last_motion_triggered
+   - group.room_occupancy
+   
+external_doors:
+  name: Drzwi zewnętrzne
+  entities:
+    - camera.doorbird_live
+    
+system_info:
+  view: yes
+  name: System
+  entities:
+    - sensor.ram_available
+    - sensor.ram_used
+    - sensor.ram_used_2
+    - sensor.swap_free
+    - sensor.swap_used
+    - sensor.swap_used_2
+    
+cameras:
+  view: yes
+  name: Kamery
+  entities:
+    - camera.doorbird_live
+    - camera.wschodponoc_front
+    - camera.wschodpoudnie_front
+    - camera.ponocwschod
+    - camera.ponoczachod
+    - camera.poudniezachod_ogrodek
+    - camera.zachodponoc_plac
+    - camera.zachodpoudnie
+    - camera.zachodpoudnie_taras
+    
+media:
+  view: yes
+  name: Media
+  entities:
+    - group.players_mpd
+    - group.players_squeezebox
+
+players_mpd:
+  view: no
+  name: TTS Players
+  entities:
+    - media_player.mpd_kitchen
+    - media_player.mpd_terrace
+    - media_player.mpd_wc
+    
+  
+players_squeezebox:
+  view: no
+  name: Ratio Players
+  entities:
+    - media_player.azienka_krolewska
+    - media_player.azienka_ksiezniczek
+    - media_player.gabinet
+    - media_player.kuchnia
+    - media_player.pokoj_alicji
+    - media_player.pokoj_emilki
+    - media_player.pokoj_julii
+    - media_player.sypialnia_krolewska
+    - media_player.taras
+    - media_player.wc
+
+buderus:
+  view: yes
+  name: Kocioł
+  entities:
+     - group.bd_system
+     - group.bd_hs1
+     - group.bd_hc1
+     - group.bd_hc2
+     - group.bd_dhw1
+
+bd_system:
+  view: no
+  name: System
+  entities:
+    - sensor.buderus_outside_temperature
+    - sensor.buderus_switch
+    - sensor.buderus_supply_t1_setpoint
+    - sensor.buderus_supply_t1
+    - sensor.buderus_hotwater_t2
+    - sensor.buderus_appliance_actual_power
+    - sensor.buderus_appliance_actual_supply_temp
+    - sensor.buderus_appliance_power_setpoint
+    - sensor.buderus_appliance_ch_pump_modulation
+    - sensor.buderus_appliance_gas_air_pressure
+    - sensor.buderus_appliance_number_of_starts
+    - sensor.buderus_appliance_system_pressure
+    - sensor.buderus_appliance_flame_current
+    - sensor.buderus_appliance_chimney_sweeper
+    - sensor.buderus_appliance_nominal_burner_load
+    - sensor.buderus_appliance_total_system_working_time
+
+bd_hs1:
+  view: no
+  name: Źródło Ciepła
+  entities:
+    - sensor.buderus_hs1_flame_status
+    - sensor.buderus_hs1_actual_modulation
+    - sensor.buderus_hs1_actual_power
+    - sensor.buderus_hs1_dhw_power
+    - sensor.buderus_hs1_ch_power
+    - sensor.buderus_hs1_fuel_density
+    - sensor.buderus_hs1_caloric_value
+bd_hc1:
+  view: no
+  name: Parter
+  entities:
+    - sensor.buderus_hc1_actual_supply_temp
+    - sensor.buderus_hc1_current_room_setpoint
+    - sensor.buderus_hc1_room_temperature
+    - sensor.buderus_hc1_pump_modulation
+bd_hc2:
+  view: no
+  name: Piętro
+  entities:
+    - sensor.buderus_hc2_actual_supply_temp
+    - sensor.buderus_hc2_current_room_setpoint
+    - sensor.buderus_hc2_room_temperature
+    - sensor.buderus_hc2_pump_modulation
+bd_dhw1:
+  view: no
+  name: Ciepła Woda
+  entities:
+    - sensor.buderus_hotwater_current_setpoint
+    - sensor.buderus_hotwater_temperature
+    - sensor.buderus_hotwater_flow
+    - sensor.buderus_hotwater_status
+

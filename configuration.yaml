@@ -1,0 +1,278 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 52.2394
+  longitude: 21.0362
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Warsaw
+  # Customization file
+  customize: !include customize.yaml
+  
+  packages:
+    occupation: !include packages/occupation.yaml
+    motion: !include packages/motion.yaml
+    buderus: !include packages/buderus.yaml
+    alarm: !include packages/alarm.yaml
+    smog: !include packages/smog.yaml
+    wc: !include packages/wc.yaml
+    salon: !include packages/salon.yaml
+    kitchen: !include packages/kitchen.yaml
+  
+  whitelist_external_dirs:
+    - '/tmp/'
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components: warning
+    pyampio: warning
+
+ios:
+  push:
+    categories:
+      - name: Alarm
+        identifier: 'alarm'
+        actions:
+          - identifier: 'SOUND_ALARM'
+            title: 'Sound Alarm'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: yes
+            behavior: 'default'
+          - identifier: 'SILENCE_ALARM'
+            title: 'Silence Alarm'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: no
+            behavior: 'textInput'
+            textInputButtonTitle: 'Silencio!'
+            textInputPlaceholder: 'Placeholder'
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_boot_api_key
+    allowed_chat_ids:
+      - 509574229
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+#updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+
+tts:
+  - platform: amazon_polly
+    aws_access_key_id: !secret aws_access_key_id
+    aws_secret_access_key: !secret aws_secret_access_key
+    voice: Ewa
+    
+# Cloud
+cloud:
+
+hassio:
+
+notify:
+  - name: Mr Homn
+    platform: ciscospark
+    token: !secret ciscospark_token
+    roomid: !secret ciscospark_roomid
+  
+  - name: Telegram
+    platform: telegram
+    chat_id: 509574229
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+
+doorbird:
+  host: 172.31.11.71
+  username: !secret doorbird_username
+  password: !secret doorbird_password
+  doorbell_events: true
+  
+
+ampio:
+  port: /dev/ttyUSB0
+  autoconfig:
+    - module: MULTISENS
+      items:
+        - name: temperature
+          begin: 1
+          end: 1
+        - name: humidity
+          begin: 1
+          end: 1
+        - name: mean-sea-level-pressure
+          begin: 1
+          end: 1
+      use_module_name: yes
+    - module: MCON-232SATEL
+      items:
+        # - name: bin_input
+        #   begin: 1
+        #   end: 11
+        - name: bin_output
+          begin: 1
+          end: 16
+        - name: armed
+          begin: 1
+          end: 3
+        - name: alarm
+          begin: 1
+          end: 3
+        - name: breached
+          begin: 1
+          end: 3
+        - name: arming
+          begin: 1
+          end: 3
+        - name: arming10s
+          begin: 1
+          end: 3
+
+
+cover: !include_dir_merge_list covers
+climate: !include_dir_merge_list climates
+camera: !include_dir_merge_list cameras
+binary_sensor: !include_dir_merge_list binary_sensors
+media_player: !include_dir_merge_list media_players
+light: !include_dir_merge_list lights
+sensor: !include_dir_merge_list sensors
+switch: !include_dir_merge_list switches
+
+input_select:
+  fake_input_select:
+    name: fake
+    options: 
+      - fake1
+      - fake2
+  
+  room_julia_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+
+  room_alice_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+
+  room_emily_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+
+  room_wc_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+
+  room_masterbedroom_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+      
+  room_masterbathroom_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+
+  room_office_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+  
+  room_bathroom_occupancy:
+    initial: Nieznany
+    options:
+      - Pusty
+      - Zajęty
+      - Nieznany
+    
+
+alarm_control_panel:
+  - platform: ampio
+    name: a_ground_floor
+    item: 0x00001ecc/.*/1
+    friendly_name: Strefa Parteru
+    arm_away: yes
+
+  - platform: ampio
+    name: a_upper_floor
+    item: 0x00001ecc/.*/2
+    friendly_name: Strefa Piętra
+    arm_away: yes
+
+  - platform: ampio
+    name: a_outside
+    item: 0x00001ecc/.*/3
+    friendly_name: Strefa Zewnętrzna
+    arm_home: yes
+    arm_away: yes
+
+history_graph:
+ smog:
+   name: Smog
+   entities:
+     - sensor.smog_pm_10
+     - sensor.smog_pm_25
+   hours_to_show: 48
+   refresh: 60

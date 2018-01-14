@@ -1,0 +1,103 @@
+automation:
+
+  - alias: Play ambient music in WC in the day
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: input_select.room_wc_occupancy
+      to: "Zajęty"
+    condition:
+      - condition: time
+        before: '11:00'
+        after: '6:00'
+    action:
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.wc
+          media_content_type: PLAYLIST
+        data_template:
+          media_content_id: >
+            {{ [ "http://dcs-193-111-38-243.atmcdn.pl/sc/o2/Eurozet/live/antyradio.livx?audio=5" ] | random}}
+  
+  
+  - alias: Play ambient music in WC in the morning
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: input_select.room_wc_occupancy
+      to: "Zajęty"
+    condition:
+      - condition: time
+        before: '20:00'
+        after: '11:00'
+    action:
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.wc
+          media_content_type: PLAYLIST
+        data_template:
+          media_content_id: >
+            {{ [ "http://somafm.com/groovesalad130.pls", "http://somafm.com/dronezone130.pls", "http://somafm.com/spacestation130.pls" ] | random}}
+  
+  - alias: Stop ambient music in WC
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: input_select.room_wc_occupancy
+        to: "Pusty"
+      - platform: state
+        entity_id: input_select.room_wc_occupancy
+        to: "Nieznany"
+    
+    action:
+      - service: media_player.media_pause
+        data:
+          entity_id: media_player.wc
+  
+  - alias: Turn WC MLED on
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.d_wc
+        to: 'on'
+      - platform: state
+        entity_id: input_select.room_wc_occupancy
+        to: "Zajęty"
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.l_wc_mled1
+          state: 'off'
+        - condition: state
+          entity_id: light.l_wc_mled2
+          state: 'off'
+        - condition: state
+          entity_id: light.l_wc_led
+          state: 'off'
+          
+    action:
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.l_wc_mled1
+            - light.l_wc_mled2
+            
+  - alias: Turn WC light off
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: input_select.room_wc_occupancy
+      to: "Pusty"
+      for:
+        minutes: 1
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.l_wc_mled1
+            - light.l_wc_mled2
+            - light.l_wc_led
+        
+      
+      

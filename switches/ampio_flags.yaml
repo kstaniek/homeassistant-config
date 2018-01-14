@@ -1,0 +1,4 @@
+- platform: ampio
+  name: flag_wc_occupied
+  item: 0x1f55/flag/32
+  friendly_name: WC Zajęte

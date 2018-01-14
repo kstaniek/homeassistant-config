@@ -1,0 +1,4 @@
+cover.c_water_from_tank:
+  device_class: garage
+cover.c_garage_gate:
+  device_class: garage

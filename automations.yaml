@@ -1,0 +1,80 @@
+- alias: Doorbird Doorbell Test
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: doorbird_doorbell
+  action:
+    service: tts.amazon_polly_say
+    entity_id: 
+      - media_player.mpd_kitchen
+      - media_player.mpd_wc
+    data:
+      message: "Ktoś dzwoni do drzwi!"
+      
+      
+- alias: RAM Monitor
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ram_used_2
+    above: 50
+    for:
+      minutes: 1
+  action:
+    - service: notify.mr_homn
+      data:
+        title: "Uwaga"
+        message: "Zużycie pamięci przekroczyło 50% w ciągu ostatniej minuty"
+        
+
+
+# Blind
+
+- alias: 'Close blind at dusk'
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    below: -5.0
+
+  action:
+    - service: cover.close_cover_tilt
+      entity_id:
+        - cover.c_kitchen_east
+        - cover.c_kitchen_north
+        - cover.c_livingroom
+        - cover.c_livingroom_terrace
+        - cover.c_masterbathroom
+        - cover.c_masterbedroom
+        - cover.c_masterbedroom_wardrobe
+        - cover.c_office_north
+        - cover.c_office_west
+        - cover.c_washing
+        - cover.c_emily
+        - cover.c_bonsai
+        - cover.c_alice
+        - cover.c_julia
+
+- alias: 'Open blind at dawn'
+  trigger:
+      platform: sun
+      event: sunrise
+      offset: '-00:30:00'
+  
+  action:
+    - service: cover.open_cover_tilt
+      entity_id:
+        - cover.c_kitchen_east
+        - cover.c_kitchen_north
+        - cover.c_livingroom
+        - cover.c_livingroom_terrace
+        - cover.c_masterbathroom
+        - cover.c_masterbedroom
+        - cover.c_masterbedroom_wardrobe
+        - cover.c_office_north
+        - cover.c_office_west
+        - cover.c_washing
+        - cover.c_emily
+        - cover.c_bonsai
+        - cover.c_alice
+        - cover.c_julia

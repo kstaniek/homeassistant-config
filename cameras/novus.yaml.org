@@ -1,0 +1,40 @@
+- name: Wschód-Północ (Front)
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.1:554/ch01/2
+  ffmpeg_bin: /usr/bin/ffmpeg
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Południe->Zachód (Ogródek)
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.2:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Zachód->Północ (Plac)
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.3:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Zachód->Południe
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.4:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Północ->Wschód
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.5:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Północ->Zachód
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.6:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Wschód-Południe (Front)
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.7:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2
+
+- name: Zachód-Południe (Taras)
+  platform: ffmpeg
+  input: -rtsp_transport tcp -i rtsp://root:pass@172.31.22.8:554/ch01/2
+  extra_arguments: -pred 1 -q:v 2

@@ -1,0 +1,11 @@
+- platform: mpd
+  host: 172.31.10.3
+  name: mpd_kitchen
+
+- platform: mpd
+  host: 172.31.10.1
+  name: mpd_terrace
+
+- platform: mpd
+  host: 172.31.10.9
+  name: mpd_wc

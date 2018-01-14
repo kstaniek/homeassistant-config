@@ -1,0 +1,15 @@
+automation:
+  - alias: Turn the workbench light off
+    initial_state: 'on'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.m_kitchen
+      to: "off"
+      for:
+        minutes: 30
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.l_kitchen_workbench
+              

@@ -1,0 +1,40 @@
+{
+  "bridge": {
+    "name": "Home Assistant",
+    "username": "76:7A:62:3F:52:90",
+    "port": 51826,
+    "pin": "614-55-557"
+  },
+  "description": "Homebridge for Home Assistant",
+  "accessories": [],
+  "platforms": [
+    {
+      "platform": "HomeAssistant",
+      "name": "HomeAssistant",
+      "host": "http://hassio/homeassistant",
+      "password": "",
+      "default_visibility": "visible",
+      "supported_types": [
+        "automation",
+        "binary_sensor",
+        "climate",
+        "cover",
+        "device_tracker",
+        "fan",
+        "group",
+        "input_boolean",
+        "light",
+        "lock",
+        "media_player",
+        "remote",
+        "scene",
+        "script",
+        "sensor",
+        "switch",
+        "vacuum"
+      ],
+      "logging": true,
+      "verify_ssl": true
+    }
+  ]
+}

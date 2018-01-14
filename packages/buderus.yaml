@@ -1,0 +1,43 @@
+buderus:
+  host: 172.31.11.12
+  password: !secret buderus_password
+
+sensor:
+  - platform: buderus
+    resources:
+      - outside_temperature
+      - supply_t1_setpoint
+      - supply_t1
+      - hotwater_t2
+      - switch
+      - hotwater_current_temperature
+      - hotwater_current_setpoint
+      - hotwater_waterflow
+      - hotwater_status
+      - hc1_current_room_setpoint
+      - hc1_actual_supply_temperature
+      - hc1_status
+      - hc1_pump_modulation
+      - hc1_room_temperature
+      - hc2_current_room_setpoint
+      - hc2_actual_supply_temperature
+      - hc2_status
+      - hc2_pump_modulation
+      - hc2_room_temperature
+  
+      - hs1_actual_modulation
+      - hs1_actual_power
+      - hs1_flame_status
+      - hs1_fuel_density
+      - hs1_caloric_value
+      - hs1_actual_ch_power
+      - hs1_actual_dwh_power
+      - appliance_actual_supply_temp
+      - appliance_power_setpoint
+      - appliance_actual_power
+      - appliance_ch_pump_modulation
+      - appliance_number_of_starts
+      - appliance_gas_air_pressure
+      - appliance_system_pressure
+      - appliance_flame_current
+

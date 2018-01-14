@@ -1,0 +1,482 @@
+# MOVEMENT
+
+- name: m_antreroom
+  platform: ampio
+  item: 0x1ecc/bin_input/1
+  device_class: motion
+  friendly_name: (R) Wiatrołap
+  
+- name: m_garage_garden
+  platform: ampio
+  item: 0x1ecc/bin_input/2
+  device_class: motion
+  friendly_name: (R) Garaż Tył
+  
+- name: m_garage
+  platform: ampio
+  item: 0x1ecc/bin_input/3
+  device_class: motion
+  friendly_name: (R) Garaż
+
+- name: m_wardrobe_ground
+  platform: ampio
+  item: 0x1ecc/bin_input/4
+  device_class: motion
+  friendly_name: (R) Garderoba Dół
+
+- name: m_hall_groundfloor
+  platform: ampio
+  item: 0x1ecc/bin_input/5
+  device_class: motion
+  friendly_name: (R) Hall Dół
+
+- name: m_salon
+  platform: ampio
+  item: 0x1ecc/bin_input/6
+  device_class: motion
+  friendly_name: (R) Salon
+
+- name: m_kitchen
+  platform: ampio
+  item: 0x1ecc/bin_input/7
+  device_class: motion
+  friendly_name: (R) Kuchnia
+
+- name: m_pantry
+  platform: ampio
+  item: 0x1ecc/bin_input/8
+  device_class: motion
+  friendly_name: (R) Spiżarnia
+
+- name: m_office
+  platform: ampio
+  item: 0x1ecc/bin_input/9
+  device_class: motion
+  friendly_name: (R) Biuro
+
+- name: m_serverroom
+  platform: ampio
+  item: 0x1ecc/bin_input/10
+  device_class: motion
+  friendly_name: (R) Serwerownia
+
+- name: m_wc
+  platform: ampio
+  item: 0x1ecc/bin_input/11
+  device_class: motion
+  friendly_name: (R) WC
+
+- name: m_hall_firstfloor
+  platform: ampio
+  item: 0x1ecc/bin_input/12
+  device_class: motion
+  friendly_name: (R) Korytarz Góra
+
+- name: m_emily
+  platform: ampio
+  item: 0x1ecc/bin_input/13
+  device_class: motion
+  friendly_name: (R) Pokój Emilii
+
+- name: m_emily_wardrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/14
+  device_class: motion
+  friendly_name: (R) Garderoba Emilii
+
+- name: m_julia
+  platform: ampio
+  item: 0x1ecc/bin_input/15
+  device_class: motion
+  friendly_name: (R) Pokój Julii
+
+- name: m_julia_wardrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/16
+  device_class: motion
+  friendly_name: (R) Garderoba Julii
+
+- name: m_bathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/17
+  device_class: motion
+  friendly_name: (R) Łazienka
+
+- name: m_laundry
+  platform: ampio
+  item: 0x1ecc/bin_input/18
+  device_class: motion
+  friendly_name: (R) Pralnia
+
+- name: m_alice
+  platform: ampio
+  item: 0x1ecc/bin_input/19
+  device_class: motion
+  friendly_name: (R) Pokój Alicji
+
+- name: m_masterbedroom_hall
+  platform: ampio
+  item: 0x1ecc/bin_input/20
+  device_class: motion
+  friendly_name: (R) Sypialnia Wejście
+
+- name: m_masterbedroom
+  platform: ampio
+  item: 0x1ecc/bin_input/21
+  device_class: motion
+  friendly_name: (R) Sypialnia
+
+- name: m_masterbedroom_wardrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/22
+  device_class: motion
+  friendly_name: (R) Garderoba Sypialnia
+
+- name: m_masterbathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/23
+  device_class: motion
+  friendly_name: (R) Łazienka Główna
+
+- name: m_curtain_groundfloor
+  platform: ampio
+  item: 0x1ecc/bin_input/84
+  device_class: motion
+  friendly_name: (R) Schody Dół
+
+- name: m_hall_firstfloor2
+  platform: ampio
+  item: 0x1ecc/bin_input/86
+  device_class: motion
+  friendly_name: (R) Korytarz Góra2
+
+- name: m_curtain_firstfloor
+  platform: ampio
+  item: 0x1ecc/bin_input/87
+  device_class: motion
+  friendly_name: (R) Schody Góra
+  
+#DOOR
+
+- name: d_bathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/17
+  device_class: opening
+  friendly_name: (D) Łazienka
+
+- name: d_main
+  platform: ampio
+  item: 0x1ecc/bin_input/24
+  device_class: opening
+  friendly_name: (D) Wejściowe
+  
+- name: d_garden
+  platform: ampio
+  item: 0x1ecc/bin_input/26
+  device_class: opening
+  friendly_name: (D) Ogrodowe
+
+- name: d_wardrobe_garage
+  platform: ampio
+  item: 0x1ecc/bin_input/30
+  device_class: opening
+  friendly_name: (D) Garaż z Garderoby
+
+- name: d_wardrobe_ground
+  platform: ampio
+  item: 0x1ecc/bin_input/31
+  device_class: opening
+  friendly_name: (D) Garderoba Dół
+ 
+- name: d_engineroom
+  platform: ampio
+  item: 0x1ecc/bin_input/32
+  device_class: opening
+  friendly_name: (D) Kotłownia
+
+- name: d_glass
+  platform: ampio
+  item: 0x1ecc/bin_input/33
+  device_class: opening
+  friendly_name: (D) Szklane
+
+- name: d_wc
+  platform: ampio
+  item: 0x1ecc/bin_input/34
+  device_class: opening
+  friendly_name: (D) WC
+
+- name: d_office
+  platform: ampio
+  item: 0x1ecc/bin_input/35
+  device_class: opening
+  friendly_name: (D) Biuro
+
+- name: d_serverroom
+  platform: ampio
+  item: 0x1ecc/bin_input/36
+  device_class: opening
+  friendly_name: (D) Serwerownia
+
+- name: d_terrace
+  platform: ampio
+  item: 0x1ecc/bin_input/37
+  device_class: opening
+  friendly_name: (D) Taras
+
+- name: d_pantry
+  platform: ampio
+  item: 0x1ecc/bin_input/39
+  device_class: opening
+  friendly_name: (D) Spiżarnia
+
+- name: d_emily
+  platform: ampio
+  item: 0x1ecc/bin_input/42
+  device_class: opening
+  friendly_name: (D) Pokój Julii
+
+- name: d_emily_wardrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/43
+  device_class: opening
+  friendly_name: (D) Garderoba Emilii
+
+- name: d_julia
+  platform: ampio
+  item: 0x1ecc/bin_input/46
+  device_class: opening
+  friendly_name: (D) Pokój Julii
+
+- name: d_julia_wardrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/47
+  device_class: opening
+  friendly_name: (D) Garderoba Julii
+
+
+- name: d_laundry
+  platform: ampio
+  item: 0x1ecc/bin_input/51
+  device_class: opening
+  friendly_name: (D) Pralnia
+
+- name: d_alice
+  platform: ampio
+  item: 0x1ecc/bin_input/54
+  device_class: opening
+  friendly_name: (D) Pokój Alicji
+
+- name: d_masterbedroom
+  platform: ampio
+  item: 0x1ecc/bin_input/57
+  device_class: opening
+  friendly_name: (D) Sypialnia
+
+- name: d_masterbathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/58
+  device_class: opening
+  friendly_name: (D) Łazienka Główna
+
+- name: d_masterbedroom_wordrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/61
+  device_class: opening
+  friendly_name: (D) Garderoba Główna
+
+# Movement outside
+- name: m_entrance
+  platform: ampio
+  item: 0x1ecc/bin_input/76
+  device_class: motion
+  friendly_name: (R) Przed Wejściem
+
+- name: m_east_garage
+  platform: ampio
+  item: 0x1ecc/bin_input/77
+  device_class: motion
+  friendly_name: (R) Brama Garażowa
+
+- name: m_south
+  platform: ampio
+  item: 0x1ecc/bin_input/78
+  device_class: motion
+  friendly_name: (R) Południe
+
+- name: m_west
+  platform: ampio
+  item: 0x1ecc/bin_input/79
+  device_class: motion
+  friendly_name: (R) Zachód
+
+- name: m_terrace
+  platform: ampio
+  item: 0x1ecc/bin_input/80
+  device_class: motion
+  friendly_name: (R) Taras
+
+- name: m_north
+  platform: ampio
+  item: 0x1ecc/bin_input/81
+  device_class: motion
+  friendly_name: (R) Północ
+
+- name: m_east_garden
+  platform: ampio
+  item: 0x1ecc/bin_input/82
+  device_class: motion
+  friendly_name: (R) Wschód Ogród
+
+- name: m_roof
+  platform: ampio
+  item: 0x1ecc/bin_input/83
+  device_class: motion
+  friendly_name: (R) Dach
+
+# LOCKS
+- name: l_main_door
+  platform: ampio
+  item: 0x1ecc/bin_input/25
+  device_class: safety
+  friendly_name: (Z) Drzwi Wejściowe
+
+- name: l_garden_door
+  platform: ampio
+  item: 0x1ecc/bin_input/27
+  device_class: safety
+  friendly_name: (Z) Drzwi Garażowe
+
+
+# WINDOWS
+- name: w_kitchen
+  platform: ampio
+  item: 0x1ecc/bin_input/40
+  device_class: opening
+  friendly_name: (O) Kuchnia
+
+- name: w_kitchen_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/41
+  device_class: opening
+  friendly_name: (O) Kuchnia Uchył
+
+- name: w_emily_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/45
+  device_class: opening
+  friendly_name: (O) Pokój Emilii
+
+- name: w_julia
+  platform: ampio
+  item: 0x1ecc/bin_input/48
+  device_class: opening
+  friendly_name: (O) Pokój Julii
+
+- name: w_julia_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/49
+  device_class: opening
+  friendly_name: (O) Pokój Julii Uchył
+
+- name: w_loundry
+  platform: ampio
+  item: 0x1ecc/bin_input/52
+  device_class: opening
+  friendly_name: (O) Pralnia
+
+- name: w_loundry_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/53
+  device_class: opening
+  friendly_name: (O) Pralnia Uchył
+
+- name: w_alice_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/54
+  device_class: opening
+  friendly_name: (O) Pokój Alicji
+
+- name: w_masterbedroom_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/60
+  device_class: opening
+  friendly_name: (O) Sypialnia
+
+- name: w_masterbedroom_wardrobe
+  platform: ampio
+  item: 0x1ecc/bin_input/62
+  device_class: opening
+  friendly_name: (O) Garderoba Sypialnia
+
+- name: w_masterbedroom_wardrobe_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/63
+  device_class: opening
+  friendly_name: (O) Garderoba Sypialnia Uchył
+
+- name: w_masterbathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/64
+  device_class: opening
+  friendly_name: (O) Łazienka Główna
+
+- name: w_masterbathroom_ajar
+  platform: ampio
+  item: 0x1ecc/bin_input/65
+  device_class: opening
+  friendly_name: (O) Łazienka Główna Uchył
+
+- name: f_engineroom
+  platform: ampio
+  item: 0x1ecc/bin_input/66
+  device_class: moisture
+  friendly_name: (F) Kotłownia
+
+- name: f_kitchen
+  platform: ampio
+  item: 0x1ecc/bin_input/68
+  device_class: moisture
+  friendly_name: (F) Kuchnia
+
+- name: f_fridge
+  platform: ampio
+  item: 0x1ecc/bin_input/69
+  device_class: moisture
+  friendly_name: (F) Lodówka
+
+- name: f_laundry
+  platform: ampio
+  item: 0x1ecc/bin_input/70
+  device_class: moisture
+  friendly_name: (F) Pralnia
+
+- name: f_bathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/71
+  device_class: moisture
+  friendly_name: (F) Łazienka
+
+- name: f_master_bathroom
+  platform: ampio
+  item: 0x1ecc/bin_input/72
+  device_class: moisture
+  friendly_name: (F) Łazienka Główna
+
+- name: g_serverroom_chloroform
+  platform: ampio
+  item: 0x1ecc/bin_input/74
+  device_class: gas
+  friendly_name: (G) Chloroform
+
+- name: g_engineroom_natural_gas
+  platform: ampio
+  item: 0x1ecc/bin_input/75
+  device_class: gas
+  friendly_name: (G) Gaz ziemny
+
+- name: g_engineroom_carbon_monoxide
+  platform: ampio
+  item: 0x1ecc/bin_input/85
+  device_class: gas
+  friendly_name: (G) Tlenek Węgla (CO)

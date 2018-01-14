@@ -1,0 +1,105 @@
+sensor:
+  - platform: jsonrest
+    name: SMOG
+    resource: http://smog1.ampio.pl:3050/api/data/16/avg/lastday
+    force_update: true
+    
+  - platform: template
+    sensors:
+      smog_timestamp:
+        friendly_name: Czas Pomiaru
+        value_template: '{{ states.sensor.smog.attributes.list[-1].CZAS }}'
+      smog_pm_25:
+        friendly_name: PM25
+        value_template: '{{ states.sensor.smog.attributes.list[-1].PM25 }}'
+        unit_of_measurement: 'µg/m³'
+      smog_pm_10:
+        friendly_name: PM10
+        value_template: '{{ states.sensor.smog.attributes.list[-1].PM10 }}'
+        unit_of_measurement: 'µg/m³'
+      smog_humidity:
+        friendly_name: Wilgotność
+        value_template: '{{ states.sensor.smog.attributes.list[-1].humidity | round(0) }}'
+        unit_of_measurement: '%'
+      smog_pressure:
+        friendly_name: Ciśnienie
+        value_template: '{{ states.sensor.smog.attributes.list[-1].pressure | round(0) }}'
+        unit_of_measurement: 'hPa'
+
+homeassistant:
+  customize:
+    input_select.smog_pm10_level:
+      friendly_name: 'Stężenie pyłu zawieszonego PM10'
+
+
+input_select:
+  smog_pm10_level:
+    initial: Poziom Dopuszczaly (50 µg/m³)
+    options:
+      - Poziom Dopuszczaly (50 µg/m³)
+      - Poziom Informowania (200 µg/m³)
+      - Poziom Alarmowy (300 µg/m³)
+      
+automation:
+  - alias: Smog Poziom Dopuczalny
+    initial_state: 'on'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.smog_pm_10
+      value_template: '{{ state.state }}'
+      below: 51
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.smog_pm10_level
+          option: "Poziom Dopuszczaly (50 µg/m³)"
+  
+  - alias: Smog Poziom Alarmowy
+    initial_state: 'on'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.smog_pm_10
+      value_template: '{{ state.state }}'
+      above: 50
+      below: 201
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.smog_pm10_level
+          option: "Poziom Informowania (200 µg/m³)"
+          
+  - alias: Smog Poziom Informowania
+    initial_state: 'on'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.smog_pm_10
+      value_template: '{{ state.state }}'
+      above: 200
+
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: input_select.smog_pm10_level
+          option: "Poziom Alarmowy (300 µg/m³)"
+          
+  - alias: Telegram Bot
+    initial_state: 'on'
+    trigger:
+      platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/smog'
+    action:
+      - service: telegram_bot.send_message
+        data_template:
+          title: '*Raport Smogowy*'
+          target: '{{ trigger.event.data.user_id }}'
+          message: "Średnia godzinowa z {{ states.sensor.smog_timestamp.state }}
+          
+          
+            Stężenie PM10: {{ states.sensor.smog_pm_10.state }} µg/m³
+            
+            Stężenie PM25: {{ states.sensor.smog_pm_25.state }} µg/m³
+            
+            Wilgotność: {{ states.sensor.smog_humidity.state }} %"
+            
