@@ -12,7 +12,6 @@ sensor:
       - switch
       - hotwater_current_temperature
       - hotwater_current_setpoint
-      - hotwater_waterflow
       - hotwater_status
       - hc1_current_room_setpoint
       - hc1_actual_supply_temperature
@@ -24,7 +23,6 @@ sensor:
       - hc2_status
       - hc2_pump_modulation
       - hc2_room_temperature
-  
       - hs1_actual_modulation
       - hs1_actual_power
       - hs1_flame_status
@@ -37,7 +35,6 @@ sensor:
       - appliance_actual_power
       - appliance_ch_pump_modulation
       - appliance_number_of_starts
-      - appliance_gas_air_pressure
       - appliance_system_pressure
       - appliance_flame_current
 

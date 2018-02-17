@@ -1,6 +1,45 @@
 
 
 automation:
+  - alias: Say Last movement
+    trigger: []
+    action:
+      - service: tts.amazon_polly_say
+        entity_id: 
+          - media_player.mpd_kitchen
+        data_template:
+          message: >-
+            Ostatnio wykryto ruch następujących pomieszczeniach:
+            {%- for state in states.binary_sensor -%}
+            {% if state.attributes['device_class'] == 'motion' -%}
+            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 30 ) -%}
+            {{ state.name[3:] }},
+            {%- endif %}
+            {%- endif -%}
+            {% endfor %}
+          cache: false
+          
+  - alias: Send Last movement
+    trigger:
+      - platform: event
+        event_type: telegram_command
+        event_data:
+          command: '/move'
+    action:
+      - service: notify.telegram
+        data:
+          title: '*Ruch*'
+        data_template:
+          message: >-
+            Ostatnio wykryto ruch następujących pomieszczeniach:
+            {%- for state in states.binary_sensor -%}
+            {% if state.attributes['device_class'] == 'motion' -%}
+            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 30 ) -%}
+            {{ state.name[3:] }},
+            {%- endif %}
+            {%- endif -%}
+            {% endfor %}
+
   - alias: Zone 1 armed
     initial_state: 'on'
     trigger:
@@ -96,7 +135,7 @@ automation:
       - service: notify.telegram
         data:
           title: '*Alarm*'
-          message: 'Uzbrajanie strefy zewnętrznej rozpoczęt'
+          message: 'Uzbrajanie strefy zewnętrznej rozpoczęte'
           
   
   - alias: Zone 1 disarmed
@@ -248,6 +287,10 @@ automation:
       - platform: state
         entity_id: binary_sensor.00001ecc_alarm_3
         to: 'on'
+      - platform: event
+        event_type: telegram_command
+        event_data:
+          command: '/show'
     action:
       - service: shell_command.cam_snapshot
       - delay:

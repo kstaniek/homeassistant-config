@@ -77,3 +77,4 @@ automation:
         data_template:
           entity_id: input_select.last_motion_triggered
           option: "{{ trigger.to_state.attributes.friendly_name }}"
+          

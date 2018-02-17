@@ -2,6 +2,7 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
+    - device_tracker.emperor
     - group.external_doors
     - group.alarm
     - group.weather
@@ -192,3 +193,13 @@ bd_dhw1:
     - sensor.buderus_hotwater_flow
     - sensor.buderus_hotwater_status
 
+devices:
+  view: yes
+  name: Urządzenia Mobilne
+  entities:
+    - sensor.emperor_battery_level
+    - sensor.emperor_battery_state
+    - sensor.ipad_agnieszka_battery_level
+    - sensor.ipad_agnieszka_battery_state
+    - sensor.ipad_klaudiusz_battery_level
+    - sensor.ipad_klaudiusz_battery_state

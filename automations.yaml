@@ -11,7 +11,19 @@
     data:
       message: "Ktoś dzwoni do drzwi!"
       
+- alias: Klaudiusz at Home
+  trigger:
+    platform: state
+    entity_id: device_tracker.emperor
+    from: 'not_home'
+    to: 'home'
+  action:
+    service: notify.telegram
+    data:
+      title: '*Presence*'
+      message: 'Klaudiusz is now home'
       
+     
 - alias: RAM Monitor
   initial_state: 'on'
   trigger:
@@ -54,6 +66,22 @@
         - cover.c_bonsai
         - cover.c_alice
         - cover.c_julia
+
+- alias: 'Main Door Open'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.d_main
+    to: 'on'
+    for:
+      seconds: 2
+  
+  action:
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.mpd_kitchen
+        media_content_id: "http://172.31.20.50:8123/local/door_open.mp3"
+        media_content_type: "MUSIC"
+      
 
 - alias: 'Open blind at dawn'
   trigger:

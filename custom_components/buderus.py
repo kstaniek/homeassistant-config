@@ -11,6 +11,7 @@ import urllib.request, urllib.error, urllib.parse
 import voluptuous as vol
 from io import StringIO
 from Crypto.Cipher import AES
+import asyncio
 
 from homeassistant.helpers import config_validation as cv
 from homeassistant.const import (CONF_HOST, CONF_PASSWORD, CONF_NAME)
@@ -18,6 +19,8 @@ from homeassistant.const import (CONF_HOST, CONF_PASSWORD, CONF_NAME)
 DOMAIN = 'buderus'
 
 DEFAULT_NAME = 'Buderus'
+
+_LOGGER = logging.getLogger(__name__)
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
@@ -27,12 +30,15 @@ CONFIG_SCHEMA = vol.Schema({
     }),
 }, extra=vol.ALLOW_EXTRA)
 
-def setup(hass, config):
+
+@asyncio.coroutine
+def async_setup(hass, config):
     conf = config[DOMAIN]
 
     host = conf.get(CONF_HOST)
     name = conf.get(CONF_NAME)
     password = conf.get(CONF_PASSWORD)
+    _LOGGER.info("Buderus host: {} name: {}".format(host, name))
 
     bridge = BuderusBridge(name, host, password)
 
@@ -40,14 +46,14 @@ def setup(hass, config):
 
     return True
 
+
 class BuderusBridge(object):
     BS = AES.block_size
     INTERRUPT = '\u0001'
     PAD = '\u0000'
 
     def __init__(self, name, host, password):
-        self.logger = logging.getLogger(__name__)
-        self.logger.info("Init Buderus")
+        _LOGGER.info("Init Buderus")
         self.__ua = "TeleHeater/2.2.3"
         self.__content_type = "application/json"
         self._host = host
@@ -67,19 +73,19 @@ class BuderusBridge(object):
         plain = plain + (AES.block_size - len(plain) % self.BS) * self.PAD
         encobj = AES.new(self._key, AES.MODE_ECB)
         data = encobj.encrypt(plain)
-        self.logger.debug("Buderus encrypted data: {} -- Base64 encoded: {}".format(data, base64.b64encode(data)))
+        _LOGGER.debug("Buderus encrypted data: {} -- Base64 encoded: {}".format(data, base64.b64encode(data)))
         return base64.b64encode(data)
 
     def _get_data(self, path):
         try:
             url = 'http://' + self._host + path
-            self.logger.debug("Buderus fetching data from {}".format(path))
+            _LOGGER.debug("Buderus fetching data from {}".format(path))
             resp = self.opener.open(url)
             plain = self._decrypt(resp.read())
-            self.logger.debug("Buderus data received from {}: {}".format(url, plain))
+            _LOGGER.debug("Buderus data received from {}: {}".format(url, plain))
             return plain
         except Exception as e:
-            self.logger.error("Buderus error happened at {}: {}".format(url, e))
+            _LOGGER.error("Buderus error happened at {}: {}".format(url, e))
             return None
 
     def _get_json(self, data):
@@ -87,7 +93,7 @@ class BuderusBridge(object):
             j = json.load(StringIO(data.decode()))
             return j
         except Exception as e:
-            self.logger.error("Buderus error happened while reading JSON data {}: {}".format(data, e))
+            _LOGGER.error("Buderus error happened while reading JSON data {}: {}".format(data, e))
             return False
 
     def _get_value(self, j):

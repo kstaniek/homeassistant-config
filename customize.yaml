@@ -2,3 +2,6 @@ cover.c_water_from_tank:
   device_class: garage
 cover.c_garage_gate:
   device_class: garage
+device_tracker.emperor:
+  friendly_name: Klaudiusz
+  icon: mdi:account

@@ -10,7 +10,15 @@ automation:
       - condition: time
         before: '11:00'
         after: '6:00'
+      - condition: state
+        entity_id: media_player.wc
+        state: 'off'
     action:
+      - service: media_player.volume_set
+        entity_id: media_player.wc
+        data:
+          volume_level: 0.3
+          
       - service: media_player.play_media
         data:
           entity_id: media_player.wc
@@ -30,14 +38,23 @@ automation:
       - condition: time
         before: '20:00'
         after: '11:00'
+      - condition: state
+        entity_id: media_player.wc
+        state: 'off'
     action:
+      - service: media_player.volume_set
+        entity_id: media_player.wc
+        data:
+          volume_level: 0.2
+      
       - service: media_player.play_media
         data:
           entity_id: media_player.wc
           media_content_type: PLAYLIST
+        # "http://somafm.com/groovesalad130.pls", "http://somafm.com/dronezone130.pls", 
         data_template:
           media_content_id: >
-            {{ [ "http://somafm.com/groovesalad130.pls", "http://somafm.com/dronezone130.pls", "http://somafm.com/spacestation130.pls" ] | random}}
+            {{ [ "http://chi-kat-01.cdn.eurozet.pl:8902/listen.pls"  ] | random }}
   
   - alias: Stop ambient music in WC
     initial_state: 'on'
@@ -45,12 +62,16 @@ automation:
       - platform: state
         entity_id: input_select.room_wc_occupancy
         to: "Pusty"
+        for:
+          minutes: 1
       - platform: state
         entity_id: input_select.room_wc_occupancy
         to: "Nieznany"
+        for:
+          minutes: 1
     
     action:
-      - service: media_player.media_pause
+      - service: media_player.turn_off
         data:
           entity_id: media_player.wc
   

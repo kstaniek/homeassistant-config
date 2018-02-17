@@ -1,0 +1,15 @@
+automation:
+  - alias: 'Airplay Start'
+    trigger:
+      platform: event
+      event_type: airplay_start
+    action:
+      - service: media_player.media_pause
+        data_template:
+          entity_id: "{{ trigger.event.data.player }}"
+
+  - alias: 'Airplay Stop'
+    trigger:
+      platform: event
+      event_type: airplay_stop
+    action: []

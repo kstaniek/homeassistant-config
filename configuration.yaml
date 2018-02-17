@@ -2,8 +2,8 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 52.2394
-  longitude: 21.0362
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 0
   # metric for Metric, imperial for Imperial
@@ -36,37 +36,27 @@ frontend:
 config:
 
 logger:
-  default: warning
+  default: warning 
   logs:
     homeassistant.components: warning
     pyampio: warning
 
 ios:
-  push:
-    categories:
-      - name: Alarm
-        identifier: 'alarm'
-        actions:
-          - identifier: 'SOUND_ALARM'
-            title: 'Sound Alarm'
-            activationMode: 'background'
-            authenticationRequired: yes
-            destructive: yes
-            behavior: 'default'
-          - identifier: 'SILENCE_ALARM'
-            title: 'Silence Alarm'
-            activationMode: 'background'
-            authenticationRequired: yes
-            destructive: no
-            behavior: 'textInput'
-            textInputButtonTitle: 'Silencio!'
-            textInputPlaceholder: 'Placeholder'
 
 telegram_bot:
   - platform: polling
     api_key: !secret telegram_boot_api_key
     allowed_chat_ids:
       - 509574229
+
+recorder:
+  purge_interval: 2
+  purge_keep_days: 5
+  exclude:
+    domains:
+      - automation
+      - updater
+      - camera
 
 http:
   # Secrets are defined in the file secrets.yaml
@@ -101,6 +91,16 @@ map:
 # Track the sun
 sun:
 
+influxdb:
+  database: hass
+  default_measurement: state
+  exclude:
+    domains:
+      - automation
+  tags:
+    instance: prod
+    source: hass
+
 
 tts:
   - platform: amazon_polly
@@ -112,6 +112,9 @@ tts:
 cloud:
 
 hassio:
+
+ffmpeg:
+
 
 notify:
   - name: Mr Homn
@@ -276,3 +279,18 @@ history_graph:
      - sensor.smog_pm_25
    hours_to_show: 48
    refresh: 60
+   
+device_tracker:
+  - platform: owntracks
+  
+  - platform: cisco_ios
+    host: 172.31.11.254
+    username: !secret switch_username
+    password: !secret switch_password
+  
+zone:
+  - name: Dom
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 100
+    icon: mdi:account-multiple

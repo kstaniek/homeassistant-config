@@ -1,0 +1,64 @@
+- name: t_bathtub_middle
+  platform: ampio
+  item: 0x18b2/temperature/1
+  friendly_name: (T) Wanna środek
+  
+- name: t_bathtub_tap
+  platform: ampio
+  item: 0x18b2/temperature/2
+  friendly_name: (T) Wanna kran
+  
+- name: t_bathtub_top
+  platform: ampio
+  item: 0x18b2/temperature/3
+  friendly_name: (T) Wanna góra
+  
+- name: t_bathtub_bottom
+  platform: ampio
+  item: 0x18b2/temperature/4
+  friendly_name: (T) Wanna dół
+  
+- name: rec_temp_intake
+  platform: ampio
+  item: 0x1bc8/temperature/1
+  friendly_name: (T) Czerpnia
+ 
+- name: rec_temp_supply
+  platform: ampio
+  item: 0x1bc8/temperature/2
+  friendly_name: (T) Nawiew
+  
+- name: rec_temp_exhaust
+  platform: ampio
+  item: 0x1bc8/temperature/3
+  friendly_name: (T) Wywiew
+
+- name: rec_temp_ambient
+  platform: ampio
+  item: 0x1bc8/temperature/4
+  friendly_name: (T) Rekuperator otoczenie
+  
+- name: rec_special_mode
+  platform: ampio
+  item: 0x1bc8/value16b/1
+  friendly_name: Rekuperator Tryb Specjalny
+  
+- name: rec_bypas_state
+  platform: ampio
+  item: 0x1bc8/value16b/2
+  friendly_name: Rekuperator Bypas
+  
+- name: rec_mode
+  platform: ampio
+  item: 0x1bc8/value16b/3
+  friendly_name: Rekuperator Tryb Pracy
+
+- name: rec_mode
+  platform: ampio
+  item: 0x1bc8/value16b/4
+  friendly_name: Rekuperator Prędkość
+  
+  
+
+  
+  

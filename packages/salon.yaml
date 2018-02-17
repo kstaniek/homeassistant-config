@@ -1,4 +1,11 @@
 scene:
+  - name: Ambient Light Off
+    entities: 
+      light.rgb_stairs:
+        state: off
+      light.rgb_salon:
+        state: off
+  
   - name: Ambient Light Morning
     entities: 
       light.rgb_stairs:
@@ -63,13 +70,15 @@ automation:
       - service: scene.turn_on
         entity_id: scene.ambient_light_morning
         
-  - alias: Noon
+  - alias: Ambient Off
     trigger:
       platform: time
-      at: "12:00:00"
+      at: "11:10:00"
     action:
       - service: automation.turn_on
         entity_id: automation.turn_a_few_lights_on_when_the_sun_gets_dim
+      - service: scene.turn_on
+        entity_id: scene.ambient_light_off
       
   - alias: 'Turn a few lights on when the sun gets dim'
     trigger:
@@ -109,7 +118,40 @@ automation:
         entity_id: automation.dark
       - service: scene.turn_on
         entity_id: scene.ambient_light_night
+        
+  - alias: 'No move after midnight'
+    trigger:
+      platform: time
+      # every 1 minutes
+      minutes: '/1'
+      seconds: 00
+    condition:
+      - condition: time
+        after: '00:00:01'
+        before: '05:00:00'
+      - condition: state
+        entity_id: binary_sensor.m_salon
+        state: 'off'
+        for:
+          minutes: 30
       
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.rgb_stairs
+            - light.rgb_salon
+            - light.l_kitchen_mled1
+            - light.l_kitchen_mled2
+            - light.l_kitchen_mled3
+            - light.l_kitchen_mled4
+            - light.l_kitchen_mled5
+            - light.l_kitchen_mled6
+            - light.l_kitchen_mled7
+            - light.l_kitchen_mled8
+            - light.l_kitchen_mled9
+            - light.l_kitchen_mled10
+
 
   - alias: 'Turn the hall lights off if no move' 
     initial_state: 'on'

@@ -182,17 +182,17 @@ class AmpioLight(Light):
 
     @asyncio.coroutine
     def async_turn_on(self, **kwargs):
+        print(kwargs)
         if ATTR_RGB_COLOR in kwargs:
             yield from self.ampio.send_rgb_values(self._can_id, *kwargs[ATTR_RGB_COLOR])
 
         if ATTR_WHITE_VALUE in kwargs:
             yield from self.ampio.send_white_value(self._can_id, kwargs[ATTR_WHITE_VALUE])
 
-        if ATTR_WHITE_VALUE in kwargs or ATTR_RGB_COLOR in kwargs:
-            return
-
         if ATTR_BRIGHTNESS in kwargs:
             yield from self.ampio.send_value_with_index(self._can_id, self._index, kwargs[ATTR_BRIGHTNESS])
+
+        if ATTR_WHITE_VALUE in kwargs or ATTR_RGB_COLOR in kwargs or ATTR_BRIGHTNESS in kwargs:
             return
 
         if self._supported_features & SUPPORT_RGB_COLOR:
@@ -217,6 +217,7 @@ class AmpioLight(Light):
             return
 
         elif self._supported_features & SUPPORT_BRIGHTNESS:
-            self._last_brightness = self.brightness
+            self._last_brightness = self.brightness if \
+                (self.brightness is not 0x00) and (self.brightness is not None) else 0xff
 
         yield from self.ampio.send_value_with_index(self._can_id, self._index, 0x00)
