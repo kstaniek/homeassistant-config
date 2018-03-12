@@ -5,3 +5,19 @@ cover.c_garage_gate:
 device_tracker.emperor:
   friendly_name: Klaudiusz
   icon: mdi:account
+group.travel_from_home:
+  friendly_name: Z domu
+sensor.travel_home_emily_school:
+  friendly_name: Do szkoły Emilki
+sensor.travel_home_galeria:
+  friendly_name: Do pracy Agnieszki
+sensor.travel_home_medicover_chorzowska:
+  friendly_name: Do Medicover Chorzowska
+sensor.travel_home_medicover_graniczna:
+  friendly_name: Do Medicover Graniczna
+sensor.travel_home_stanki:
+  friendly_name: Do Stańków
+sensor.travel_home_koniory:
+  friendly_name: Do Koniorów
+climate.h_bathroom:
+  friendly_name: Łazienka

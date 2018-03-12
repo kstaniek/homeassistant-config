@@ -9,7 +9,7 @@
       - media_player.mpd_kitchen
       - media_player.mpd_wc
     data:
-      message: "Ktoś dzwoni do drzwi!"
+      message: "<speak>Ktoś dzwoni do drzwi!</speak>"
       
 - alias: Klaudiusz at Home
   trigger:
@@ -38,8 +38,109 @@
         title: "Uwaga"
         message: "Zużycie pamięci przekroczyło 50% w ciągu ostatniej minuty"
         
+- alias: Enable First Morning Trigger
+  trigger:
+    - platform: time
+      at: '5:00'
+  action:
+    service: homeassistant.turn_on
+    entity_id: input_boolean.trigger_first_morning
+
+# turns it off an hour after sunrise
+- alias: Disable First Morning Trigger
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: "06:00:00"
+  action:
+    service: homeassistant.turn_off
+    entity_id: input_boolean.trigger_first_morning
 
 
+- alias: First Morning Motion
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.m_curtain_groundfloor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.m_kitchen
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.m_salon
+      to: 'on'
+  # only complete the automation if we're still waiting for the first motion
+  condition:
+      condition: state
+      entity_id: input_boolean.trigger_first_morning
+      state: 'on'
+
+  action:
+    # turn off the "waiting" boolean regardless of whether lights will turn on
+    # so that this happens only once
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.trigger_first_morning
+      
+    - service: cover.open_cover_tilt
+      entity_id:
+        - cover.c_kitchen_east
+        - cover.c_kitchen_north
+        - cover.c_livingroom
+        - cover.c_livingroom_terrace
+        - cover.c_office_north
+        - cover.c_office_west
+        - cover.c_washing
+        - cover.c_bonsai
+        
+    - service: media_player.volume_set
+      entity_id: media_player.mpd_kitchen
+      data:
+        volume_level: 0.3
+        
+    - service: media_player.volume_set
+      entity_id: media_player.mpd_wc
+      data:
+        volume_level: 0.3
+        
+    - service: tts.amazon_polly_say
+      entity_id: media_player.mpd_kitchen
+      data_template:
+        message: >
+            <speak>
+            {{ ["Dzień dobry!", "Jak się masz?", "Czy masz ochotę na kawę?", 
+            "Zapowiada się piękny dzień!", "Cześć! Dobrze że ktoś już wreszcie wstał!",
+            "Cześć, może szklaneczkę wody?"] | random }}
+            </speak>
+
+    - condition: or
+      conditions:
+        - condition: time
+          weekday:
+            - wed
+
+    - service: tts.amazon_polly_say
+      entity_id: media_player.mpd_kitchen
+      data:
+        message: "<speak>Dziś środa. Nie zapomnij wystawić śmieci.</speak>"
+
+
+- alias: 'Set night volume'
+  trigger:
+    - platform: time
+      at: '20:00'
+  action:
+    - service: media_player.volume_set
+      entity_id: media_player.mpd_kitchen
+      data:
+        volume_level: 0.05
+    - service: media_player.volume_set
+      entity_id: media_player.mpd_terrace
+      data:
+        volume_level: 0.05
+        
+    - service: media_player.volume_set
+      entity_id: media_player.mpd_wc
+      data:
+        volume_level: 0.05
 # Blind
 
 - alias: 'Close blind at dusk'
@@ -47,7 +148,7 @@
     platform: numeric_state
     entity_id: sun.sun
     value_template: '{{ state.attributes.elevation }}'
-    below: -5.0
+    below: -10.0
 
   action:
     - service: cover.close_cover_tilt
@@ -76,6 +177,10 @@
       seconds: 2
   
   action:
+    - service: notify.iphones
+      data:
+        message: "request_location_update"
+        
     - service: media_player.play_media
       data:
         entity_id: media_player.mpd_kitchen
@@ -83,11 +188,10 @@
         media_content_type: "MUSIC"
       
 
-- alias: 'Open blind at dawn'
+- alias: 'Open blind at the morning'
   trigger:
-      platform: sun
-      event: sunrise
-      offset: '-00:30:00'
+    platform: time
+    at: '8:30'
   
   action:
     - service: cover.open_cover_tilt
@@ -106,3 +210,33 @@
         - cover.c_bonsai
         - cover.c_alice
         - cover.c_julia
+
+- alias: "Report travel time"
+  trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/traffic'
+  action:
+    - service: notify.telegram
+      data:
+        title: '*Travel*'
+        message: >-
+          Szacowany czas przejazdu z domu:
+          - {{ states.sensor.travel_home_emily_school.attributes['friendly_name'] }} {{ states.sensor.travel_home_emily_school.state }} {{ states.sensor.travel_home_emily_school.attributes['unit_of_measurement'] }},
+          - {{ states.sensor.travel_home_galeria.attributes['friendly_name'] }} {{ states.sensor.travel_home_galeria.state }} {{ states.sensor.travel_home_galeria.attributes['unit_of_measurement'] }},
+          - {{ states.sensor.travel_home_medicover_graniczna.attributes['friendly_name'] }} {{ states.sensor.travel_home_medicover_graniczna.state }} {{ states.sensor.travel_home_medicover_graniczna.attributes['unit_of_measurement'] }},
+          - {{ states.sensor.travel_home_medicover_chorzowska.attributes['friendly_name'] }} {{ states.sensor.travel_home_medicover_chorzowska.state }} {{ states.sensor.travel_home_medicover_chorzowska.attributes['unit_of_measurement'] }}.
+
+    - service: tts.amazon_polly_say
+      entity_id: 
+        - media_player.mpd_kitchen
+      data_template:
+        message: >-
+          <speak>
+              Szacowany czas przejazdu z domu:
+              {{ states.sensor.travel_home_emily_school.attributes['friendly_name'] }} <say-as interpret-as="time">{{ states.sensor.travel_home_emily_school.state }}'0"</say-as>, 
+              {{ states.sensor.travel_home_galeria.attributes['friendly_name'] }} <say-as interpret-as="time">{{ states.sensor.travel_home_galeria.state }}'0"</say-as>,
+              {{ states.sensor.travel_home_medicover_graniczna.attributes['friendly_name'] }} <say-as interpret-as="time">{{ states.sensor.travel_home_medicover_graniczna.state }}'0"</say-as>,
+              {{ states.sensor.travel_home_medicover_chorzowska.attributes['friendly_name'] }} <say-as interpret-as="time">{{ states.sensor.travel_home_medicover_chorzowska.state }}'0"</say-as>.
+          </speak>

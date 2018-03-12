@@ -3,9 +3,12 @@ default_view:
   icon: mdi:home
   entities:
     - device_tracker.emperor
+    - device_tracker.petronella_bogini
+    - device_tracker.520i
     - group.external_doors
     - group.alarm
     - group.weather
+    - calendar.dom
     
 weather:
   view: no
@@ -18,6 +21,7 @@ weather:
     - input_select.smog_pm10_level
     - sensor.smog_pm_10
     - sensor.smog_pm_25
+    - sensor.ampio_smog_sensor
 
 alarm:
   view: no
@@ -32,6 +36,13 @@ climate:
   view: yes
   name: Klimat
   entities:
+    - group.thermostats
+    - group.recuperator
+    
+thermostats:
+  view: no
+  name: Termostaty
+  entities:
     - climate.h_hallway
     - climate.h_garage
     - climate.h_salon
@@ -43,6 +54,18 @@ climate:
     - climate.h_master_bedroom
     - climate.h_room_alice
     - climate.h_bathroom
+
+recuperator:
+  view: no
+  name: Rekuperator
+  entities:
+    - sensor.rec_temp_intake
+    - sensor.rec_temp_fpx
+    - sensor.rec_temp_ambient
+    - sensor.rec_temp_supply
+    - sensor.rec_temp_exhaust
+    - sensor.rec_special_mode
+  
 
 room_occupancy:
   view: no
@@ -74,12 +97,12 @@ system_info:
   view: yes
   name: System
   entities:
-    - sensor.ram_available
-    - sensor.ram_used
-    - sensor.ram_used_2
+    - sensor.memory_free
+    - sensor.memory_use
+    - sensor.memory_use_percent
     - sensor.swap_free
-    - sensor.swap_used
-    - sensor.swap_used_2
+    - sensor.swap_use
+    - sensor.swap_use_percent
     
 cameras:
   view: yes
@@ -195,11 +218,121 @@ bd_dhw1:
 
 devices:
   view: yes
-  name: Urządzenia Mobilne
+  name: Urządzenia
   entities:
-    - sensor.emperor_battery_level
-    - sensor.emperor_battery_state
+    - group.ipads
+    - group.iphones
+    
+ipads:
+  view: no
+  name: iPad'y
+  entities:
     - sensor.ipad_agnieszka_battery_level
     - sensor.ipad_agnieszka_battery_state
     - sensor.ipad_klaudiusz_battery_level
     - sensor.ipad_klaudiusz_battery_state
+
+iphones:
+  view: no
+  name: iPhone'y
+  entities:
+    - sensor.emperor_battery_level
+    - sensor.emperor_battery_state
+    - sensor.petronella_bogini_battery_level
+    - sensor.petronella_bogini_battery_state
+    
+traffic:
+  view: yes
+  name: Przejazd
+  entities:
+    - group.travel_from_home
+
+travel_from_home:
+  view: no
+  name: travel_from_home
+  entities:
+    - sensor.travel_home_emily_school
+    - sensor.travel_home_galeria
+    - sensor.travel_home_medicover_chorzowska
+    - sensor.travel_home_medicover_graniczna
+    - sensor.travel_home_stanki
+    - sensor.travel_home_koniory
+    
+config:
+  view: yes
+  name: Ustawienia
+  entities:
+    - input_boolean.trigger_first_morning
+    
+l_salon_mled:
+  view: no
+  entities:
+    - light.l_salon_mled1
+    - light.l_salon_mled2
+    - light.l_salon_mled3
+    - light.l_salon_mled4
+    - light.l_salon_mled5
+    - light.l_salon_mled6
+    - light.l_salon_mled7
+    - light.l_salon_mled8
+    - light.l_salon_mled9
+    - light.l_salon_mled10
+    - light.l_salon_mled11
+    - light.l_salon_mled12
+    
+l_kitchen_mled:
+  view: no
+  entities:
+    - light.l_kitchen_mled1
+    - light.l_kitchen_mled2
+    - light.l_kitchen_mled3
+    - light.l_kitchen_mled4
+    - light.l_kitchen_mled5
+    - light.l_kitchen_mled6
+    - light.l_kitchen_mled7
+    - light.l_kitchen_mled8
+    - light.l_kitchen_mled9
+    - light.l_kitchen_mled10
+
+l_sofa_mled:
+  view: no
+  entities:
+    - light.l_sofa_mled1
+    - light.l_sofa_mled2
+    - light.l_sofa_mled3
+    - light.l_sofa_mled4
+    - light.l_sofa_mled5
+    - light.l_sofa_mled6
+    
+l_wc_mled:
+  view: no
+  entities:
+    - light.l_wc_mled1
+    - light.l_wc_mled2
+    
+l_master_bathroom_mled:
+  view: no
+  entities:
+    - light.l_master_bathroom_mled1
+    - light.l_master_bathroom_mled2
+    - light.l_master_bathroom_mled3
+    - light.l_master_bathroom_mled4
+    - light.l_master_bathroom_mled5
+    - light.l_master_bathroom_mled6
+    - light.l_master_bathroom_mled7
+    - light.l_master_bathroom_mled8
+    - light.l_master_bathroom_mled9
+    - light.l_master_bathroom_mled10
+    
+l_hol_mled1:
+  view: no
+  entities:
+    - light.l_hol_mled1
+    - light.l_hol_mled2
+    - light.l_hol_mled3
+    - light.l_hol_mled4
+    
+    
+    
+
+      

@@ -1,0 +1,3 @@
+trigger_first_morning:
+  name: Waiting for first morning motion
+  icon: mdi:kettle

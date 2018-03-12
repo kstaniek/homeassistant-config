@@ -73,16 +73,16 @@ class BuderusBridge(object):
         plain = plain + (AES.block_size - len(plain) % self.BS) * self.PAD
         encobj = AES.new(self._key, AES.MODE_ECB)
         data = encobj.encrypt(plain)
-        _LOGGER.debug("Buderus encrypted data: {} -- Base64 encoded: {}".format(data, base64.b64encode(data)))
+        _LOGGER.info("Buderus encrypted data: {} -- Base64 encoded: {}".format(data, base64.b64encode(data)))
         return base64.b64encode(data)
 
     def _get_data(self, path):
         try:
             url = 'http://' + self._host + path
-            _LOGGER.debug("Buderus fetching data from {}".format(path))
+            _LOGGER.info("Buderus fetching data from {}".format(path))
             resp = self.opener.open(url)
             plain = self._decrypt(resp.read())
-            _LOGGER.debug("Buderus data received from {}: {}".format(url, plain))
+            _LOGGER.info("Buderus data received from {}: {}".format(url, plain))
             return plain
         except Exception as e:
             _LOGGER.error("Buderus error happened at {}: {}".format(url, e))

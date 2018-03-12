@@ -1,0 +1,46 @@
+- platform: google_travel_time
+  name: travel_home_galeria
+  api_key: !secret google_travel_time_api_key
+  origin: zone.home
+  destination: zone.galeria
+  friendly_name: Do pracy Agnieszki
+  
+- platform: google_travel_time
+  name: travel_home_emily_school
+  api_key: !secret google_travel_time_api_key
+  origin: zone.home
+  destination: zone.szkoa_emilki
+  friendly_name: Do szkoły Emilki
+
+- platform: google_travel_time
+  name: travel_home_medicover_graniczna
+  api_key: !secret google_travel_time_api_key
+  origin: zone.home
+  destination: zone.medicover_graniczna
+  friendly_name: Do Medicoveru na Granicznej
+
+- platform: google_travel_time
+  name: travel_home_medicover_chorzowska
+  api_key: !secret google_travel_time_api_key
+  origin: zone.home
+  destination: zone.medicover_chorzowska
+  friendly_name: Do Medicoveru na Chorzowskiej
+  
+- platform: google_travel_time
+  name: travel_home_stanki
+  api_key: !secret google_travel_time_api_key
+  origin: zone.home
+  destination: zone.stanki
+  friendly_name: Do Stańków
+
+- platform: google_travel_time
+  name: travel_home_koniory
+  api_key: !secret google_travel_time_api_key
+  origin: zone.home
+  destination: zone.koniory
+  friendly_name: Do Koniorów
+
+  
+  
+
+

@@ -104,6 +104,10 @@ class AmpioLight(Light):
         return self._name
 
     @property
+    def registry_name(self):
+        return self._attributes.get(ATTR_FRIENDLY_NAME)
+
+    @property
     def should_poll(self):
         """No polling needed within Ampio."""
         return False
@@ -182,7 +186,6 @@ class AmpioLight(Light):
 
     @asyncio.coroutine
     def async_turn_on(self, **kwargs):
-        print(kwargs)
         if ATTR_RGB_COLOR in kwargs:
             yield from self.ampio.send_rgb_values(self._can_id, *kwargs[ATTR_RGB_COLOR])
 

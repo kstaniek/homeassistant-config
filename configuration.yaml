@@ -1,11 +1,11 @@
 homeassistant:
   # Name of the location where Home Assistant is running
-  name: Home
+  name: Dom
   # Location required to calculate the time the sun rises and sets
   latitude: !secret home_latitude
   longitude: !secret home_longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 0
+  elevation: 273
   # metric for Metric, imperial for Imperial
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -41,8 +41,6 @@ logger:
     homeassistant.components: warning
     pyampio: warning
 
-ios:
-
 telegram_bot:
   - platform: polling
     api_key: !secret telegram_boot_api_key
@@ -76,6 +74,8 @@ http:
 # Discover some devices automatically
 discovery:
 
+ios:
+
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
@@ -107,6 +107,9 @@ tts:
     aws_access_key_id: !secret aws_access_key_id
     aws_secret_access_key: !secret aws_secret_access_key
     voice: Ewa
+    text_type: ssml
+
+
     
 # Cloud
 cloud:
@@ -114,6 +117,10 @@ cloud:
 hassio:
 
 ffmpeg:
+
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky
 
 
 notify:
@@ -125,6 +132,14 @@ notify:
   - name: Telegram
     platform: telegram
     chat_id: 509574229
+
+  - name: iphones
+    platform: group
+    services:
+      - service: ios_petronella_bogini
+      - service: ios_emperor
+
+
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -186,70 +201,8 @@ media_player: !include_dir_merge_list media_players
 light: !include_dir_merge_list lights
 sensor: !include_dir_merge_list sensors
 switch: !include_dir_merge_list switches
-
-input_select:
-  fake_input_select:
-    name: fake
-    options: 
-      - fake1
-      - fake2
-  
-  room_julia_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-
-  room_alice_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-
-  room_emily_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-
-  room_wc_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-
-  room_masterbedroom_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-      
-  room_masterbathroom_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-
-  room_office_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-  
-  room_bathroom_occupancy:
-    initial: Nieznany
-    options:
-      - Pusty
-      - Zajęty
-      - Nieznany
-    
+input_boolean: !include_dir_merge_named input_booleans
+input_select: !include_dir_merge_named input_selects
 
 alarm_control_panel:
   - platform: ampio
@@ -279,18 +232,72 @@ history_graph:
      - sensor.smog_pm_25
    hours_to_show: 48
    refresh: 60
-   
+ 
 device_tracker:
   - platform: owntracks
   
-  - platform: cisco_ios
-    host: 172.31.11.254
-    username: !secret switch_username
-    password: !secret switch_password
+  - platform: icloud
+    username: !secret icloud_username
+    password: !secret icloud_password
+    account_name: kstaniek
   
+#   - platform: cisco_ios
+#     host: 172.31.11.254
+#     username: !secret switch_username
+#     password: !secret switch_password
+ 
+# bmw_connected_drive:
+#   mycar:
+#     username: !secret connected_drive_username
+#     password: !secret connected_drive_password
+#     country: Poland
+
+homekit:
+  pincode: '333-44-333'    
+
 zone:
-  - name: Dom
-    latitude: !secret home_latitude
-    longitude: !secret home_longitude
+  - name: Galeria
+    latitude: 50.302682
+    longitude: 19.017649
     radius: 100
-    icon: mdi:account-multiple
+    icon: mdi:mdi-factory
+    track_ios: true
+  
+  - name: Szkoła Emilki
+    latitude: 50.3009454
+    longitude: 19.0069752
+    radius: 500
+    icon: mdi:mdi-school
+    track_ios: true
+    
+  - name: Medicover Graniczna
+    latitude: 50.2456947
+    longitude: 19.0355328
+    radius: 100
+    icon: mdi:mdi-hospital
+    track_ios: true
+    
+  - name: Medicover Chorzowska
+    latitude: 50.2657004
+    longitude: 19.0136452
+    radius: 100
+    icon: mdi:mdi-hospital
+    track_ios: true
+    
+  - name: Stańki
+    latitude: 50.1834112
+    longitude: 19.1325946
+    radius: 500
+    icon: mdi:mdi-human-male-female
+    track_ios: true
+    
+  - name: Koniory
+    latitude: 49.8424449
+    longitude: 19.0634458
+    radius: 500
+    icon: mdi:mdi-human-male-female
+    track_ios: true
+    
+
+    
+

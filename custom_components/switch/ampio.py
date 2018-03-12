@@ -84,6 +84,10 @@ class AmpioSwitch(SwitchDevice):
         return self._name
 
     @property
+    def registry_name(self):
+        return self._attributes.get(ATTR_FRIENDLY_NAME)
+
+    @property
     def should_poll(self):
         """No polling needed within Ampio."""
         return False

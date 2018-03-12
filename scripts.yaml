@@ -1,0 +1,25 @@
+
+morning:
+  sequence:
+    - service: input_select.select_option
+      entity_id: input_select.house_mode
+      data:
+        option: "Poranek"
+day:
+  sequence:
+    - service: input_select.select_option
+      entity_id: input_select.house_mode
+      data:
+        option: "Dzień"
+evening:
+  sequence:
+    - service: input_select.select_option
+      entity_id: input_select.house_mode
+      data:
+        option: "Wieczór"
+night:
+  sequence:
+    - service: input_select.select_option
+      entity_id: input_select.house_mode
+      data:
+        option: "Noc"

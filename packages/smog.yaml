@@ -55,6 +55,10 @@ sensor:
       rain_prob:
         friendly_name: Prawdopodobieństwo opdaów
         value_template: '{{ states.sensor.antistorm.attributes["p_o"] }}'
+
+  - platform: ampio_smog
+    name: Smog
+    ip_address: 172.31.11.100
         
 homeassistant:
   customize:
@@ -83,7 +87,7 @@ automation:
         entity_id: 
           - media_player.mpd_kitchen
         data:
-          message: "Uwaga! Podwyższony poziom pyłu zawieszonego."
+          message: '<speak>Uwaga! Podwyższony poziom pyłu zawieszonego.<\speak>'
   
   - alias: Smog Level Informacja
     trigger:
@@ -95,7 +99,7 @@ automation:
         entity_id: 
           - media_player.mpd_kitchen
         data:
-          message: "Uwaga! Poziom pyłu zawieszonego znacznie przekroczony."
+          message: '<speak>Uwaga! Poziom pyłu zawieszonego znacznie przekroczony.<\speak>'
           
   - alias: Smog Level Alarm
     trigger:
@@ -107,7 +111,7 @@ automation:
         entity_id: 
           - media_player.mpd_kitchen
         data:
-          message: "Uwaga! Poziom pyłu zawieszonego znacznie przekroczył poziom alarmowy."
+          message: '<speak>Uwaga! Poziom pyłu zawieszonego znacznie przekroczył poziom alarmowy.<\speak>'
         
       
   - alias: Smog Poziom Dopuczalny

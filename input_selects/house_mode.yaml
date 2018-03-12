@@ -1,0 +1,11 @@
+house_mode:
+  name: House Mode
+  options:
+    - Poranek
+    - Dzień
+    - Wieczór
+    - Noc
+  initial: Poranek
+  icon: mdi:house
+  
+

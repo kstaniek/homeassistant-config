@@ -12,7 +12,7 @@ automation:
             Ostatnio wykryto ruch następujących pomieszczeniach:
             {%- for state in states.binary_sensor -%}
             {% if state.attributes['device_class'] == 'motion' -%}
-            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 30 ) -%}
+            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 60 ) -%}
             {{ state.name[3:] }},
             {%- endif %}
             {%- endif -%}
@@ -34,7 +34,7 @@ automation:
             Ostatnio wykryto ruch następujących pomieszczeniach:
             {%- for state in states.binary_sensor -%}
             {% if state.attributes['device_class'] == 'motion' -%}
-            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 30 ) -%}
+            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 60 ) -%}
             {{ state.name[3:] }},
             {%- endif %}
             {%- endif -%}
@@ -55,6 +55,10 @@ automation:
         data:
           title: '*Alarm*'
           message: 'Parter uzbrojony'
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
+          message: 'Parter uzbrojony'
   
   - alias: Zone 2 armed
     initial_state: 'on'
@@ -70,6 +74,10 @@ automation:
       - service: notify.telegram
         data:
           title: '*Alarm*'
+          message: 'Piętro uzbrojone'
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
           message: 'Piętro uzbrojone'
   
   - alias: Zone 3 armed
@@ -87,6 +95,10 @@ automation:
         data:
           title: '*Alarm*'
           message: 'Strefa zewnętrzna uzbrojona'
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
+          message: 'Strafa zewnętrzna uzbrojona'
           
   
   - alias: Zone 1 arming
@@ -153,6 +165,10 @@ automation:
         data:
           title: '*Alarm*'
           message: 'Parter rozbrojony'
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
+          message: 'Parter rozbrojony'
   
   - alias: Zone 2 disarmed
     trigger:
@@ -167,6 +183,10 @@ automation:
       - service: notify.telegram
         data:
           title: '*Alarm*'
+          message: 'Piętro rozbrojone'
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
           message: 'Piętro rozbrojone'
   
   - alias: Zone 3 disarmed
@@ -183,6 +203,10 @@ automation:
       - service: notify.telegram
         data:
           title: '*Alarm*'
+          message: 'Strefa zewnętrzna rozbrojona'
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
           message: 'Strefa zewnętrzna rozbrojona'
           
     
@@ -292,9 +316,15 @@ automation:
         event_data:
           command: '/show'
     action:
+      - service: notify.iphones
+        data:
+          title: 'Alarm'
+          message: 'Próba włamiania - Alarm'
+          
       - service: shell_command.cam_snapshot
       - delay:
           seconds: 15
+      
       - service: notify.telegram
         data:
          title: '*Alarm*'

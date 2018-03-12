@@ -128,6 +128,10 @@ class AmpioBinarySensor(BinarySensorDevice):
         return self._name
 
     @property
+    def registry_name(self):
+        return self._attributes.get(ATTR_FRIENDLY_NAME)
+
+    @property
     def device_state_attributes(self):
         """Return the state attributes."""
         return self._attributes

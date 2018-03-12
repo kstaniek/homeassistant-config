@@ -103,6 +103,8 @@ class AmpioClimate(ClimateDevice):
 
         if CONF_FRIENDLY_NAME in config:
             self._attributes[ATTR_FRIENDLY_NAME] = config[CONF_FRIENDLY_NAME]
+            print("FRIENDLY NAME: {}".format(self._attributes[ATTR_FRIENDLY_NAME]))
+            print(self.entity_id)
 
         self._attributes[ATTR_MODULE_NAME] = self.ampio.get_module_name(config[CONF_ITEM][0])
         self._attributes[ATTR_MODULE_PART_NUMBER] = self.ampio.get_module_part_number(config[CONF_ITEM][0])
@@ -111,6 +113,10 @@ class AmpioClimate(ClimateDevice):
     @property
     def name(self):
         return self._name
+
+    @property
+    def registry_name(self):
+        return self._attributes.get(ATTR_FRIENDLY_NAME)
 
     @property
     def should_poll(self):

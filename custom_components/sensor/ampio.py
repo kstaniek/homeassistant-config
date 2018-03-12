@@ -105,7 +105,6 @@ class AmpioSensor(Entity):
                 ATTR_FRIENDLY_NAME: self.ampio.get_module_name(config[CONF_ITEM][0]),
             }
 
-
     @property
     def state(self):
         return self.ampio.get_item_state(*self.config[CONF_ITEM])
@@ -114,6 +113,10 @@ class AmpioSensor(Entity):
     def name(self):
         """Return the name of the entity."""
         return self._name
+
+    @property
+    def registry_name(self):
+        return self._attributes.get(ATTR_FRIENDLY_NAME)
 
     @property
     def should_poll(self):

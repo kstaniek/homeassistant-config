@@ -1,0 +1,48 @@
+room_julia_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+
+room_alice_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+
+room_emily_occupancy:
+  initial: Nieznany
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+
+room_wc_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+
+room_masterbedroom_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+  
+room_masterbathroom_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+
+room_office_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
+
+room_bathroom_occupancy:
+  options:
+    - Pusty
+    - Zajęty
+    - Nieznany
