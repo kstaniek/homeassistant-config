@@ -333,6 +333,12 @@
   item: 0x1ecc/bin_input/83
   device_class: motion
   friendly_name: (R) Dach
+  
+- name: m_front
+  platform: ampio
+  item: 0x1ecc/bin_input/59
+  device_class: motion
+  friendly_name: (R) Front
 
 # LOCKS
 - name: l_main_door

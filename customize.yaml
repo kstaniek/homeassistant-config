@@ -21,3 +21,19 @@ sensor.travel_home_koniory:
   friendly_name: Do Koniorów
 climate.h_bathroom:
   friendly_name: Łazienka
+  
+
+zone.gabinet:
+  track_ios: true
+  beacon:
+    uuid: 74278BDA-B644-4520-8F0C-720EAF059935
+    major: 4660
+    minor: 64001
+    
+zone.kuchnia:
+  track_ios: true
+  beacon:
+    uuid: 74278BDA-B644-4520-8F0C-720EAF059935
+    major: 4660
+    minor: 64002
+    

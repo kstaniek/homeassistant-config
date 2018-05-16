@@ -31,7 +31,30 @@ sensor:
         friendly_name: Ciśnienie
         value_template: '{{ states.sensor.smog.attributes["pressure"] | round(0) }}'
         unit_of_measurement: 'hPa'
-        
+    
+  - platform: rest
+    name: smog_local
+    resource: http://smog/data
+    json_attributes:
+      - PM10
+      - PM1
+      - PM2.5
+      - pressure
+    value_template: '{{ value_json.PM10 }}'
+    unit_of_measurement: 'µg/m³'
+    force_update: true
+    headers:
+      User-Agent: Home Assistant
+      Content-Type: application/json
+    scan_interval: 600
+      
+  - platform: statistics
+    name: smog
+    entity_id: sensor.smog_local
+    max_age:
+      minutes: 1440
+    sampling_size: 144
+       
   - platform: rest
     name: antistorm
     json_attributes:

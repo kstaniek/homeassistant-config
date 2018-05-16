@@ -116,6 +116,9 @@ cloud:
 
 hassio:
 
+# apple_tv:
+#  - host: apple-tv1
+
 ffmpeg:
 
 weather:
@@ -139,7 +142,18 @@ notify:
       - service: ios_petronella_bogini
       - service: ios_emperor
 
+mqtt:
+  broker: !secret cloudmqtt_server
+  port: !secret cloudmqtt_port 
+  client_id: hass_master
+  keepalive: 60
+  username: !secret cloudmqtt_user
+  password: !secret cloudmqtt_pass
 
+mqtt_eventstream:
+  subscribe_topic: slaves/#
+  publish_topic: master
+  
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -147,7 +161,7 @@ script: !include scripts.yaml
 
 
 doorbird:
-  host: 172.31.11.71
+  host: 172.31.11.101
   username: !secret doorbird_username
   password: !secret doorbird_password
   doorbell_events: true
@@ -236,10 +250,15 @@ history_graph:
 device_tracker:
   - platform: owntracks
   
-  - platform: icloud
-    username: !secret icloud_username
-    password: !secret icloud_password
-    account_name: kstaniek
+  - platform: mqtt
+    devices:
+      klaudiusz_iphone: 'location/Emperor'
+      julia_iphone: 'location/iPhone-Julia'
+      agnieszka_iphone: 'location/PetronelaBogini'
+      alicja_iphone: 'location/Jace'
+    
+    
+  
   
 #   - platform: cisco_ios
 #     host: 172.31.11.254
@@ -256,6 +275,30 @@ homekit:
   pincode: '333-44-333'    
 
 zone:
+  - name: home
+    track_ios: true
+    icon: mdi:account-multiple
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 50
+    passive: true
+    
+  - name: Gabinet
+    track_ios: true
+    icon: mdi:account-multiple
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 50
+    passive: true
+    
+  - name: Kuchnia
+    track_ios: true
+    icon: mdi:stove
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 50
+    passive: true
+    
   - name: Galeria
     latitude: 50.302682
     longitude: 19.017649
@@ -298,6 +341,6 @@ zone:
     icon: mdi:mdi-human-male-female
     track_ios: true
     
-
+    
     
 

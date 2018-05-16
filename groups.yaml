@@ -5,6 +5,10 @@ default_view:
     - device_tracker.emperor
     - device_tracker.petronella_bogini
     - device_tracker.520i
+    - device_tracker.klaudiusz_iphone
+    - device_tracker.agnieszka_iphone
+    - device_tracker.alicja_iphone
+    - device_tracker.julia_iphone
     - group.external_doors
     - group.alarm
     - group.weather
@@ -22,6 +26,9 @@ weather:
     - sensor.smog_pm_10
     - sensor.smog_pm_25
     - sensor.ampio_smog_sensor
+    - sensor.smog_local
+    - sensor.smog_mean
+    
 
 alarm:
   view: no
@@ -65,6 +72,7 @@ recuperator:
     - sensor.rec_temp_supply
     - sensor.rec_temp_exhaust
     - sensor.rec_special_mode
+    - sensor.rec_bypas_state
   
 
 room_occupancy:
@@ -92,10 +100,22 @@ external_doors:
   name: Drzwi zewnętrzne
   entities:
     - camera.doorbird_live
+    - binary_sensor.m_entrance
+    - binary_sensor.m_front
+    - binary_sensor.d_main
+    - binary_sensor.d_garden
+    - binary_sensor.d_terrace
     
 system_info:
   view: yes
   name: System
+  entities:
+    - group.home_assistant
+    - group.baranek
+
+home_assistant:
+  view: no
+  name: Hass
   entities:
     - sensor.memory_free
     - sensor.memory_use
@@ -103,7 +123,23 @@ system_info:
     - sensor.swap_free
     - sensor.swap_use
     - sensor.swap_use_percent
-    
+
+baranek:
+  view: no
+  name: BARANEK
+  entities:
+   - sensor.baranek_status
+   - sensor.baranek_system_temperature
+   - sensor.baranek_cpu_usage
+   - sensor.baranek_memory_usage
+   - sensor.baranek_network_up_eth0
+   - sensor.baranek_network_down_eth0
+   - sensor.baranek_network_link_eth0
+   - sensor.baranek_volume_used_volume_1
+   - sensor.baranek_temperature_drive_1
+   - sensor.baranek_smart_status_drive_1
+  
+   
 cameras:
   view: yes
   name: Kamery
