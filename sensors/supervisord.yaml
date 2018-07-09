@@ -1,0 +1,7 @@
+- platform: supervisord
+  name: amp-kitchen
+  url: http://amp-kitchen:9001/RPC2
+  
+- platform: supervisord
+  name: amp-wc
+  url: http://amp-wc:9001/RPC2

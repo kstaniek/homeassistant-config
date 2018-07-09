@@ -9,7 +9,7 @@ automation:
           - media_player.mpd_kitchen
         data_template:
           message: >-
-            Ostatnio wykryto ruch następujących pomieszczeniach:
+            <speak>Ostatnio wykryto ruch następujących pomieszczeniach:
             {%- for state in states.binary_sensor -%}
             {% if state.attributes['device_class'] == 'motion' -%}
             {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 60 ) -%}
@@ -17,6 +17,7 @@ automation:
             {%- endif %}
             {%- endif -%}
             {% endfor %}
+            </speak>
           cache: false
           
   - alias: Send Last movement

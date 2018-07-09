@@ -13,7 +13,7 @@ import homeassistant.helpers.config_validation as cv
 
 from homeassistant.const import (CONF_NAME, CONF_FRIENDLY_NAME, STATE_UNKNOWN, ATTR_FRIENDLY_NAME, STATE_ON, STATE_OFF)
 
-from ..ampio import unpack_item_address
+from ..ampio import unpack_item_address, Ampio
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -56,7 +56,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_TARGET_ITEM): unpack_item_address,
     vol.Optional(CONF_HUMIDITY_ITEM): unpack_item_address,
     vol.Optional(CONF_OPERATION_MODE_ITEM): unpack_item_address,
-    vol.Optional(CONF_FRIENDLY_NAME, default=None): cv.string,
 })
 
 
@@ -74,7 +73,7 @@ def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
     return True
 
 
-class AmpioClimate(ClimateDevice):
+class AmpioClimate(Ampio, ClimateDevice):
     def __init__(self, hass, config):
         self.hass = hass
         self.config = config
@@ -85,7 +84,7 @@ class AmpioClimate(ClimateDevice):
         self._name = config.get(CONF_NAME, "{:08x}_{}_{}".format(*config[CONF_ITEM]))
         self.ampio.register_on_value_change_callback(*config[CONF_ITEM], callback=self.schedule_update_ha_state)
 
-        self._attributes = {}
+        self._attributes = dict()
         self._supported_features = 0
 
         if CONF_TARGET_ITEM in config:
@@ -101,11 +100,6 @@ class AmpioClimate(ClimateDevice):
                                                          callback=self.schedule_update_ha_state)
             self._supported_features |= SUPPORT_OPERATION_MODE
 
-        if CONF_FRIENDLY_NAME in config:
-            self._attributes[ATTR_FRIENDLY_NAME] = config[CONF_FRIENDLY_NAME]
-            print("FRIENDLY NAME: {}".format(self._attributes[ATTR_FRIENDLY_NAME]))
-            print(self.entity_id)
-
         self._attributes[ATTR_MODULE_NAME] = self.ampio.get_module_name(config[CONF_ITEM][0])
         self._attributes[ATTR_MODULE_PART_NUMBER] = self.ampio.get_module_part_number(config[CONF_ITEM][0])
         self._attributes[ATTR_CAN_ID] = config[CONF_ITEM][0]
@@ -113,15 +107,6 @@ class AmpioClimate(ClimateDevice):
     @property
     def name(self):
         return self._name
-
-    @property
-    def registry_name(self):
-        return self._attributes.get(ATTR_FRIENDLY_NAME)
-
-    @property
-    def should_poll(self):
-        """No polling needed within Ampio."""
-        return False
 
     @property
     def temperature_unit(self):

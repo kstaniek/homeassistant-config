@@ -1,0 +1,100 @@
+side_temperature:
+    widget_type: sensor
+    title: Temperatura
+    title2: Buderus
+    units: "&deg;C"
+    precision: 0
+    entity: sensor.buderus_outside_temperature
+
+weather:
+    widget_type: weather
+    units: "&deg;C"
+
+klaus_presence:
+  widget_type: device_tracker
+  title: Klaudiusz
+  device: emperor
+  icon_on: fa-male
+  icon_style_active: "color: #4bcdea"
+  #icon_style_inactive: "color: red"
+  #widget_style: "background: white"
+  #state_text_style: "color:green"
+  #title_style: "color: red"
+
+alarm:
+    widget_type: alarm
+    entity: alarm_control_panel.a_outside
+    title: Alarm
+    state_style: "font-size: 150%;"
+    title_style: "color: white"
+
+emily_to_school:
+  widget_type: sensor
+  entity: sensor.travel_home_emily_school
+  title: Emila
+  title2: Do szkoły
+
+agnieszka_to_work:
+  widget_type: sensor
+  entity: sensor.travel_home_galeria
+  title: Agnieszka
+  title2: Do pracy
+ 
+to_stanki:
+  widget_type: sensor
+  entity: sensor.travel_home_stanki
+  title: Z domu
+  title2: Do Stańków
+ 
+to_medicover_graniczna:
+  widget_type: sensor
+  entity: sensor.travel_home_medicover_graniczna
+  title: Do Medicover
+  title2: Graniczna
+  
+to_medicover_chorzowska:
+  widget_type: sensor
+  entity: sensor.travel_home_medicover_chorzowska
+  title: Do Medicover
+  title2: Chorzowska
+
+flame_status:
+  widget_type: binary_sensor
+  title: Piec
+  entity: sensor.buderus_hs1_flame_status
+  icon_on: fa-fire
+  icon_off: fa-fire
+  style_inactive: "color: $gray_light"
+  style_active: "color: red"
+
+clock:
+  widget_type: clock
+  time_format: 24hr
+  date_format_country: "pl"
+
+mode:
+  widget_type: sensor
+  title: House Mode
+  text_style: "text-transform: uppercase;font-size: 200%"
+  entity: input_select.house_mode
+    
+recu_special_mode:
+  widget_type: sensor
+  title: Rekuperator
+  title2: Tryb pracy
+  entity: sensor.rec_special_mode
+  state_text:
+    0: Harmonogram
+    5: Wietrzenie
+    7: Wietrzenie H2O
+  sub_entity: sensor.rec_special_mode
+  sub_entity_map:
+    0: Harmonogram
+    5: Wietrzenie
+    7: Wietrzenie H2O
+  
+
+layout:
+  - clock(2x1), weather(2x2), flame_status, klaus_presence, side_temperature, alarm
+  - mode(2x1), emily_to_school, agnieszka_to_work, to_medicover_graniczna, to_medicover_chorzowska
+  - sensor.rec_temp_intake, sensor.rec_temp_fpx, sensor.rec_temp_ambient, sensor.rec_temp_supply, sensor.rec_temp_exhaust, recu_special_mode

@@ -6,37 +6,47 @@ homeassistant:
     input_select.last_motion_triggered:
       <<: *customize
       friendly_name: 'Ostatnio wykryto ruch w:'
+      
+    sensor.last_motion_triggered_name:
+      <<: *customize
+      friendly_name: "Ostatnio wykryto ruch:"
+      
+sensor:
+  - platform: template
+    sensors:
+      last_motion_triggered_name:
+        value_template: "{{ state_attr('binary_sensor.' + states('input_select.last_motion_triggered'), 'friendly_name') }}"
 
 input_select:
   last_motion_triggered:
-    initial: (R) Salon
+    initial: m_salon
     options:
-      - (R) Salon
-      - (R) Kuchnia
-      - (R) WC
-      - (R) Hall Dół
-      - (R) Wiatrołap
-      - (R) Biuro
-      - (R) Serwerownia
-      - (R) Spiżarnia
-      - (R) Garderoba Dół
-      - (R) Garaż
-      - (R) Garaż Tył
-      - (R) Schody Dół
-      - (R) Schody Góra
-      - (R) Pokój Julii
-      - (R) Garderoba Julii
-      - (R) Łazienka Główna
-      - (R) Sypialnia
-      - (R) Sypialnia Wejście
-      - (R) Korytarz Góra
-      - (R) Korytarz Góra2
-      - (R) Garderoba Sypialnia
-      - (R) Pokój Emilii
-      - (R) Garderoba Emilii
-      - (R) Pokój Alicji
-      - (R) Pralnia
-      - (R) Łazienka
+      - m_salon
+      - m_kitchen
+      - m_wc
+      - m_hall_groundfloor
+      - m_antreroom
+      - m_office
+      - m_serverroom
+      - m_pantry
+      - m_wardrobe_ground
+      - m_garage
+      - m_garage_garden
+      - m_curtain_groundfloor
+      - m_curtain_firstfloor
+      - m_julia
+      - m_julia_wardrobe
+      - m_masterbathroom
+      - m_masterbedroom
+      - m_masterbedroom_hall
+      - m_hall_firstfloor
+      - m_hall_firstfloor2
+      - m_masterbedroom_wardrobe
+      - m_emily
+      - m_emily_wardrobe
+      - m_alice
+      - m_laundry
+      - m_bathroom
 
 automation:
   - alias: Update last motion triggered from motion sensors last triggered
@@ -76,5 +86,5 @@ automation:
       - service: input_select.select_option
         data_template:
           entity_id: input_select.last_motion_triggered
-          option: "{{ trigger.to_state.attributes.friendly_name }}"
+          option: "{{ trigger.to_state.entity_id.split('.')[1] }}"
           

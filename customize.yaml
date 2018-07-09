@@ -36,4 +36,33 @@ zone.kuchnia:
     uuid: 74278BDA-B644-4520-8F0C-720EAF059935
     major: 4660
     minor: 64002
-    
+
+cover.c_east:
+  friendly_name: Żaluzje Wschód
+  order: 4
+
+cover.c_south:
+  friendly_name: Żaluzje Południe
+  order: 5
+
+cover.c_west:
+  friendly_name: Żaluzje Zachód
+  order: 6
+
+cover.c_north:
+  friendly_name: Żaluzje Północ
+  order: 7
+  
+cover.c_all:
+  friendly_name: Żaluzje Wszystkie
+  order: 1
+  
+cover.c_upstairs:
+  friendly_name: Żaluzje Piętro
+  order: 2
+
+cover.c_downstairs:
+  friendly_name: Żaluzje Parter
+  order: 3
+  
+

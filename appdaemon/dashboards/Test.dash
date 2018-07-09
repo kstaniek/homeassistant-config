@@ -1,0 +1,33 @@
+title: Main Panel
+widget_dimensions: [120, 120]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 8
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+    namespace: default
+    devices:
+      media_player:
+        step: 5
+
+
+weather:
+  widget_type: weather
+  unit: "&deg;C"
+
+klaus_presence:
+  widget_type: device_tracker
+  title: Klaudiusz
+  device: emperor
+  icon_on: fa-male
+  icon_style_active: "color: #4bcdea"
+  #icon_style_inactive: "color: red"
+  #widget_style: "background: white"
+  #state_text_style: "color:green"
+  #title_style: "color: red"
+
+layout:
+  - clock.clock(2x1), weather(2x2), klaus_presence
+

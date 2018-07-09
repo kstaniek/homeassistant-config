@@ -4,6 +4,7 @@ home-assistant_v2.db*
 secrets.yaml
 known_devices.yaml
 .cloud
+icloud
 .HA_VERSION
 *.conf
 .uuid

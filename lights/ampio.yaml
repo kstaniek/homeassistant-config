@@ -1,96 +1,139 @@
 # WC
 
+
+- platform: group
+  name: l_wc
+  entities:
+  - light.l_wc_mled1
+  - light.l_wc_mled2
+  - light.l_wc_led
+  
+- platform: group
+  name: l_kitchen
+  entities:
+  - light.l_kitchen_mled1
+  - light.l_kitchen_mled2
+  - light.l_kitchen_mled3
+  - light.l_kitchen_mled4
+  - light.l_kitchen_mled5
+  - light.l_kitchen_mled6
+  - light.l_kitchen_mled7
+  - light.l_kitchen_mled8
+  - light.l_kitchen_mled9
+  - light.l_kitchen_mled10
+  - light.l_kitchen_workbench
+  
+- platform: group
+  name: l_salon_mled
+  entities:
+  - light.l_salon_mled1
+  - light.l_salon_mled2  
+  - light.l_salon_mled3  
+  - light.l_salon_mled4  
+  - light.l_salon_mled5  
+  - light.l_salon_mled6  
+  - light.l_salon_mled7  
+  - light.l_salon_mled8  
+  - light.l_salon_mled9  
+  - light.l_salon_mled10  
+  - light.l_salon_mled11 
+  - light.l_salon_mled12
+  
+- platform: group
+  name: l_sofa_mled
+  entities:
+  - light.l_sofa_mled1
+  - light.l_sofa_mled2
+  - light.l_sofa_mled3
+  - light.l_sofa_mled4
+  - light.l_sofa_mled5
+  - light.l_sofa_mled6
+
+- platform: group
+  name: l_hol_mled
+  entities:
+  - light.l_hol_mled1
+  - light.l_hol_mled2
+  - light.l_hol_mled3
+  - light.l_hol_mled4
+  
+
 - platform: ampio
   name: l_wc_mled1
   item: 0x1e53/bin_output/7
   bright_item: 0x1e53/output/7
-  friendly_name: WC MLED1
 
 - platform: ampio
-  name: l_wc_mled2
+  name: l_wc_mled1
   item: 0x1e53/bin_output/8
   bright_item: 0x1e53/output/8
-  friendly_name: WC MLED2
 
 - platform: ampio
   name: l_wc_led
   item: 0x1885/bin_output/3
   bright_item: 0x1885/output/3
-  friendly_name: WC LED
 
 # Master bathroom
 - platform: ampio
   name: l_master_bathroom_mled1
   item: 0x1e5a/bin_output/1
   bright_item: 0x1e5a/bin_output/1
-  friendly_name: Łazienka Główna MLED1
 
 - platform: ampio
   name: l_master_bathroom_mled2
   item: 0x1e5a/bin_output/2
   bright_item: 0x1e5a/bin_output/2
-  friendly_name: Łazienka Główna MLED2
 
 - platform: ampio
   name: l_master_bathroom_mled3
   item: 0x1e5a/bin_output/3
   bright_item: 0x1e5a/bin_output/3
-  friendly_name: Łazienka Główna MLED3
 
 - platform: ampio
   name: l_master_bathroom_mled4
   item: 0x1e5a/bin_output/4
   bright_item: 0x1e5a/bin_output/4
-  friendly_name: Łazienka Główna MLED4
 
 - platform: ampio
   name: l_master_bathroom_mled5
   item: 0x1e5a/bin_output/5
   bright_item: 0x1e5a/bin_output/5
-  friendly_name: Łazienka Główna MLED5
 
 - platform: ampio
   name: l_master_bathroom_mled6
   item: 0x1e5a/bin_output/6
   bright_item: 0x1e5a/bin_output/6
-  friendly_name: Łazienka Główna MLED6
 
 - platform: ampio
   name: l_master_bathroom_mled7
   item: 0x1e5a/bin_output/7
   bright_item: 0x1e5a/bin_output/7
-  friendly_name: Łazienka Główna MLED7
 
 - platform: ampio
   name: l_master_bathroom_mled8
   item: 0x1e5a/bin_output/8
   bright_item: 0x1e5a/bin_output/8
-  friendly_name: Łazienka Główna MLED8
 
 - platform: ampio
   name: l_master_bathroom_mled9
   item: 0x1e5a/bin_output/9
   bright_item: 0x1e5a/bin_output/9
-  friendly_name: Łazienka Główna MLED9
 
 - platform: ampio
   name: l_master_bathroom_mled10
   item: 0x1e5a/bin_output/10
   bright_item: 0x1e5a/bin_output/10
-  friendly_name: Łazienka Główna MLED10
   
 - platform: ampio
   name: l_masterbathroom_led
   item: 0x1885/bin_output/1
   bright_item: 0x1885/output/1
-  friendly_name: Łazienka Główna LED
   
 - platform: ampio
   name: l_rgb_bathtub
   item: 0x18b2/bin_.*/1
   rgb_item: 0x18b2/color_.*/1
   white_item: 0x18b2/output/1
-  friendly_name: RGB Wanna
 
 
 # Bathroom
@@ -98,153 +141,128 @@
   name: l_bathroom_mled11
   item: 0x1e5a/bin_output/11
   bright_item: 0x1e5a/bin_output/11
-  friendly_name: Łazienka MLED1
 
 - platform: ampio
   name: l_bathroom_mled12
   item: 0x1e5a/bin_output/12
   bright_item: 0x1e5a/bin_output/12
-  friendly_name: Łazienka MLED2
 
 - platform: ampio
   name: l_bathroom_mled13
   item: 0x1e5a/bin_output/13
   bright_item: 0x1e5a/bin_output/13
-  friendly_name: Łazienka MLED13
 
 - platform: ampio
   name: l_bathroom_mled14
   item: 0x1e5a/bin_output/14
   bright_item: 0x1e5a/bin_output/14
-  friendly_name: Łazienka MLED14
 
 - platform: ampio
   name: l_bathroom_mled15
   item: 0x1e5a/bin_output/15
   bright_item: 0x1e5a/bin_output/15
-  friendly_name: Łazienka MLED15
 
 - platform: ampio
   name: l_bathroom_mled16
   item: 0x1e5a/bin_output/16
   bright_item: 0x1e5a/bin_output/16
-  friendly_name: Łazienka MLED16
   
 - platform: ampio
   name: l_bathroom_led
-  item: 0x1885/bin_output/3
-  bright_item: 0x1885/output/3
-  friendly_name: Łazienka Główna LED
+  item: 0x1885/bin_output/2
+  bright_item: 0x1885/output/2
 
 # Salon
 - platform: ampio
   name: l_salon_mled1
   item: 0x1e5d/bin_output/1
   bright_item: 0x1e5d/bin_output/1
-  friendly_name: Salon MLED1
 
 - platform: ampio
   name: l_salon_mled2
   item: 0x1e5d/bin_output/2
   bright_item: 0x1e5d/bin_output/2
-  friendly_name: Salon MLED2
 
 - platform: ampio
   name: l_salon_mled3
   item: 0x1e5d/bin_output/3
   bright_item: 0x1e5d/bin_output/3
-  friendly_name: Salon MLED3
 
 - platform: ampio
   name: l_salon_mled4
   item: 0x1e5d/bin_output/4
   bright_item: 0x1e5d/bin_output/4
-  friendly_name: Salon MLED4
 
 - platform: ampio
   name: l_salon_mled5
   item: 0x1e5d/bin_output/5
   bright_item: 0x1e5d/bin_output/5
-  friendly_name: Salon MLED5
 
 - platform: ampio
   name: l_salon_mled6
   item: 0x1e5d/bin_output/6
   bright_item: 0x1e5d/bin_output/6
-  friendly_name: Salon MLED6
 
 - platform: ampio
   name: l_salon_mled7
   item: 0x1e5d/bin_output/7
   bright_item: 0x1e5d/bin_output/7
-  friendly_name: Salon MLED7
 
 - platform: ampio
   name: l_salon_mled8
   item: 0x1e5d/bin_output/8
   bright_item: 0x1e5d/bin_output/8
-  friendly_name: Salon MLED8
 
 - platform: ampio
   name: l_salon_mled9
   item: 0x1e5d/bin_output/9
   bright_item: 0x1e5d/bin_output/9
-  friendly_name: Salon MLED9
 
 - platform: ampio
   name: l_salon_mled10
   item: 0x1e5d/bin_output/10
   bright_item: 0x1e5d/bin_output/10
-  friendly_name: Salon MLED10
 
 - platform: ampio
   name: l_salon_mled11
   item: 0x1e5d/bin_output/11
   bright_item: 0x1e5d/bin_output/11
-  friendly_name: Salon MLED11
 
 - platform: ampio
   name: l_salon_mled12
   item: 0x1e5d/bin_output/12
   bright_item: 0x1e5d/bin_output/12
-  friendly_name: Salon MLED12
 
 # Salon sofa 
 - platform: ampio
   name: l_sofa_mled1
   item: 0x1e5f/bin_output/11
   bright_item: 0x1e5f/bin_output/11
-  friendly_name: Sofa MLED1
 
 - platform: ampio
   name: l_sofa_mled2
   item: 0x1e5f/bin_output/12
   bright_item: 0x1e5f/bin_output/12
-  friendly_name: Sofa MLED2
 
 - platform: ampio
   name: l_sofa_mled3
   item: 0x1e5f/bin_output/13
   bright_item: 0x1e5f/bin_output/13
-  friendly_name: Sofa MLED3
   
 - platform: ampio
   name: l_sofa_mled4
   item: 0x1e5f/bin_output/14
   bright_item: 0x1e5f/bin_output/14
-  friendly_name: Sofa MLED4
   
 - platform: ampio
   name: l_sofa_mled5
   item: 0x1e5f/bin_output/15
   bright_item: 0x1e5f/bin_output/15
-  friendly_name: Sofa MLED5
   
 - platform: ampio
   name: l_sofa_mled6
   item: 0x1e5f/bin_output/16
   bright_item: 0x1e5f/bin_output/16
-  friendly_name: Sofa MLED6
  
 # Salon RGB
 - platform: ampio
@@ -252,14 +270,12 @@
   item: 0x1879/bin_.*/1
   rgb_item: 0x1879/color_.*/1
   white_item: 0x1879/output/1
-  friendly_name: Ambient Salon
 
 - platform: ampio
   name: rgb_stairs
   item: 0x1ab3/bin_.*/1
   rgb_item: 0x1ab3/color_.*/1
   white_item: 0x1ab3/output/1
-  friendly_name: Ambient Schody
 
 
 # hol
@@ -267,25 +283,21 @@
   name: l_hol_mled1
   item: 0x1e5d/bin_output/13
   bright_item: 0x1e5d/bin_output/13
-  friendly_name: Holl MLED1
 
 - platform: ampio
   name: l_hol_mled2
   item: 0x1e5d/bin_output/14
   bright_item: 0x1e5d/bin_output/14
-  friendly_name: Holl MLED2
 
 - platform: ampio
   name: l_hol_mled3
   item: 0x1e5d/bin_output/15
   bright_item: 0x1e5d/bin_output/15
-  friendly_name: Holl MLED3
 
 - platform: ampio
   name: l_hol_mled4
   item: 0x1e5d/bin_output/16
   bright_item: 0x1e5d/bin_output/16
-  friendly_name: Holl MLED4
 
 
 # kitchen
@@ -293,74 +305,78 @@
   name: l_kitchen_mled1
   item: 0x1e5f/bin_output/1
   bright_item: 0x1e5f/bin_output/1
-  friendly_name: Kuchnia MLED1
 
 - platform: ampio
   name: l_kitchen_mled2
   item: 0x1e5f/bin_output/2
   bright_item: 0x1e5f/bin_output/2
-  friendly_name: Kuchnia MLED2
 
 - platform: ampio
   name: l_kitchen_mled3
   item: 0x1e5f/bin_output/3
   bright_item: 0x1e5f/bin_output/3
-  friendly_name: Kuchnia MLED3
 
 - platform: ampio
   name: l_kitchen_mled4
   item: 0x1e5f/bin_output/4
   bright_item: 0x1e5f/bin_output/4
-  friendly_name: Kuchnia MLED4
 
 - platform: ampio
   name: l_kitchen_mled5
   item: 0x1e5f/bin_output/5
   bright_item: 0x1e5f/bin_output/5
-  friendly_name: Kuchnia MLED5
 
 - platform: ampio
   name: l_kitchen_mled6
   item: 0x1e5f/bin_output/6
   bright_item: 0x1e5f/bin_output/6
-  friendly_name: Kuchnia MLED6
 
 - platform: ampio
   name: l_kitchen_mled7
   item: 0x1e5f/bin_output/7
   bright_item: 0x1e5f/bin_output/7
-  friendly_name: Kuchnia MLED7
 
 - platform: ampio
   name: l_kitchen_mled8
   item: 0x1e5f/bin_output/8
   bright_item: 0x1e5f/bin_output/8
-  friendly_name: Kuchnia MLED8
 
 - platform: ampio
   name: l_kitchen_mled9
   item: 0x1e5f/bin_output/9
   bright_item: 0x1e5f/bin_output/9
-  friendly_name: Kuchnia MLED9
 
 - platform: ampio
   name: l_kitchen_mled10
   item: 0x1e5f/bin_output/10
   bright_item: 0x1e5f/bin_output/10
-  friendly_name: Kuchnia MLED10
 
 # kitchen - dining
 - platform: ampio
   name: l_dining_table
   item: 0x19c7/bin_output/8
-  bright_item: 0x13ec/output/8
-  friendly_name: Jadalnia
+  bright_item: 0x19c7/output/8
 
-# kitchen -workbench
+# salon - tubes
+- platform: ampio
+  name: l_salon_tubes
+  item: 0x00001a1e/bin_output/1
+
+# kitchen - workbench
 - platform: ampio
   name: l_kitchen_workbench
   item: 0x00001a1e/bin_output/2
-  friendly_name: Kuchnia Blat
+  
+# engine_room
+- platform: ampio
+  name: l_engine_room
+  item: 0x00001a1e/bin_output/7
+
+# pictures
+- platform: ampio
+  name: l_pictures
+  item: 0x00001a1e/bin_output/8
+  
 
 
 # office
@@ -368,4 +384,11 @@
   name: l_office
   item: 0x13ec/bin_output/5
   bright_item: 0x13ec/output/5
-  friendly_name: Biuro
+
+# server room
+- platform: ampio
+  name: l_server_room
+  item: 0x1a1e/bin_output/4
+  
+
+

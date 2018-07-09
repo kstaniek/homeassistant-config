@@ -1,0 +1,104 @@
+media_player_kitchen:
+  title: Kuchnia
+  widget_type: media_player
+  truncate_name: 35
+  entity: media_player.kuchnia
+  
+media_player_wc:
+  title: WC
+  widget_type: media_player
+  truncate_name: 35
+  entity: media_player.wc
+ 
+
+salon_env:
+  title: Salon
+  widget_type: sensor
+  precision: 1
+  entity: sensor.00001ccc_temperature_1
+  sub_entity: sensor.00001ccc_humidity_1
+  
+entrance_env:
+  title: Wejście
+  widget_type: sensor
+  precision: 1
+  entity: sensor.00001cd0_temperature_1
+  sub_entity: sensor.00001cd0_humidity_1
+  
+engine_env:
+  title: Kotłownia
+  widget_type: sensor
+  precision: 1
+  entity: sensor.000026bf_temperature_1
+  sub_entity: sensor.000026bf_humidity_1
+  
+office_env:
+  title: Biuro
+  widget_type: sensor
+  precision: 1
+  entity: sensor.00001cd8_temperature_1
+  sub_entity: sensor.00001cd8_humidity_1
+  
+serverroom_env:
+  title: Serwerownia
+  widget_type: sensor
+  precision: 1
+  entity: sensor.00002144_temperature_1
+  sub_entity: sensor.00002144_humidity_1
+  
+wc_env:
+  title: WC
+  widget_type: sensor
+  precision: 1
+  entity: sensor.000026c7_temperature_1
+  sub_entity: sensor.000026c7_humidity_1
+
+cover_bonsai:
+  title: Bonsai
+  widget_type: cover
+  entity: cover.c_bonsai
+
+cover_kitchen_east:
+  title: Kuchnia
+  title2: Wschód
+  widget_type: cover
+  entity: cover.c_kitchen_east
+  
+cover_kitchen_north:
+  title: Kuchnia
+  title2: Północ
+  widget_type: cover
+  entity: cover.c_kitchen_north
+
+cover_livingroom:
+  title: Salon
+  title2: Południe
+  widget_type: cover
+  entity: cover.c_livingroom
+  
+cover_livingroom_terrace:
+  title: Taras
+  title2: Zachód
+  widget_type: cover
+  entity: cover.c_livingroom_terrace 
+  
+l_salon_mled:
+  title: Salon
+  widget_type: light
+  entity: group.l_salon_mled
+  on_attributes:
+    brightness: 40
+
+l_kitchen_mled:
+  title: Kuchnia
+  widget_type: light
+  entity: group.l_kitchen_mled
+  on_attributes:
+    brightness: 40
+    
+  
+layout:
+    - media_player_kitchen(2x2), media_player_wc(2x2), salon_env, office_env, wc_env, entrance_env
+    - serverroom_env, engine_env
+    - light.l_kitchen_workbench, light.l_dining_table, l_salon_mled, l_kitchen_mled, light.rgb_salon
+    - cover_bonsai, cover_kitchen_east, cover_kitchen_north, cover_livingroom, cover_livingroom_terrace 

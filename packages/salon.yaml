@@ -60,7 +60,7 @@ automation:
       service: tts.amazon_polly_say
       entity_id: media_player.mpd_kitchen
       data:
-        message: "Zachód słońca."
+        message: "<speak>Zachód słońca.</speak>"
         
   - alias: Sunrise
     trigger:

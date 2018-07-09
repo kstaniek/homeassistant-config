@@ -1,0 +1,19 @@
+weather_frame:
+    widget_type: iframe
+    title: Radar
+    refresh: 300
+    frame_style: ""
+    url_list: 
+      - https://www.rainviewer.com/map.html?loc=52.269074,20.129173,6&oFa=0&oC=0&oU=0&oCUB=1&oCS=1&oF=0&oAP=1&rmt=1
+
+camera:
+  widget_type: camera
+  entity_picture: http://meteo.org.pl/img/ra.png
+
+      
+layout:
+    - weather_frame(4x5), sensor.dark_sky_minutely_summary(2x1), sensor.dark_sky_hourly_summary(2x1)
+    - sensor.dark_sky_daily_summary(2x1), sensor.dark_sky_pressure(2x1)
+    - sensor.dark_sky_temperature, sensor.dark_sky_apparent_temperature, sensor.dark_sky_nearest_storm_distance,  sensor.dark_sky_nearest_storm_bearing
+    - sensor.dark_sky_wind_speed(2x1), sensor.dark_sky_wind_bearing, sensor.dark_sky_humidity
+    - sensor.dark_sky_visibility, sensor.dark_sky_precip_probability, sensor.dark_sky_precip_intensity(2x1)

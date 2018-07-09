@@ -1,0 +1,39 @@
+load_upstairs:
+  widget_type: navigate
+  title: Piętro
+  icon_inactive: fa-bed
+  dashboard: Upstairs
+  
+load_downstairs:
+  widget_type: navigate
+  title: Parter
+  icon_inactive: fa-tv
+  dashboard: Downstairs
+
+load_garage:
+  widget_type: navigate
+  title: Garaż
+  icon_inactive: fa-car
+  dashboard: Garage
+  
+load_outside:
+    widget_type: navigate
+    title: Obejście
+    icon_inactive: fa-twitter
+    dashboard: Outside
+    
+load_doors:
+    widget_type: navigate
+    title: Drzwi i Zamki
+    icon_inactive: fa-lock
+    dashboard: Secure
+    
+load_windows:
+    widget_type: navigate
+    title: Okna
+    icon_inactive: fa-windows
+    dashboard: Windows
+
+    
+layout:
+  - load_outside, load_upstairs, load_downstairs, load_garage, load_doors, load_windows

@@ -11,7 +11,7 @@ from homeassistant.components.binary_sensor import (
 import homeassistant.helpers.config_validation as cv
 from homeassistant.core import callback
 
-from ..ampio import unpack_item_address, ATTR_MODULE_NAME, ATTR_MODULE_PART_NUMBER, ATTR_CAN_ID
+from ..ampio import unpack_item_address, ATTR_MODULE_NAME, ATTR_MODULE_PART_NUMBER, ATTR_CAN_ID, Ampio
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -67,8 +67,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_ITEM): unpack_item_address,
     vol.Optional(CONF_NAME, default=None): cv.string,
     vol.Optional(CONF_DEVICE_CLASS): cv.string,
-    vol.Optional(CONF_FRIENDLY_NAME, default=None): cv.string,
-
 })
 
 
@@ -96,7 +94,7 @@ def async_add_devices_discovery(hass, discovery_info, async_add_devices):
         async_add_devices([AmpioBinarySensor(hass, item)])
 
 
-class AmpioBinarySensor(BinarySensorDevice):
+class AmpioBinarySensor(Ampio, BinarySensorDevice):
 
     def __init__(self, hass, config):
         self.hass = hass
@@ -107,13 +105,7 @@ class AmpioBinarySensor(BinarySensorDevice):
         self.ampio.register_on_value_change_callback(*config[CONF_ITEM], callback=self.schedule_update_ha_state)
 
         self._device_class = config.get(CONF_DEVICE_CLASS, None)
-        self._attributes = {}
-
-        if CONF_FRIENDLY_NAME in config:
-            self._attributes = {
-                ATTR_FRIENDLY_NAME: config[CONF_FRIENDLY_NAME],
-            }
-
+        self._attributes = dict()
         self._attributes[ATTR_MODULE_NAME] = self.ampio.get_module_name(config[CONF_ITEM][0])
         self._attributes[ATTR_MODULE_PART_NUMBER] = self.ampio.get_module_part_number(config[CONF_ITEM][0])
         self._attributes[ATTR_CAN_ID] = config[CONF_ITEM][0]
@@ -126,10 +118,6 @@ class AmpioBinarySensor(BinarySensorDevice):
     def name(self):
         """Return the name of the entity."""
         return self._name
-
-    @property
-    def registry_name(self):
-        return self._attributes.get(ATTR_FRIENDLY_NAME)
 
     @property
     def device_state_attributes(self):

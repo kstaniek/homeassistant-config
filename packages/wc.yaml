@@ -88,21 +88,13 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: light.l_wc_mled1
+          entity_id: light.l_wc
           state: 'off'
-        - condition: state
-          entity_id: light.l_wc_mled2
-          state: 'off'
-        - condition: state
-          entity_id: light.l_wc_led
-          state: 'off'
-          
     action:
       - service: light.turn_on
         data:
           entity_id:
-            - light.l_wc_mled1
-            - light.l_wc_mled2
+            - light.l_wc
             
   - alias: Turn WC light off
     initial_state: 'on'
@@ -116,9 +108,7 @@ automation:
       - service: light.turn_off
         data:
           entity_id:
-            - light.l_wc_mled1
-            - light.l_wc_mled2
-            - light.l_wc_led
+            - light.l_wc
         
       
       

@@ -4,13 +4,15 @@ import asyncio
 import voluptuous as vol
 
 from homeassistant.components.light import (PLATFORM_SCHEMA, Light, ATTR_BRIGHTNESS, ATTR_RGB_COLOR, ATTR_WHITE_VALUE,
-                                            SUPPORT_BRIGHTNESS, SUPPORT_RGB_COLOR, SUPPORT_WHITE_VALUE)
+                                            SUPPORT_BRIGHTNESS, SUPPORT_COLOR, SUPPORT_WHITE_VALUE,
+                                            ATTR_HS_COLOR)
 
 import homeassistant.helpers.config_validation as cv
 
 from homeassistant.const import (CONF_NAME, CONF_FRIENDLY_NAME, STATE_UNKNOWN, ATTR_FRIENDLY_NAME)
+import homeassistant.util.color as color_util
 
-from ..ampio import unpack_item_address
+from ..ampio import unpack_item_address, Ampio
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -34,7 +36,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_BRIGHT_ITEM): unpack_item_address,
     vol.Optional(CONF_RGB_ITEM): unpack_item_address,
     vol.Optional(CONF_WHITE_ITEM): unpack_item_address,
-    vol.Optional(CONF_FRIENDLY_NAME, default=None): cv.string,
 })
 
 
@@ -52,7 +53,7 @@ def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
     return True
 
 
-class AmpioLight(Light):
+class AmpioLight(Ampio, Light):
     def __init__(self, hass, config):
         self.hass = hass
         self.config = config
@@ -72,15 +73,12 @@ class AmpioLight(Light):
             self._supported_features |= SUPPORT_BRIGHTNESS
 
         if CONF_RGB_ITEM in config:
-            self._supported_features |= SUPPORT_RGB_COLOR
+            self._supported_features |= SUPPORT_COLOR
             self.ampio.register_on_value_change_callback(*config[CONF_RGB_ITEM], callback=self.schedule_update_ha_state)
 
         if CONF_WHITE_ITEM in config:
             self._supported_features |= SUPPORT_WHITE_VALUE
             self.ampio.register_on_value_change_callback(*config[CONF_WHITE_ITEM], callback=self.schedule_update_ha_state)
-
-        if CONF_FRIENDLY_NAME in config:
-            self._attributes[ATTR_FRIENDLY_NAME] = config[CONF_FRIENDLY_NAME]
 
         self._attributes[ATTR_MODULE_NAME] = self.ampio.get_module_name(self._can_id)
         self._attributes[ATTR_MODULE_PART_NUMBER] = self.ampio.get_module_part_number(self._can_id)
@@ -90,7 +88,7 @@ class AmpioLight(Light):
     def is_on(self):
         state = False
         can_id, _, index = self.config[CONF_ITEM]
-        if self._supported_features & SUPPORT_RGB_COLOR:
+        if self._supported_features & SUPPORT_COLOR:
             red = self.ampio.get_item_state(can_id, "bin_red", index)
             green = self.ampio.get_item_state(can_id, "bin_green", index)
             blue = self.ampio.get_item_state(can_id, "bin_blue", index)
@@ -102,10 +100,6 @@ class AmpioLight(Light):
     @property
     def name(self):
         return self._name
-
-    @property
-    def registry_name(self):
-        return self._attributes.get(ATTR_FRIENDLY_NAME)
 
     @property
     def should_poll(self):
@@ -124,7 +118,7 @@ class AmpioLight(Light):
 
     @property
     def rgb_color(self):
-        if not self._supported_features & SUPPORT_RGB_COLOR:
+        if not self._supported_features & SUPPORT_COLOR:
             return  # None, None, None
 
         red = self.ampio.get_item_state(self._can_id, "color_red", self._index)
@@ -170,7 +164,7 @@ class AmpioLight(Light):
         if white is None:
             return 0xff
 
-        if (not self._supported_features & SUPPORT_RGB_COLOR or self.last_rgb_color == (0, 0, 0)) and white == 0x00:
+        if (not self._supported_features & SUPPORT_COLOR or self.last_rgb_color == (0, 0, 0)) and white == 0x00:
             return 0xff
 
         return white
@@ -184,43 +178,53 @@ class AmpioLight(Light):
         """Return the state attributes."""
         return self._attributes
 
-    @asyncio.coroutine
-    def async_turn_on(self, **kwargs):
+    async def async_turn_on(self, **kwargs):
+        """Turn the specific light on."""
+        value_sent = False
+
+        if ATTR_HS_COLOR in kwargs:
+            rgb = color_util.color_hs_to_RGB(*kwargs[ATTR_HS_COLOR])
+            await self.ampio.send_rgb_values(self._can_id, *rgb)
+            value_sent = True
+
         if ATTR_RGB_COLOR in kwargs:
-            yield from self.ampio.send_rgb_values(self._can_id, *kwargs[ATTR_RGB_COLOR])
+            await self.ampio.send_rgb_values(self._can_id, *kwargs[ATTR_RGB_COLOR])
+            value_sent = True
 
         if ATTR_WHITE_VALUE in kwargs:
-            yield from self.ampio.send_white_value(self._can_id, kwargs[ATTR_WHITE_VALUE])
+            await self.ampio.send_white_value(self._can_id, kwargs[ATTR_WHITE_VALUE])
+            value_sent = True
 
         if ATTR_BRIGHTNESS in kwargs:
-            yield from self.ampio.send_value_with_index(self._can_id, self._index, kwargs[ATTR_BRIGHTNESS])
+            await self.ampio.send_value_with_index(self._can_id, self._index, kwargs[ATTR_BRIGHTNESS])
+            value_sent = True
 
-        if ATTR_WHITE_VALUE in kwargs or ATTR_RGB_COLOR in kwargs or ATTR_BRIGHTNESS in kwargs:
+        if value_sent:
+            # Return if there was any value in kwargs to be sent.
             return
 
-        if self._supported_features & SUPPORT_RGB_COLOR:
-            yield from self.ampio.send_rgb_values(self._can_id, *self._last_rgb_color)
+        if self._supported_features & SUPPORT_COLOR:
+            await self.ampio.send_rgb_values(self._can_id, *self._last_rgb_color)
 
         if self._supported_features & SUPPORT_WHITE_VALUE:
-            yield from self.ampio.send_white_value(self._can_id, self._last_white_value)
+            await self.ampio.send_white_value(self._can_id, self._last_white_value)
 
         if self._supported_features & SUPPORT_BRIGHTNESS:
-            yield from self.ampio.send_value_with_index(self._can_id, self._index, self._last_brightness)
+            await self.ampio.send_value_with_index(self._can_id, self._index, self._last_white_value)
 
         if self._supported_features == 0:
-            yield from self.ampio.send_value_with_index(self._can_id, self._index, 0xff)
+            await self.ampio.send_value_with_index(self._can_id, self._index, 0xff)
 
-    @asyncio.coroutine
-    def async_turn_off(self, **kwargs):
-        if self._supported_features & SUPPORT_RGB_COLOR:
+    async def async_turn_off(self, **kwargs):
+        if self._supported_features & SUPPORT_COLOR:
             self._last_rgb_color = self.rgb_color
             self._last_white_value = self.white_value
-            yield from self.ampio.send_rgb_values(self._can_id, 0, 0, 0)
-            yield from self.ampio.send_white_value(self._can_id, 0)
+            await self.ampio.send_rgb_values(self._can_id, 0, 0, 0)
+            await self.ampio.send_white_value(self._can_id, 0)
             return
 
         elif self._supported_features & SUPPORT_BRIGHTNESS:
             self._last_brightness = self.brightness if \
                 (self.brightness is not 0x00) and (self.brightness is not None) else 0xff
 
-        yield from self.ampio.send_value_with_index(self._can_id, self._index, 0x00)
+        await self.ampio.send_value_with_index(self._can_id, self._index, 0x00)

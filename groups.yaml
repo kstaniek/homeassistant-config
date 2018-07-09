@@ -79,27 +79,34 @@ room_occupancy:
   view: no
   name: Obecność w Pomieszczeniach
   entities:
-   - input_select.room_alice_occupancy
-   - input_select.room_bathroom_occupancy
-   - input_select.room_emily_occupancy
-   - input_select.room_julia_occupancy
-   - input_select.room_masterbathroom_occupancy
-   - input_select.room_masterbedroom_occupancy
-   - input_select.room_office_occupancy
-   - input_select.room_wc_occupancy
-  
+  - input_select.room_alice_occupancy
+  - input_select.room_bathroom_occupancy
+  - input_select.room_emily_occupancy
+  - input_select.room_julia_occupancy
+  - input_select.room_masterbathroom_occupancy
+  - input_select.room_masterbedroom_occupancy
+  - input_select.room_office_occupancy
+  - input_select.room_wc_occupancy
+
+movement:
+  view: no
+  name: Ruch
+  entities:
+  - sensor.last_motion_triggered_name
  
 occupancy:
   view: yes
   name: Obecność
   entities:
-   - input_select.last_motion_triggered
-   - group.room_occupancy
+  - group.movement 
+  - group.room_occupancy
    
 external_doors:
   name: Drzwi zewnętrzne
   entities:
-    - camera.doorbird_live
+    - camera.main_door_live
+    - camera.main_door_last_ring
+    - camera.main_door_last_motion
     - binary_sensor.m_entrance
     - binary_sensor.m_front
     - binary_sensor.d_main
@@ -144,7 +151,7 @@ cameras:
   view: yes
   name: Kamery
   entities:
-    - camera.doorbird_live
+    - camera.main_door_live
     - camera.wschodponoc_front
     - camera.wschodpoudnie_front
     - camera.ponocwschod
@@ -184,6 +191,46 @@ players_squeezebox:
     - media_player.sypialnia_krolewska
     - media_player.taras
     - media_player.wc
+
+rooms:
+  view: yes
+  name: Pokoje
+  entities:
+    - group.kitchen
+    - group.salon
+    
+salon:
+  view: no
+  name: Salon
+  entities:
+    - light.l_salon
+    - light.l_salon_mled
+    - light.l_sofa
+    - cover.c_bonsai
+    - cover.c_livingroom
+    - cover.c_livingroom_terrace
+
+    
+kitchen:
+  view: no
+  name: Kuchnia
+  entities:
+    - light.l_kitchen
+    - cover.c_kitchen
+    
+    
+covers:
+  view: yes
+  name: Żaluzje
+  entities:
+    - cover.c_all
+    - cover.c_upstairs
+    - cover.c_downstairs
+    - cover.c_east
+    - cover.c_south
+    - cover.c_west
+    - cover.c_north
+
 
 buderus:
   view: yes

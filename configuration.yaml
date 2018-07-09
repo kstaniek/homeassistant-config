@@ -36,10 +36,12 @@ frontend:
 config:
 
 logger:
-  default: warning 
+  default: warning
   logs:
     homeassistant.components: warning
-    pyampio: warning
+    pyampio: info
+    custom_components.ampio: debug
+    homeassistant.components.cover: debug
 
 telegram_bot:
   - platform: polling
@@ -61,6 +63,8 @@ http:
   # api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
+  cors_allowed_origins:
+    - http://172.31.20.50:7080
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -113,6 +117,21 @@ tts:
     
 # Cloud
 cloud:
+  alexa:
+    filter:
+      include_entities:
+        - light.l_kitchen
+        - cover.c_kitchen_east
+      include_domains:
+        - scene
+
+    entity_config:
+      light.l_kitchen:
+        name: Kitchen Lights
+        description: The light in the Kitchen
+      cover.c_kitchen_east:
+        name: Kitchen Cover
+        description: The cover in the Kitchen
 
 hassio:
 
@@ -161,10 +180,14 @@ script: !include scripts.yaml
 
 
 doorbird:
-  host: 172.31.11.101
-  username: !secret doorbird_username
-  password: !secret doorbird_password
-  doorbell_events: true
+  devices:
+  - host: 172.31.11.101
+    name: main_door
+    username: !secret doorbird_username
+    password: !secret doorbird_password
+    monitored_conditions:
+      - doorbell
+      - motion
   
 
 ampio:
@@ -181,7 +204,6 @@ ampio:
         - name: mean-sea-level-pressure
           begin: 1
           end: 1
-      use_module_name: yes
     - module: MCON-232SATEL
       items:
         # - name: bin_input
@@ -257,8 +279,52 @@ device_tracker:
       agnieszka_iphone: 'location/PetronelaBogini'
       alicja_iphone: 'location/Jace'
     
-    
-  
+scene:
+  - name: Close Kitchen Covers
+    entities:
+      cover.c_kitchen_east: 
+        state: closed
+        
+      cover.c_kitchen_north:
+        state: closed
+        
+  - name: Open Kitchen Covers
+    entities:
+      cover.c_kitchen_east:
+        position: 10
+        
+      cover.c_kitchen_north:
+        position: 10
+        
+  - name: Dinner Time
+    entities:
+      light.l_dining_table:
+        state: on
+        brightness: 200
+      light.l_sofa_mled:
+        state: off
+      light.l_salon_mled:
+        state: off
+        
+  - name: Goodnight
+    entities:
+      light.l_dining_table:
+        state: off
+      light.l_sofa_mled:
+        state: off
+      light.l_salon_mled:
+        state: off
+      light.l_kitchen:
+        state: off
+      light.l_office:
+        state: off
+      light.l_wc:
+        state: off
+      light.l_hol_mled:
+        state: off
+      
+        
+        
   
 #   - platform: cisco_ios
 #     host: 172.31.11.254
@@ -341,6 +407,6 @@ zone:
     icon: mdi:mdi-human-male-female
     track_ios: true
     
-    
+
     
 

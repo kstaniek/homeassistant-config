@@ -1,15 +1,47 @@
-- alias: Doorbird Doorbell Test
+- alias: Doorbird Doorbell 
   initial_state: 'on'
   trigger:
     platform: event
-    event_type: doorbird_doorbell
+    event_type: doorbird_main_door_button
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: media_player.mpd_kitchen
+      state: 'off'
+    - condition: state
+      entity_id: media_player.mpd_wc
+      state: 'off'
+    - condition: state
+      entity_id: media_player.mpd_terrace
+      state: 'off'
+
+  action:
+    - service: tts.amazon_polly_say
+      entity_id: 
+      - media_player.mpd_kitchen
+      - media_player.mpd_wc
+      - media_player.mpd_terrace
+      data:
+        message: "<speak>Ktoś dzwoni do drzwi!</speak>"
+      
+- alias: Doorbird Motion
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: doorbird_main_door_motion
+  condition:
+    condition: state
+    entity_id: binary_sensor.00001ecc_armed_3
+    state: 'on'
   action:
     service: tts.amazon_polly_say
     entity_id: 
       - media_player.mpd_kitchen
       - media_player.mpd_wc
+      - media_player.mpd_terrace
     data:
-      message: "<speak>Ktoś dzwoni do drzwi!</speak>"
+      message: "<speak>Ktoś zbliżył się do drzwi!</speak>"
       
 - alias: Klaudiusz at Home
   trigger:
@@ -94,7 +126,7 @@
     - service: media_player.volume_set
       entity_id: media_player.mpd_kitchen
       data:
-        volume_level: 0.3
+        volume_level: 0.4
         
     - service: media_player.volume_set
       entity_id: media_player.mpd_wc
@@ -106,7 +138,7 @@
       data_template:
         message: >
             <speak>
-            {{ ["Dzień dobry!", "Jak się masz?", "Czy masz ochotę na kawę?", 
+            {{ ["Dzień dobry!", "Witam, jak się masz?", "Dzień dobry. Czy masz ochotę na kawę?", 
             "Zapowiada się piękny dzień!", "Cześć! Dobrze że ktoś już wreszcie wstał!",
             "Cześć, może szklaneczkę wody?"] | random }}
             </speak>
@@ -167,6 +199,17 @@
         - cover.c_bonsai
         - cover.c_alice
         - cover.c_julia
+    - service: automation.turn_off
+      entity_id: automation.close_blind_at_dusk
+      
+- alias: 'Activate close blind on dusk'
+  trigger: 
+    - platform: time
+      at: '14:00'
+  action:
+    - service: automation.turn_on
+      entity_id: automation.close_blind_at_dusk
+    
 
 - alias: 'Main Door Open'
   trigger:

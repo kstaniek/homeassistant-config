@@ -1,0 +1,60 @@
+default:
+  title: Skin Change
+  title2: Default
+  widget_type: navigate
+  dashboard: Controls
+  skin: default
+
+glassic:
+  title: Skin Change
+  title2: Glassic
+  widget_type: navigate
+  dashboard: Controls
+  skin: glassic
+
+simplyred:
+  title: Skin Change
+  title2: Simply Red
+  widget_type: navigate
+  dashboard: Controls
+  skin: simplyred
+
+zen:
+  title: Skin Change
+  title2: Zen
+  widget_type: navigate
+  dashboard: Controls
+  skin: zen
+
+obsidian:
+  title: Skin Change
+  title2: Obsidian
+  widget_type: navigate
+  dashboard: Controls
+  skin: obsidian
+
+hass:
+  widget_type: navigate
+  title: Home Assistant
+  icon_inactive: mdi-select-all
+  dashboard: Hass
+
+alarm_outside:
+    widget_type: alarm
+    entity: alarm_control_panel.a_outside
+    title: Obejście
+
+alarm_downstairs:
+    widget_type: alarm
+    entity: alarm_control_panel.a_ground_floor
+    title: Parter
+
+alarm_upstairs:
+    widget_type: alarm
+    entity: alarm_control_panel.a_upper_floor
+    title: Piętro
+
+layout:
+  - alarm_outside, alarm_downstairs, alarm_upstairs
+  -
+  - default, obsidian, zen, simplyred, glassic, spacer(1x1), hass
