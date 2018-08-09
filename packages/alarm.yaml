@@ -13,7 +13,7 @@ automation:
             {%- for state in states.binary_sensor -%}
             {% if state.attributes['device_class'] == 'motion' -%}
             {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 60 ) -%}
-            {{ state.name[3:] }},
+            {{ state.name }},
             {%- endif %}
             {%- endif -%}
             {% endfor %}
@@ -33,12 +33,12 @@ automation:
         data_template:
           message: >-
             Ostatnio wykryto ruch następujących pomieszczeniach:
-            {%- for state in states.binary_sensor -%}
-            {% if state.attributes['device_class'] == 'motion' -%}
-            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 60 ) -%}
-            {{ state.name[3:] }},
-            {%- endif %}
-            {%- endif -%}
+            {% for state in states.binary_sensor %}
+            {% if state.attributes['device_class'] == 'motion' %}
+            {% if as_timestamp (state.last_changed) > (as_timestamp( now() ) - 60 ) %}
+            {{ state.name }},
+            {% endif %}
+            {% endif %}
             {% endfor %}
 
   - alias: Zone 1 armed
@@ -332,7 +332,7 @@ automation:
          message: 'Alarm'
          data:
            inline_keyboard:
-             - 'Task 1:/command1, Task 2:/command2'
+             - 'Ruch:/move, Task 2:/command2'
              - 'Task 3:/command3, Task 4:/command4'
            video:
              - file: '/tmp/capture_cam1.mp4'
