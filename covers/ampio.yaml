@@ -155,10 +155,8 @@
 - platform: ampio
   name: c_water_from_tank
   item: 0x1B2A/cover_position/3
-  tilt_item: 0x1B2A/tilt_position/3
 
 - platform: ampio
   name: c_garage_gate
   item: 0x1B2A/cover_position/4
-  tilt_item: 0x1B2A/tilt_position/4
 

@@ -82,7 +82,7 @@
 
 - name: m_bathroom
   platform: ampio
-  item: 0x1ecc/bin_input/17
+  item: 0x1ecc/bin_input/50
   device_class: motion
 
 - name: m_laundry
@@ -135,108 +135,107 @@
 - name: d_bathroom
   platform: ampio
   item: 0x1ecc/bin_input/17
-  device_class: opening
+  device_class: door
 
 - name: d_main
   platform: ampio
   item: 0x1ecc/bin_input/24
-  device_class: opening
+  device_class: door
   
 - name: d_garden
   platform: ampio
   item: 0x1ecc/bin_input/26
-  device_class: opening
+  device_class: door
 
 - name: d_wardrobe_garage
   platform: ampio
   item: 0x1ecc/bin_input/30
-  device_class: opening
+  device_class: door
 
 - name: d_wardrobe_ground
   platform: ampio
   item: 0x1ecc/bin_input/31
-  device_class: opening
+  device_class: door
  
 - name: d_engineroom
   platform: ampio
   item: 0x1ecc/bin_input/32
-  device_class: opening
+  device_class: door
 
 - name: d_glass
   platform: ampio
   item: 0x1ecc/bin_input/33
-  device_class: opening
+  device_class: door
 
 - name: d_wc
   platform: ampio
   item: 0x1ecc/bin_input/34
-  device_class: opening
+  device_class: door
 
 - name: d_office
   platform: ampio
   item: 0x1ecc/bin_input/35
-  device_class: opening
+  device_class: door
 
 - name: d_serverroom
   platform: ampio
   item: 0x1ecc/bin_input/36
-  device_class: opening
+  device_class: door
 
 - name: d_terrace
   platform: ampio
   item: 0x1ecc/bin_input/37
-  device_class: opening
+  device_class: door
 
 - name: d_pantry
   platform: ampio
   item: 0x1ecc/bin_input/39
-  device_class: opening
+  device_class: door
 
 - name: d_emily
   platform: ampio
   item: 0x1ecc/bin_input/42
-  device_class: opening
+  device_class: door
 
 - name: d_emily_wardrobe
   platform: ampio
   item: 0x1ecc/bin_input/43
-  device_class: opening
+  device_class: door
 
 - name: d_julia
   platform: ampio
   item: 0x1ecc/bin_input/46
-  device_class: opening
+  device_class: door
 
 - name: d_julia_wardrobe
   platform: ampio
   item: 0x1ecc/bin_input/47
-  device_class: opening
-
+  device_class: door
 
 - name: d_laundry
   platform: ampio
   item: 0x1ecc/bin_input/51
-  device_class: opening
+  device_class: door
 
 - name: d_alice
   platform: ampio
   item: 0x1ecc/bin_input/54
-  device_class: opening
+  device_class: door
 
 - name: d_masterbedroom
   platform: ampio
   item: 0x1ecc/bin_input/57
-  device_class: opening
+  device_class: door
 
 - name: d_masterbathroom
   platform: ampio
   item: 0x1ecc/bin_input/58
-  device_class: opening
+  device_class: door
 
 - name: d_masterbedroom_wordrobe
   platform: ampio
   item: 0x1ecc/bin_input/61
-  device_class: opening
+  device_class: door
 
 # Movement outside
 - name: m_entrance
@@ -288,79 +287,79 @@
 - name: l_main_door
   platform: ampio
   item: 0x1ecc/bin_input/25
-  device_class: safety
+  device_class: lock
 
 - name: l_garden_door
   platform: ampio
   item: 0x1ecc/bin_input/27
-  device_class: safety
+  device_class: lock
 
 
 # WINDOWS
 - name: w_kitchen
   platform: ampio
   item: 0x1ecc/bin_input/40
-  device_class: opening
+  device_class: window
 
 - name: w_kitchen_ajar
   platform: ampio
   item: 0x1ecc/bin_input/41
-  device_class: opening
+  device_class: window
 
 - name: w_emily_ajar
   platform: ampio
   item: 0x1ecc/bin_input/45
-  device_class: opening
+  device_class: window
 
 - name: w_julia
   platform: ampio
   item: 0x1ecc/bin_input/48
-  device_class: opening
+  device_class: window
 
 - name: w_julia_ajar
   platform: ampio
   item: 0x1ecc/bin_input/49
-  device_class: opening
+  device_class: window
 
 - name: w_loundry
   platform: ampio
   item: 0x1ecc/bin_input/52
-  device_class: opening
+  device_class: window
 
 - name: w_loundry_ajar
   platform: ampio
   item: 0x1ecc/bin_input/53
-  device_class: opening
+  device_class: window
 
 - name: w_alice_ajar
   platform: ampio
-  item: 0x1ecc/bin_input/54
-  device_class: opening
+  item: 0x1ecc/bin_input/56
+  device_class: window
 
 - name: w_masterbedroom_ajar
   platform: ampio
   item: 0x1ecc/bin_input/60
-  device_class: opening
+  device_class: window
 
 - name: w_masterbedroom_wardrobe
   platform: ampio
   item: 0x1ecc/bin_input/62
-  device_class: opening
+  device_class: window
 
 - name: w_masterbedroom_wardrobe_ajar
   platform: ampio
   item: 0x1ecc/bin_input/63
-  device_class: opening
+  device_class: window
 
 - name: w_masterbathroom
   platform: ampio
   item: 0x1ecc/bin_input/64
-  device_class: opening
+  device_class: window
 
 - name: w_masterbathroom_ajar
   platform: ampio
   item: 0x1ecc/bin_input/65
-  device_class: opening
+  device_class: window
 
 - name: f_engineroom
   platform: ampio

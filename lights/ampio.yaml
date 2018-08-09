@@ -1,5 +1,76 @@
-# WC
+# walls
 
+- platform: group
+  name: l_ground_all_lights
+  entities:
+    - light.l_wc_mled1
+    - light.l_wc_mled2
+    - light.l_wc_led
+    - light.l_antre_mled1
+    - light.l_antre_mled2
+    - light.l_antre_mled3
+    - light.l_antre_mled4
+    - light.l_antre_mled5
+    - light.l_antre_mled6
+    - light.l_kitchen_mled1
+    - light.l_kitchen_mled2
+    - light.l_kitchen_mled3
+    - light.l_kitchen_mled4
+    - light.l_kitchen_mled5
+    - light.l_kitchen_mled6
+    - light.l_kitchen_mled7
+    - light.l_kitchen_mled8
+    - light.l_kitchen_mled9
+    - light.l_kitchen_mled10
+    - light.l_kitchen_workbench
+    - light.l_salon_mled1
+    - light.l_salon_mled2  
+    - light.l_salon_mled3  
+    - light.l_salon_mled4  
+    - light.l_salon_mled5  
+    - light.l_salon_mled6  
+    - light.l_salon_mled7  
+    - light.l_salon_mled8  
+    - light.l_salon_mled9  
+    - light.l_salon_mled10  
+    - light.l_salon_mled11 
+    - light.l_salon_mled12
+    - light.l_sofa_mled1
+    - light.l_sofa_mled2
+    - light.l_sofa_mled3
+    - light.l_sofa_mled4
+    - light.l_sofa_mled5
+    - light.l_sofa_mled6
+    - light.rgb_salon
+    - light.rgb_stairs
+    - light.l_dining_table
+    - light.l_salon_tubes
+    - light.l_garage_side
+    - light.l_garage_middle
+    - light.l_garage_back
+    - light.l_engine_room
+    - light.l_server_room
+    - light.l_pantry
+    - light.l_wardrobe
+    - light.l_office
+
+- platform: group
+  name: l_hol_mled
+  entities:
+  - light.l_hol_mled1
+  - light.l_hol_mled2
+  - light.l_hol_mled3
+  - light.l_hol_mled4
+
+- platform: group
+  name: l_walls
+  entities:
+    - light.l_wall_e
+    - light.l_wall_s
+    - light.l_wall_w
+    - light.l_wall_n
+
+# WC
 
 - platform: group
   name: l_wc
@@ -8,6 +79,30 @@
   - light.l_wc_mled2
   - light.l_wc_led
   
+- platform: group
+  name: l_antre
+  entities:
+    - light.l_antre_mled1
+    - light.l_antre_mled2
+    - light.l_antre_mled3
+    - light.l_antre_mled4
+    - light.l_antre_mled5
+    - light.l_antre_mled6
+
+- platform: group
+  name: l_kitchen_mled
+  entities:
+  - light.l_kitchen_mled1
+  - light.l_kitchen_mled2
+  - light.l_kitchen_mled3
+  - light.l_kitchen_mled4
+  - light.l_kitchen_mled5
+  - light.l_kitchen_mled6
+  - light.l_kitchen_mled7
+  - light.l_kitchen_mled8
+  - light.l_kitchen_mled9
+  - light.l_kitchen_mled10
+
 - platform: group
   name: l_kitchen
   entities:
@@ -56,8 +151,81 @@
   - light.l_hol_mled2
   - light.l_hol_mled3
   - light.l_hol_mled4
+
+- platform: group
+  name: l_masterbathroom_mled
+  entities:
+  - light.l_master_bathroom_mled1
+  - light.l_master_bathroom_mled2
+  - light.l_master_bathroom_mled3
+  - light.l_master_bathroom_mled4
+  - light.l_master_bathroom_mled5
+  - light.l_master_bathroom_mled6
+  - light.l_master_bathroom_mled7
+  - light.l_master_bathroom_mled8
+  - light.l_master_bathroom_mled9
+  - light.l_master_bathroom_mled10
+  
+- platform: group
+  name: l_masterbathroom
+  entities:
+  - light.l_master_bathroom_mled1
+  - light.l_master_bathroom_mled2
+  - light.l_master_bathroom_mled3
+  - light.l_master_bathroom_mled4
+  - light.l_master_bathroom_mled5
+  - light.l_master_bathroom_mled6
+  - light.l_master_bathroom_mled7
+  - light.l_master_bathroom_mled8
+  - light.l_master_bathroom_mled9
+  - light.l_master_bathroom_mled10
+  - light.l_masterbathroom_led
+    
+  
+- platform: group
+  name: l_bathroom_mled
+  entities:
+  - light.l_bathroom_mled11
+  - light.l_bathroom_mled12
+  - light.l_bathroom_mled13
+  - light.l_bathroom_mled14
+  - light.l_bathroom_mled15
+  - light.l_bathroom_mled16
   
 
+# antre room  
+- platform: ampio
+  name: l_antre_mled1
+  item: 0x1e53/bin_output/1
+  bright_item: 0x1e53/output/1
+
+- platform: ampio
+  name: l_antre_mled2
+  item: 0x1e53/bin_output/2
+  bright_item: 0x1e53/output/2
+
+- platform: ampio
+  name: l_antre_mled3
+  item: 0x1e53/bin_output/3
+  bright_item: 0x1e53/output/3
+
+- platform: ampio
+  name: l_antre_mled4
+  item: 0x1e53/bin_output/4
+  bright_item: 0x1e53/output/4
+
+- platform: ampio
+  name: l_antre_mled5
+  item: 0x1e53/bin_output/5
+  bright_item: 0x1e53/output/5
+  
+- platform: ampio
+  name: l_antre_mled6
+  item: 0x1e53/bin_output/6
+  bright_item: 0x1e53/output/6
+  
+
+# WC
 - platform: ampio
   name: l_wc_mled1
   item: 0x1e53/bin_output/7
@@ -72,6 +240,14 @@
   name: l_wc_led
   item: 0x1885/bin_output/3
   bright_item: 0x1885/output/3
+
+# Lanudry
+- platform: ampio
+  name: l_laundry_mled1
+  item: 0x1e53/bin_output/9
+  bright_item: 0x1e53/output/9
+
+
 
 # Master bathroom
 - platform: ampio
@@ -367,6 +543,21 @@
   name: l_kitchen_workbench
   item: 0x00001a1e/bin_output/2
   
+# garage - side
+- platform: ampio
+  name: l_garage_side
+  item: 0x00001a1e/bin_output/3
+  
+# garage - middle
+- platform: ampio
+  name: l_garage_middle
+  item: 0x00001a1e/bin_output/5
+  
+# garage - back
+- platform: ampio
+  name: l_garage_back
+  item: 0x00001a1e/bin_output/6
+  
 # engine_room
 - platform: ampio
   name: l_engine_room
@@ -377,18 +568,156 @@
   name: l_pictures
   item: 0x00001a1e/bin_output/8
   
+# server room
+- platform: ampio
+  name: l_server_room
+  item: 0x1a1e/bin_output/4
+  
+# julia 
+- platform: ampio
+  name: l_julia
+  item: 0x19c7/bin_output/1
+  bright_item: 0x19c7/output/1
 
+# emily
+- platform: ampio
+  name: l_emily
+  item: 0x19c7/bin_output/2
+  bright_item: 0x19c7/output/2
+  
+# Sypialnia wejście
+- platform: ampio
+  name: l_masterbedroom_entry
+  item: 0x19c7/bin_output/3
+  bright_item: 0x19c7/output/3
+  
+# Emily Wardrobe
+- platform: ampio
+  name: l_emily_wardrobe
+  item: 0x19c7/bin_output/4
+  bright_item: 0x19c7/output/4
+  
+# Masterbedroom Wardrobe
+- platform: ampio
+  name: l_masterbedroom_wardrobe
+  item: 0x19c7/bin_output/5
+  bright_item: 0x19c7/output/5
+  
+# Masterbedroom 
+- platform: ampio
+  name: l_masterbedroom
+  item: 0x19c7/bin_output/6
+  bright_item: 0x19c7/output/6
+  
+# Terrace 
+- platform: ampio
+  name: l_terrace
+  item: 0x19c7/bin_output/7
+  bright_item: 0x19c7/output/7
+
+# Sconce
+- platform: ampio
+  name: l_sconce
+  item: 0x13ec/bin_output/1
+  bright_item: 0x13ec/output/1
+  
+  
+# Pantry
+- platform: ampio
+  name: l_pantry
+  item: 0x13ec/bin_output/2
+  bright_item: 0x13ec/output/2
+  
+# Wardrobe on ground
+- platform: ampio
+  name: l_wardrobe
+  item: 0x13ec/bin_output/3
+  bright_item: 0x13ec/output/3
+  
+# Sofa not used
+- platform: ampio
+  name: l_sofa_not_used
+  item: 0x13ec/bin_output/4
+  bright_item: 0x13ec/output/4
 
 # office
 - platform: ampio
   name: l_office
   item: 0x13ec/bin_output/5
   bright_item: 0x13ec/output/5
-
-# server room
-- platform: ampio
-  name: l_server_room
-  item: 0x1a1e/bin_output/4
   
+# Stairs
+- platform: ampio
+  name: l_stairs
+  item: 0x13ec/bin_output/6
+  bright_item: 0x13ec/output/6
+  
+# Julia Wardrobe
+- platform: ampio
+  name: l_julia_wardrobe
+  item: 0x13ec/bin_output/7
+  bright_item: 0x13ec/output/7
+  
+# Alice
+- platform: ampio
+  name: l_alice
+  item: 0x13ec/bin_output/8
+  bright_item: 0x13ec/output/8
+
+
+# Outside
+- platform: ampio
+  name: l_window_north
+  item: 0x1a22/bin_output/1
+
+- platform: ampio
+  name: l_wall_e
+  item: 0x1a22/bin_output/2
+
+- platform: ampio
+  name: l_wall_s
+  item: 0x1a22/bin_output/3
+
+- platform: ampio
+  name: l_wall_w
+  item: 0x1a22/bin_output/4
+
+- platform: ampio
+  name: l_bonsai
+  item: 0x1a22/bin_output/5
+
+- platform: ampio
+  name: l_wall_n
+  item: 0x1a22/bin_output/6
+
+- platform: ampio
+  name: l_entrace
+  item: 0x1a22/bin_output/7
+
+- platform: ampio
+  name: l_garage_terrace
+  item: 0x1a22/bin_output/8
+
+- platform: ampio
+  name: l_halogen_terrace
+  item: 0x1ae0/bin_output/4
+
+- platform: ampio
+  name: l_halogen_garage
+  item: 0x1ae0/bin_output/5
+
+- platform: ampio
+  name: l_halogen_garden
+  item: 0x1ae0/bin_output/6
+
+- platform: ampio
+  name: l_halogen_north
+  item: 0x1ae0/bin_output/7
+
+- platform: ampio
+  name: l_halogen_gate
+  item: 0x1ae0/bin_output/8
+
+
 
 

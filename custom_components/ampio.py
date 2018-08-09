@@ -12,7 +12,7 @@ from homeassistant.helpers.discovery import async_load_platform
 DOMAIN = "ampio"
 
 
-REQUIREMENTS = ['pyampio==0.1.5']
+REQUIREMENTS = ['pyampio==0.1.8']
 
 CONF_AUTOCONFIG = 'autoconfig'
 CONF_MODULE = 'module'
@@ -30,6 +30,24 @@ ATTR_DISCOVER_ITEMS = "items"
 ATTR_MODULE_NAME = 'module_name'
 ATTR_MODULE_PART_NUMBER = 'module_part_number'
 ATTR_CAN_ID = 'can_id'
+ATTR_NAME = 'name'
+DEFAULT_NAME = 'modbus'
+
+ATTR_MODBUS_ADDRESS = 'address'
+ATTR_MODBUS_OPERATION = 'operation'
+ATTR_MODBUS_INDEX = 'index'
+ATTR_MODBUS_VALUE = 'value'
+
+MODBUS_SERVICE_SCHEMA = vol.Schema({
+    vol.Required(ATTR_CAN_ID): vol.Coerce(int),
+    vol.Required(ATTR_MODBUS_ADDRESS): vol.Coerce(int),
+    vol.Required(ATTR_MODBUS_OPERATION): vol.Coerce(int),
+    vol.Required(ATTR_MODBUS_INDEX): vol.Coerce(int),
+    vol.Required(ATTR_MODBUS_VALUE): vol.Coerce(int)
+})
+
+
+SERVICE_MODBUS_SEND = 'modbus_send'
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -111,6 +129,7 @@ def on_discovered(hass, config, modules):
     return
 
 
+
 @asyncio.coroutine
 def async_setup(hass, config):
     from pyampio.gateway import AmpioGateway
@@ -127,6 +146,39 @@ def async_setup(hass, config):
     _LOGGER.info("Waiting for discovery to be ready")
     while not ampio_gw.is_ready:
         yield
+
+    @asyncio.coroutine
+    def async_handle_modbus_send(service):
+        can_id = service.data.get(ATTR_CAN_ID)
+        if can_id is None:
+            _LOGGER.error("Service attribute 'can_id' missing")
+            return
+        can_id = int(can_id, 0)
+        address = service.data.get(ATTR_MODBUS_ADDRESS)
+        if address is None:
+            _LOGGER.error("Service attribute 'address' missing")
+            return
+
+        operation = service.data.get(ATTR_MODBUS_OPERATION)
+        if operation is None:
+            _LOGGER.error("Service attribute 'operation' missing")
+            return
+
+        index = service.data.get(ATTR_MODBUS_INDEX)
+        if index is None:
+            _LOGGER.error("Service attribute 'index' missing")
+            return
+
+        value = service.data.get(ATTR_MODBUS_VALUE)
+        if value is None:
+            _LOGGER.error("Service attribute 'value' missing")
+            return
+
+        _LOGGER.error("Sending MODBUS frame: {} {} {} {} {}".format(can_id, address, operation, index, value))
+        yield from hass.data[DOMAIN].send_modbus(can_id, address, operation, index, value)
+
+    hass.services.async_register(
+        DOMAIN, SERVICE_MODBUS_SEND, async_handle_modbus_send)
 
     return True
 

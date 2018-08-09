@@ -5,7 +5,8 @@ import voluptuous as vol
 
 from homeassistant.const import (
     ATTR_ENTITY_ID, CONF_DEVICE_CLASS, CONF_ENTITY_ID, CONF_NAME,
-    STATE_UNKNOWN, CONF_FRIENDLY_NAME,ATTR_ATTRIBUTION, ATTR_FRIENDLY_NAME)
+    STATE_UNKNOWN, CONF_FRIENDLY_NAME,ATTR_ATTRIBUTION, ATTR_FRIENDLY_NAME,
+    ATTR_UNIT_OF_MEASUREMENT)
 from homeassistant.components.binary_sensor import (
     DEVICE_CLASSES_SCHEMA, PLATFORM_SCHEMA, BinarySensorDevice)
 import homeassistant.helpers.config_validation as cv
@@ -59,6 +60,12 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_TYPE): cv.string,
 })
 
+item_to_icon_map = {
+    "humidity": "mdi:water-percent",
+    "meansealevelpressure": "mdi:gauge",
+    "temperature": "mdi:thermometer"
+}
+
 
 @asyncio.coroutine
 def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
@@ -97,6 +104,8 @@ class AmpioSensor(Ampio, Entity):
         self._device_class = config.get(CONF_DEVICE_CLASS, None)
         self._attributes = dict()
 
+        self._unit_of_measurement = config.get(ATTR_UNIT_OF_MEASUREMENT, self.ampio.get_item_measurement_unit(*self.config[CONF_ITEM]))
+
         self._attributes[ATTR_MODULE_NAME] = self.ampio.get_module_name(self._can_id)
         self._attributes[ATTR_MODULE_PART_NUMBER] = self.ampio.get_module_part_number(self._can_id)
         self._attributes[ATTR_CAN_ID] = "{:08x}".format(self._can_id)
@@ -109,6 +118,12 @@ class AmpioSensor(Ampio, Entity):
     def name(self):
         """Return the name of the entity."""
         return self._name
+
+    @property
+    def icon(self):
+        """Return the corresponding icon."""
+        value_type = self.config[CONF_ITEM][1]
+        return item_to_icon_map.get(value_type, None)
 
     @property
     def registry_name(self):
@@ -127,7 +142,6 @@ class AmpioSensor(Ampio, Entity):
             else:
                 self._registry_name = None
 
-
     @property
     def should_poll(self):
         """No polling needed for Ampio"""
@@ -141,4 +155,4 @@ class AmpioSensor(Ampio, Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit this state is expressed in."""
-        return self.ampio.get_item_measurement_unit(*self.config[CONF_ITEM])
+        return self._unit_of_measurement

@@ -21,7 +21,14 @@ sensor.travel_home_koniory:
   friendly_name: Do Koniorów
 climate.h_bathroom:
   friendly_name: Łazienka
-  
+
+sensor.iframe_windy:
+  custom_ui_state_card: state-card-iframe
+  config:
+   height: 350
+   width: 108
+   scale: 1
+   url: https://embed.windy.com/embed2.html?gust,50.34726857557305,19.04756418005775
 
 zone.gabinet:
   track_ios: true

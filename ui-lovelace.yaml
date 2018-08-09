@@ -1,0 +1,1665 @@
+resources:
+  - url: /local/custom_ui/weather-card.js
+    type: js
+  - url: /local/custom_ui/gauge-card.js
+    type: js
+  - url: /local/custom_ui/multisense-card.js
+    type: js
+
+title: The Stanieks Home
+views:
+  - icon: mdi:weather-cloudy
+    id: weather
+    title: Weather
+    cards:
+      - type: "custom:weather-card"
+        entity_weather: weather.yweather
+        entity_sun: sun.sun
+      
+      - type: entities
+        title: Pogoda
+        entities:
+          - sensor.pws_weather
+          - sensor.pws_temp_f
+          - sensor.pws_relative_humidity
+          - sensor.pws_wind_string
+          - sensor.dark_sky_cloud_coverage
+          - sensor.dark_sky_hourly_summary
+          - sensor.dark_sky_daily_summary
+      - type: entities
+        title: Słońce
+        entities:
+          - sun.sun
+          - sensor.sun_azimuth
+          - sensor.sun_elevation
+          
+      - type: entities
+        title: Prognoza
+        entities:
+          - sensor.forecast_0
+          - sensor.forecast_1
+          - sensor.forecast_2
+          - sensor.forecast_3
+          - sensor.forecast_4
+          - sensor.forecast_5
+          - sensor.forecast_6
+          - sensor.forecast_7
+      
+      - type: picture-entity
+        entity: camera.meteo    
+      - type: iframe
+        aspect_ratio: 70%
+        url: https://embed.windy.com/embed2.html?lat=50.240&lon=19.028&zoom=10&level=surface&overlay=rain&menu=&message=true&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=&detailLat=50.319&detailLon=19.028&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1
+
+  - icon: mdi:page-layout-footer
+    id: ground
+    title: Ground Floor
+    cards:
+      - type: picture-elements
+        image: /local/ground_floor.png
+        elements:
+          - type: service-button
+            title: Wyłącz Światło
+            style:
+              top: 70%
+              left: 20%
+              padding: 0px
+            service: light.turn_off
+            service_data:
+              entity_id: group.all_lights
+          
+          - type: state-icon
+            entity: light.l_dining_table
+            # tap_action: toggle
+            style:
+              top: 22%
+              left: 70%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_dining_table
+            # tap_action: toggle
+            style:
+              top: 22%
+              left: 75%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: light.l_pantry
+            tap_action: toggle
+            style:
+              top: 37%
+              left: 87%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          
+          - type: state-icon
+            entity: light.l_kitchen_mled
+            # tap_action: toggle
+            style:
+              top: 15%
+              left: 70%
+              
+          - type: state-icon
+            entity: light.l_kitchen_workbench
+            tap_action: toggle
+            style:
+              top: 25%
+              left: 90%
+              width: 5%
+              padding: 50px 50px 100px 50px
+          
+          - type: state-icon
+            entity: light.l_salon_mled
+            # tap_action: toggle
+            style:
+              top: 32%
+              left: 40%
+              width: 5%
+              
+          - type: state-icon
+            entity: light.l_sofa_mled
+            # tap_action: toggle
+            style:
+              top: 15%
+              left: 42%
+              width: 5%
+
+          - type: state-icon
+            entity: light.l_salon_tubes
+            # tap_action: toggle
+            style:
+              top: 36%
+              left: 65%
+              width: 5%
+
+          - type: state-icon
+            entity: light.l_hol_mled
+            # tap_action: toggle
+            style:
+              top: 44%
+              left: 55%
+              width: 5%
+              
+          - type: state-icon
+            entity: light.l_antre
+            tap_action: toggle
+            style:
+              top: 44%
+              left: 75%
+              width: 5%
+              
+          - type: state-icon
+            entity: light.l_server_room
+            tap_action: toggle
+            style:
+              top: 75%
+              left: 50%
+              width: 5%
+              
+          - type: state-icon
+            entity: light.l_garage_back
+            tap_action: toggle
+            style:
+              top: 87%
+              left: 50%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_garage_back
+            tap_action: toggle
+            style:
+              top: 87%
+              left: 60%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          
+          - type: state-icon
+            entity: light.l_garage_side
+            tap_action: toggle
+            style:
+              top: 67%
+              left: 70%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_garage_side
+            tap_action: toggle
+            style:
+              top: 67%
+              left: 80%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_garage_side
+            tap_action: toggle
+            style:
+              top: 87%
+              left: 70%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_garage_side
+            tap_action: toggle
+            style:
+              top: 87%
+              left: 80%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_garage_middle
+            tap_action: toggle
+            style:
+              top: 77%
+              left: 70%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_garage_middle
+            tap_action: toggle
+            style:
+              top: 77%
+              left: 80%
+              width: 5%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_office
+            # tap_action: toggle
+            style:
+              top: 60%
+              left: 50%
+              width: 5%
+              
+          - type: state-icon
+            entity: light.l_engine_room
+            tap_action: toggle
+            style:
+              top: 56%
+              left: 71%
+              width: 5%
+          
+          - type: state-icon
+            entity: light.l_wc
+            tap_action: toggle
+            style:
+              top: 56%
+              left: 64%
+              width: 5%
+              
+          - type: state-icon
+            entity: light.l_wardrobe
+            tap_action: toggle
+            style:
+              top: 56%
+              left: 87%
+              width: 5%
+
+          - type: state-label
+            entity: sensor.00001ccc_temperature_1
+            # salon
+            style:
+              top: 30%
+              left: 65%
+              #'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 10px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+              
+          - type: state-label
+            entity: sensor.00002144_temperature_1
+            # server room
+            style:
+              top: 71%
+              left: 40%
+              transform: rotate(270deg)
+              # 'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 10px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+              
+          - type: state-label
+            entity: sensor.00001cd8_temperature_1
+            # office
+            style:
+              top: 52%
+              left: 52%
+              # 'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 10px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+              
+          - type: state-label
+            entity: sensor.000026c6_temperature_1
+            # garage
+            style:
+              top: 62%
+              left: 78%
+              # 'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 10px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+              
+          - type: state-icon
+            entity: binary_sensor.m_salon
+            style:
+              top: 22%
+              left: 55%
+              
+          - type: state-icon
+            entity: binary_sensor.m_hall_groundfloor
+            style:
+              top: 40%
+              left: 60%
+              
+          - type: state-icon
+            entity: binary_sensor.m_kitchen
+            style:
+              top: 22%
+              left: 87%
+              
+          - type: state-icon
+            entity: binary_sensor.d_garden
+            style:
+              top: 87%
+              left: 42%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.l_garden_door 
+            style:
+              top: 85%
+              left: 45%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: binary_sensor.d_glass 
+            style:
+              top: 42%
+              left: 67%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.l_main_door 
+            style:
+              top: 44%
+              left: 84%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_serverroom
+            style:
+              top: 70%
+              left: 54%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_office
+            style:
+              top: 49%
+              left: 59%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_wc
+            style:
+              top: 49%
+              left: 66%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: binary_sensor.d_engineroom
+            style:
+              top: 49%
+              left: 71%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_wardrobe_ground
+            style:
+              top: 49%
+              left: 84%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_wardrobe_garage
+            style:
+              top: 60%
+              left: 84%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_main
+            style:
+              top: 47%
+              left: 87%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_pantry
+            style:
+              top: 32%
+              left: 88%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+             
+          - type: state-icon
+            entity: cover.c_garage_gate
+            style:
+              top: 75%
+              left: 94%
+              
+          - type: state-icon
+            entity: cover.c_livingroom
+            style:
+              top: 42%
+              left: 29%
+              
+          - type: state-icon
+            entity: cover.c_livingroom_terrace
+            style:
+              top: 25%
+              left: 21%
+              
+          - type: state-icon
+            entity: cover.c_kitchen_north
+            style:
+              top: 2%
+              left: 88%
+              
+          - type: state-icon
+            entity: cover.c_kitchen_east
+            style:
+              top: 12%
+              left: 97%
+              
+          - type: state-icon
+            entity: cover.c_kitchen_east
+            style:
+              top: 12%
+              left: 97%
+              
+          - type: state-icon
+            entity: cover.c_office_north
+            style:
+              top: 47%
+              left: 45%
+              
+          - type: state-icon
+            entity: cover.c_office_west
+            style:
+              top: 55%
+              left: 41%
+              
+          - type: state-icon
+            entity: cover.c_bonsai
+            style:
+              top: 43%
+              left: 49%
+              
+          - type: state-icon
+            entity: light.l_wall_n
+            tap_action: toggle
+            style:
+              top: 2%
+              left: 40%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_wall_n
+            tap_action: toggle
+            style:
+              top: 2%
+              left: 80%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_wall_e
+            tap_action: toggle
+            style:
+              top: 55%
+              left: 96%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: light.l_wall_s
+            tap_action: toggle
+            style:
+              top: 96%
+              left: 55%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_wall_s
+            tap_action: toggle
+            style:
+              top: 96%
+              left: 80%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_wall_w
+            tap_action: toggle
+            style:
+              top: 65%
+              left: 40%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_wall_w
+            tap_action: toggle
+            style:
+              top: 80%
+              left: 40%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_halogen_garden
+            tap_action: toggle
+            style:
+              top: 77%
+              left: 35%
+              
+          - type: state-icon
+            entity: light.l_halogen_terrace
+            tap_action: toggle
+            style:
+              top: 30%
+              left: 2%
+              
+          - type: state-icon
+            entity: binary_sensor.m_salon
+            style:
+              top: 22%
+              left: 55%
+          
+          - type: state-icon
+            entity: binary_sensor.m_office
+            style:
+              top: 67%
+              left: 50%
+              --iron-icon-height: 20px
+              --iron-icon-width: 20px
+              
+          - type: state-icon
+            entity: binary_sensor.m_curtain_groundfloor
+            style:
+              top: 9%
+              left: 63%
+              --iron-icon-height: 20px
+              --iron-icon-width: 20px
+              
+              
+          - type: image
+            entity: camera.main_door_live
+            camera_image: camera.main_door_live
+            style: 
+              top: 42%
+              left: 90%
+              width: 5%
+              border: 2px solid green
+              border-radius: 100%
+
+  - icon: mdi:page-layout-header
+    id: upper
+    title: Piętro
+    cards:
+      - type: picture-elements
+        image: /local/upper_floor.png
+        elements:
+          - type: service-button
+            title: Wyłącz Światło
+            style:
+              top: 95%
+              left: 20%
+              padding: 0px
+            service: light.turn_off
+            service_data:
+              entity_id: group.all_lights
+          
+          - type: state-icon
+            entity: binary_sensor.d_masterbedroom_wordrobe
+            style:
+              top: 28%
+              left: 16%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_masterbathroom
+            style:
+              top: 28%
+              left: 32%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: binary_sensor.d_emily_wardrobe
+            style:
+              top: 16.5%
+              left: 66%
+              transform: rotate(270deg)
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: binary_sensor.d_emily
+            style:
+              top: 28%
+              left: 66%
+              transform: rotate(270deg)
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+          
+          - type: state-icon
+            entity: binary_sensor.d_julia
+            style:
+              top: 40%
+              left: 67%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_julia_wardrobe
+            style:
+              top: 52%
+              left: 69%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_alice
+            style:
+              top: 40%
+              left: 42%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_laundry
+            style:
+              top: 58%
+              left: 55%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_masterbedroom
+            style:
+              top: 27%
+              left: 34%
+              transform: rotate(270deg)
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_bathroom
+            style:
+              top: 54%
+              left: 62%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.d_bathroom
+            style:
+              top: 40%
+              left: 55%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_bathroom_mled
+            style:
+              top: 50%
+              left: 56%
+              
+          - type: state-icon
+            entity: light.l_bathroom_led
+            style:
+              top: 50%
+              left: 51%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-label
+            entity: sensor.000026cc_temperature_1
+            # bathroom
+            style:
+              top: 45%
+              left: 60%
+              #'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 8px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+              
+          - type: state-label
+            entity: sensor.000026cc_humidity_1
+            # bathroom
+            style:
+              top: 49%
+              left: 60%
+              #'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 8px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+          
+          - type: state-icon
+            entity: binary_sensor.m_alice
+            style:
+              top: 48%
+              left: 45%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_julia
+            style:
+              top: 55%
+              left: 80%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_emily
+            style:
+              top: 35%
+              left: 80%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_masterbedroom
+            style:
+              top: 55%
+              left: 20%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_masterbedroom_hall
+            style:
+              top: 35%
+              left: 27%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_masterbathroom
+            style:
+              top: 15%
+              left: 27%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_masterbedroom_wardrobe
+            style:
+              top: 15%
+              left: 19%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.m_curtain_firstfloor
+            style:
+              top: 24%
+              left: 48%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+            
+              
+        
+          # Lights
+          - type: state-icon
+            entity: light.l_masterbedroom
+            style:
+              top: 55%
+              left: 15%
+          
+          - type: state-icon
+            entity: light.l_masterbedroom_entry
+            style:
+              top: 35%
+              left: 34%
+          
+          - type: state-icon
+            entity: light.l_masterbedroom_wardrobe
+            tap_action: toggle
+            style:
+              top: 18%
+              left: 13%
+              
+          - type: state-icon
+            entity: light.l_emily_wardrobe
+            tap_action: toggle
+            style:
+              top: 18%
+              left: 67%
+              
+          - type: state-icon
+            entity: light.l_julia_wardrobe
+            tap_action: toggle
+            style:
+              top: 60%
+              left: 67%
+              
+          - type: state-icon
+            entity: light.l_julia
+            tap_action: toggle
+            style:
+              top: 60%
+              left: 87%
+          
+          - type: state-icon
+            entity: light.l_emily
+            tap_action: toggle
+            style:
+              top: 20%
+              left: 87%
+          
+          - type: state-icon
+            entity: light.l_alice
+            tap_action: toggle
+            style:
+              top: 60%
+              left: 37%
+          
+          - type: state-icon
+            entity: light.l_masterbathroom_mled
+            tap_action: toggle
+            style:
+              top: 22%
+              left: 40%
+              
+          - type: state-icon
+            entity: light.l_masterbathroom_led
+            tap_action: toggle
+            style:
+              top: 12%
+              left: 30%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_stairs
+            tap_action: toggle
+            style:
+              top: 14%
+              left: 50%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_stairs
+            tap_action: toggle
+            style:
+              top: 14%
+              left: 55%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: light.l_stairs
+            tap_action: toggle
+            style:
+              top: 14%
+              left: 60%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          
+              
+              
+          # covers
+          
+          - type: state-icon
+            entity: cover.c_masterbedroom
+            style:
+              top: 39%
+              left: 2%
+              
+          - type: state-icon
+            entity: cover.c_emily
+            style:
+              top: 30%
+              left: 98%
+          
+          - type: state-icon
+            entity: cover.c_julia
+            style:
+              top: 78%
+              left: 77%
+              
+          - type: state-icon
+            entity: cover.c_washing
+            style:
+              top: 78%
+              left: 55%
+          
+          - type: state-icon
+            entity: cover.c_alice
+            style:
+              top: 78%
+              left: 39%
+              
+          - type: state-icon
+            entity: cover.c_masterbathroom
+            style:
+              top: 3.3%
+              left: 36%
+              
+          - type: state-icon
+            entity: cover.c_masterbedroom_wardrobe
+            style:
+              top: 3.3%
+              left: 16%
+           
+          # windows   
+          - type: state-icon
+            entity: binary_sensor.w_masterbedroom_ajar
+            style:
+              top: 35%
+              left: 6%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          # windows   
+          - type: state-icon
+            entity: binary_sensor.w_alice_ajar
+            style:
+              top: 69%
+              left: 35%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.w_emily_ajar
+            style:
+              top: 22%
+              left: 94%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          - type: state-icon
+            entity: binary_sensor.w_julia_ajar
+            style:
+              top: 68%
+              left: 80%
+              --iron-icon-height: 16px
+              --iron-icon-width: 16px
+              
+          
+              
+          - type: state-label
+            entity: sensor.000026ce_temperature_1
+            # masterbathroom
+            style:
+              top: 10%
+              left: 40%
+              #'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 10px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+              
+          - type: state-label
+            entity: sensor.000026ce_humidity_1
+            # masterbathroom
+            style:
+              top: 14%
+              left: 40%
+              #'background-color': gray
+              # 'background': center / contain no-repeat url("/local/icons/ecobee_blank.png")
+              'text-align': center
+              'font-size': 10px
+              'color': blue
+              'font-family': Helvetica
+              'display': block
+              'overflow': hidden
+          
+  - icon: mdi:fan
+    id: recu
+    title: Wentylacja
+    cards:
+    - type: picture-elements
+      image: /local/recu.png
+      elements:
+        - type: custom:hui-picture-entity-card
+          entity: binary_sensor.recuperator_bypass
+          state_image:
+            "on": /local/recu_bypass.png
+            "off": /local/recu.png
+          show_info: false
+          style:
+            top: 50%
+            left: 50%
+            width: 100%
+              
+        - type: state-label
+          entity: sensor.rec_temp_intake
+          style:
+            top: 60%
+            left: 17%
+            
+        - type: state-label
+          entity: sensor.rec_temp_supply
+          style:
+            top: 13%
+            left: 78%
+            
+        - type: state-label
+          entity: sensor.rec_temp_exhaust
+          style:
+            top: 13%
+            left: 35%
+            
+        - type: state-label
+          entity: sensor.rec_temp_ambient
+          style:
+            top: 82%
+            left: 40%
+        
+        - type: state-label
+          entity: sensor.rec_supply_power
+          style:
+            top: 32%
+            left: 85%
+            
+        - type: state-label
+          entity: sensor.rec_exhaust_power
+          style:
+            top: 32%
+            left: 10%
+            
+        - type: state-label
+          entity: sensor.recuperator_humidity
+          style:
+            top: 5%
+            left: 75%
+        
+        - type: state-label
+          entity: sensor.recuperator_special_mode
+          style:
+            top: 5%
+            left: 20%
+        
+        - type: state-label
+          entity: sensor.recuperator_bypass
+          style:
+            top: 5%
+            left: 70%
+            
+        - type: state-label
+          entity: sensor.buderus_outside_temperature
+          style:
+            top: 85%
+            left: 20%
+            
+        - type: state-label
+          entity: sensor.upperfloor_mean_temperature
+          style:
+            top: 85%
+            left: 80%
+            
+        - type: state-label
+          entity: sensor.groundfloor_mean_temperature
+          style:
+            top: 90%
+            left: 80%
+            
+        - type: state-label
+          entity: sensor.recuperator_mode
+          style:
+            top: 5%
+            left: 87%
+            
+        - type: icon
+          icon: mdi:home
+          title: Wietrzenie
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 15%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4224
+            value: 7
+            
+        - type: icon
+          icon: mdi:window-open
+          title: Otwarte Okna
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 20%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4224
+            value: 10
+            
+        - type: icon
+          icon: mdi:window-open
+          title: Tryb ręczny
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 25%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4208
+            value: 1
+          
+            
+        - type: icon
+          icon: mdi:window-open
+          title: Bypass disable
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 40%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4320
+            value: 1
+            
+        - type: icon
+          icon: mdi:window-open
+          title: Bypass enable
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 45%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4320
+            value: 0
+            
+        - type: icon
+          icon: mdi:power-on
+          title: Włącz
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 55%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4387
+            value: 1
+            
+        - type: icon
+          icon: mdi:power-off
+          title: Włącz
+          tap_action: call-service
+          style:
+            top: 95%
+            left: 60%
+            padding: 0px
+          service: ampio.modbus_send
+          service_data:
+            can_id: "0x1bc8"
+            address: 10
+            operation: 6
+            index: 4387
+            value: 0
+            
+        
+            
+        # - type: service-button
+        #   title: Wietrzenie
+        #   tap_action: call-service
+        #   style:
+        #     top: 95%
+        #     left: 65%
+        #     padding: 0px
+        #   service: ampio.modbus_send
+        #   service_data:
+        #     can_id: "0x1bc8"
+        #     address: 10
+        #     operation: 6
+        #     index: 4224
+        #     value: 7
+            
+    - type: entity-filter
+      title: Uchylone Okna
+      entities:
+      - entity: binary_sensor.w_masterbedroom_ajar
+        name: Sypialnia
+      - entity: binary_sensor.w_masterbedroom_wardrobe_ajar
+        name: Garderoba
+      - entity: binary_sensor.w_alice_ajar
+        name: Alicja
+      - entity: binary_sensor.w_julia_ajar
+        name: Julia
+      - entity: binary_sensor.w_emily_ajar
+        name: Emilia
+      - entity: binary_sensor.w_masterbathroom_ajar
+        name: Łazienka
+      - entity: binary_sensor.w_loundry_ajar
+        name: Pralnia
+      - entity: binary_sensor.w_kitchen_ajar
+        name: Kuchnia
+      state_filter:
+      - "on"
+      
+    - type: entity-filter
+      title: Otwarte Okna
+      entities:
+      - entity: binary_sensor.w_masterbedroom_wardrobe
+        name: Garderoba
+      - entity: binary_sensor.w_julia
+        name: Julia
+      - entity: binary_sensor.w_masterbathroom
+        name: Łazienka
+      - entity: binary_sensor.w_loundry
+        name: Pralnia
+      - entity: binary_sensor.w_kitchen
+        name: Kuchnia
+      state_filter:
+      - "on"
+            
+            
+            
+  - icon: mdi:shower
+    id: tube
+    title: Wanna
+    cards:
+    - type: picture-elements
+      image: /local/bathtube.png
+      elements:
+        - type: state-badge
+          entity: sensor.t_bathtub_bottom
+          style:
+            top: 82%
+            left: 85%
+            color: blue
+            --ha-label-badge-size: 30px
+            --ha-label-badge-font-size: 1em
+            --ha-label-badge-title-width: 0em
+            
+        - type: state-badge
+          entity: sensor.t_bathtub_middle
+          style:
+            top: 69%
+            left: 92%
+            color: blue
+            --ha-label-badge-size: 30px
+            --ha-label-badge-font-size: 1em
+            --ha-label-badge-title-width: 0em
+            
+        - type: state-badge
+          entity: sensor.t_bathtub_top
+          style:
+            top: 52%
+            left: 95%
+            color: blue
+            --ha-label-badge-size: 30px
+            --ha-label-badge-font-size: 1em
+            --ha-label-badge-title-width: 0em
+            
+        - type: state-badge
+          entity: sensor.t_bathtub_tap
+          style:
+            top: 35%
+            left: 93%
+            color: blue
+            --ha-label-badge-size: 30px
+            --ha-label-badge-font-size: 1em
+            --ha-label-badge-title-width: 0em
+            
+  - icon: mdi:thermometer
+    id: environment
+    title: Otoczenie
+    cards:
+      - type: vertical-stack
+        cards:
+        # - type: custom:multisense-card
+        - type: glance
+          title: Sypialnia
+          show_name: false
+          column_width: calc(100% / 5)
+          entity: sensor.00001cd2_temperature_1
+          entities:
+            - sensor.00001cd2_temperature_1
+            - sensor.00001cd2_humidity_1
+            - sensor.00001cd2_meansealevelpressure_1
+        - type: glance
+          title: Salon
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+              # salon
+            - sensor.00001ccc_temperature_1
+            - sensor.00001ccc_humidity_1
+            - sensor.00001ccc_meansealevelpressure_1
+        - type: glance
+          title: Alicja
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # alicja
+            - sensor.00001cd4_temperature_1
+            - sensor.00001cd4_humidity_1
+            - sensor.00001cd4_meansealevelpressure_1
+        - type: glance
+          title: Emilia
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # emilia
+            - sensor.00001ccb_temperature_1
+            - sensor.00001ccb_humidity_1
+            - sensor.00001ccb_meansealevelpressure_1
+        - type: glance
+          title: Julia
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # julia
+            - sensor.00001ccf_temperature_1
+            - sensor.00001ccf_humidity_1
+            - sensor.00001ccf_meansealevelpressure_1
+      - type: vertical-stack   
+        cards:
+        - type: glance
+          title: Serwerownia
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # serverownia
+            - sensor.00002144_temperature_1
+            - sensor.00002144_humidity_1
+            - sensor.00002144_meansealevelpressure_1
+        - type: glance
+          title: Łazienka Główna
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # lazienka duza
+            - sensor.000026ce_temperature_1
+            - sensor.000026ce_humidity_1
+            - sensor.000026ce_meansealevelpressure_1
+        - type: glance
+          title: Łazienka Mała
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # lazienka dziewczyny
+            - sensor.000026cc_temperature_1
+            - sensor.000026cc_humidity_1
+            - sensor.000026cc_meansealevelpressure_1
+        - type: glance
+          title: WC
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # wc
+            - sensor.000026c7_temperature_1
+            - sensor.000026c7_humidity_1
+            - sensor.000026c7_meansealevelpressure_1
+        - type: glance
+          title: Hol
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # hol
+            - sensor.00001cd0_temperature_1
+            - sensor.00001cd0_humidity_1
+            - sensor.00001cd0_meansealevelpressure_1
+      - type: vertical-stack   
+        cards:  
+        - type: glance
+          title: Korytarz Piętro
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # korytarz piętro
+            - sensor.00001ccd_temperature_1
+            - sensor.00001ccd_humidity_1
+            - sensor.00001ccd_meansealevelpressure_1
+        - type: glance
+          title: Gabinet
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # gabinet 
+            - sensor.00001cd8_temperature_1
+            - sensor.00001cd8_humidity_1
+            - sensor.00001cd8_meansealevelpressure_1
+        - type: glance
+          title: Kotłownia
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # kotlownia
+            - sensor.000026bf_temperature_1
+            - sensor.000026bf_humidity_1
+            - sensor.000026bf_meansealevelpressure_1
+        - type: glance
+          title: Garaż
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # garaż
+            - sensor.000026c6_temperature_1
+            - sensor.000026c6_humidity_1
+            - sensor.000026c6_meansealevelpressure_1
+        - type: glance
+          title: Pralnia
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # pralnia
+            - sensor.000026d1_temperature_1
+            - sensor.000026d1_humidity_1
+            - sensor.000026d1_meansealevelpressure_1
+        - type: glance
+          title: Garderoba Parter
+          show_name: false
+          column_width: calc(100% / 5)
+          entities:
+            # garderoba parter
+            - sensor.000026d2_temperature_1
+            - sensor.000026d2_humidity_1
+            - sensor.000026d2_meansealevelpressure_1
+      - type: entities
+        title: Termostaty
+        entities:
+          - climate.h_bathroom
+          - climate.h_garage
+          - climate.h_hallway
+          - climate.h_master_bathroom
+          - climate.h_master_bedroom
+          - climate.h_office
+          - climate.h_room_alice
+          - climate.h_room_emily
+          - climate.h_room_julia
+          - climate.h_salon
+          - climate.h_wc
+      
+    
+  - icon: mdi:cctv
+    id: cameras
+    title: Cameras
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: picture-entity
+            entity: camera.main_door_live
+            show_info: false
+          - type: picture-entity
+            entity: camera.main_door_last_ring
+          - type: picture-entity
+            entity: camera.main_door_last_motion
+
+  - icon: mdi:play-circle-outline
+    id: media
+    title: Media
+    cards:
+      - type: media-control
+        entity: media_player.kuchnia
+      - type: media-control
+        entity: media_player.taras
+      - type: media-control
+        entity: media_player.azienka_krolewska
+      - type: media-control
+        entity: media_player.azienka_ksiezniczek
+      - type: media-control
+        entity: media_player.wc
+      - type: media-control
+        entity: media_player.sypialnia_krolewska
+      - type: media-control
+        entity: media_player.pokoj_julii
+      - type: media-control
+        entity: media_player.pokoj_emilki
+      - type: media-control
+        entity: media_player.pokoj_alicji
+      - type: media-control
+        entity: media_player.mpd_kitchen
+      - type: media-control
+        entity: media_player.mpd_terrace
+      - type: media-control
+        entity: media_player.mpd_wc
+        
+        
+        
+  - icon: mdi:test-tube
+    id: test
+    title: Testing
+    cards:
+      - type: glance
+        title: Sypialnia
+        show_name: false
+        entities:
+          - sensor.00001cd2_temperature_1
+          - sensor.00001cd2_humidity_1
+          - sensor.00001cd2_meansealevelpressure_1
+        
+      
+      - type: glance
+        title: Devices
+        entities:
+          - entity: device_tracker.iamkgxpo_klaudiusziphone
+            title: Owntracks
+          - entity: device_tracker.iamkgxpo_agnieszkaiphone
+            title: iOS
+      - type: vertical-stack
+        title: Temperatury
+        cards:
+          - type: custom:gauge-card
+            title: Salon
+            entity: sensor.00001ccc_temperature_1
+            min: 15
+            max: 40
+            scale: '35px'
+            severity:
+              red: 90
+              green: 0
+              amber: 80
+          - type: custom:gauge-card
+            title: Sypialnia
+            entity: sensor.00001cd2_temperature_1
+            min: 15
+            max: 49
+            scale: '35px'
+            severity:
+              red: 90
+              green: 0
+              amber: 80
+      - type: vertical-stack
+        title: Kocioł
+        cards:
+          - type: custom:gauge-card
+            title: Aktualna moc
+            entity: sensor.buderus_hs1_actual_power
+            min: 0
+            max: 120
+            scale: '30px'
+            severity:
+              red: 90
+              green: 0
+              amber: 50
+          - type: custom:gauge-card
+            title: Modulacja pompy
+            entity: sensor.buderus_appliance_ch_pump_modulation
+            min: 0
+            max: 100
+            scale: '30px'
+            severity:
+              red: 90
+              green: 0
+              amber: 50
+      - type: picture-glance
+        title: Salon
+        entities:
+          - sensor.00001ccc_temperature_1
+          - sensor.00001ccc_humidity_1
+          - binary_sensor.m_salon
+          - light.rgb_salon
+          - light.l_salon_mled
+        image: /local/salon.png
+      
+      - type: picture-glance
+        title: Wejście
+        entities:
+          - sensor.00001ccc_temperature_1
+          - sensor.00001ccc_humidity_1
+          - binary_sensor.m_salon
+          - light.rgb_salon
+          - light.l_salon_mled
+          
+        camera_image: camera.main_door_live
+  
+            
+        
+        

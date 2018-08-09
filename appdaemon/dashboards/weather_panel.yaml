@@ -8,7 +8,7 @@ weather_frame:
 
 camera:
   widget_type: camera
-  entity_picture: http://meteo.org.pl/img/ra.png
+  entity_picture: http://meteo.org.pl/img/ra.gif
 
       
 layout:

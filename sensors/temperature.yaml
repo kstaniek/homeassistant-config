@@ -1,0 +1,32 @@
+- platform: statistics
+  entity_id: sensor.00001cd2_temperature_1
+  max_age:
+    hours: 24
+    
+- platform: min_max
+  type: mean
+  name: upperfloor_mean_temperature
+  entity_ids:
+      # sypialnia
+      - sensor.00001cd2_temperature_1
+      # julia
+      - sensor.00001ccf_temperature_1
+      # ala
+      - sensor.00001cd4_temperature_1
+      # emilia
+      - sensor.00001ccb_temperature_1
+      
+- platform: min_max
+  type: mean
+  name: groundfloor_mean_temperature
+  entity_ids:
+      # salon
+      - sensor.00001ccc_temperature_1
+      # hol
+      - sensor.00001cd0_temperature_1
+      # wc
+      - sensor.000026c7_temperature_1
+      
+      
+- platform: season
+  type: meteorological

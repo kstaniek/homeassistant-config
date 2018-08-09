@@ -116,12 +116,12 @@
       entity_id:
         - cover.c_kitchen_east
         - cover.c_kitchen_north
-        - cover.c_livingroom
-        - cover.c_livingroom_terrace
-        - cover.c_office_north
-        - cover.c_office_west
-        - cover.c_washing
-        - cover.c_bonsai
+        # - cover.c_livingroom
+        # - cover.c_livingroom_terrace
+        # - cover.c_office_north
+        # - cover.c_office_west
+        # - cover.c_washing
+        # - cover.c_bonsai
         
     - service: media_player.volume_set
       entity_id: media_player.mpd_kitchen
@@ -132,6 +132,11 @@
       entity_id: media_player.mpd_wc
       data:
         volume_level: 0.3
+        
+    - service: media_player.volume_set
+      entity_id: media_player.mpd_terrace
+      data:
+        volume_level: 0.4
         
     - service: tts.amazon_polly_say
       entity_id: media_player.mpd_kitchen
@@ -175,40 +180,40 @@
         volume_level: 0.05
 # Blind
 
-- alias: 'Close blind at dusk'
-  trigger:
-    platform: numeric_state
-    entity_id: sun.sun
-    value_template: '{{ state.attributes.elevation }}'
-    below: -10.0
+# - alias: 'Close blind at dusk'
+#   trigger:
+#     platform: numeric_state
+#     entity_id: sun.sun
+#     value_template: '{{ state.attributes.elevation }}'
+#     below: -10.0
 
-  action:
-    - service: cover.close_cover_tilt
-      entity_id:
-        - cover.c_kitchen_east
-        - cover.c_kitchen_north
-        - cover.c_livingroom
-        - cover.c_livingroom_terrace
-        - cover.c_masterbathroom
-        - cover.c_masterbedroom
-        - cover.c_masterbedroom_wardrobe
-        - cover.c_office_north
-        - cover.c_office_west
-        - cover.c_washing
-        - cover.c_emily
-        - cover.c_bonsai
-        - cover.c_alice
-        - cover.c_julia
-    - service: automation.turn_off
-      entity_id: automation.close_blind_at_dusk
+#   action:
+#     - service: cover.close_cover_tilt
+#       entity_id:
+#         - cover.c_kitchen_east
+#         - cover.c_kitchen_north
+#         - cover.c_livingroom
+#         - cover.c_livingroom_terrace
+#         - cover.c_masterbathroom
+#         - cover.c_masterbedroom
+#         - cover.c_masterbedroom_wardrobe
+#         - cover.c_office_north
+#         - cover.c_office_west
+#         - cover.c_washing
+#         - cover.c_emily
+#         - cover.c_bonsai
+#         - cover.c_alice
+#         - cover.c_julia
+#     - service: automation.turn_off
+#       entity_id: automation.close_blind_at_dusk
       
-- alias: 'Activate close blind on dusk'
-  trigger: 
-    - platform: time
-      at: '14:00'
-  action:
-    - service: automation.turn_on
-      entity_id: automation.close_blind_at_dusk
+# - alias: 'Activate close blind on dusk'
+#   trigger: 
+#     - platform: time
+#       at: '14:00'
+#   action:
+#     - service: automation.turn_on
+#       entity_id: automation.close_blind_at_dusk
     
 
 - alias: 'Main Door Open'
@@ -231,28 +236,28 @@
         media_content_type: "MUSIC"
       
 
-- alias: 'Open blind at the morning'
-  trigger:
-    platform: time
-    at: '8:30'
+# - alias: 'Open blind at the morning'
+#   trigger:
+#     platform: time
+#     at: '8:30'
   
-  action:
-    - service: cover.open_cover_tilt
-      entity_id:
-        - cover.c_kitchen_east
-        - cover.c_kitchen_north
-        - cover.c_livingroom
-        - cover.c_livingroom_terrace
-        - cover.c_masterbathroom
-        - cover.c_masterbedroom
-        - cover.c_masterbedroom_wardrobe
-        - cover.c_office_north
-        - cover.c_office_west
-        - cover.c_washing
-        - cover.c_emily
-        - cover.c_bonsai
-        - cover.c_alice
-        - cover.c_julia
+#   action:
+#     - service: cover.open_cover_tilt
+#       entity_id:
+#         - cover.c_kitchen_east
+#         - cover.c_kitchen_north
+#         - cover.c_livingroom
+#         - cover.c_livingroom_terrace
+#         - cover.c_masterbathroom
+#         - cover.c_masterbedroom
+#         - cover.c_masterbedroom_wardrobe
+#         - cover.c_office_north
+#         - cover.c_office_west
+#         - cover.c_washing
+#         - cover.c_emily
+#         - cover.c_bonsai
+#         - cover.c_alice
+#         - cover.c_julia
 
 - alias: "Report travel time"
   trigger:
@@ -283,3 +288,455 @@
               {{ states.sensor.travel_home_medicover_graniczna.attributes['friendly_name'] }} <say-as interpret-as="time">{{ states.sensor.travel_home_medicover_graniczna.state }}'0"</say-as>,
               {{ states.sensor.travel_home_medicover_chorzowska.attributes['friendly_name'] }} <say-as interpret-as="time">{{ states.sensor.travel_home_medicover_chorzowska.state }}'0"</say-as>.
           </speak>
+
+
+- alias: "Garage gate open"
+  trigger:
+    - platform: time
+      minutes: '/10'
+      seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '18:00:00'
+        before: '06:00:00'
+      - condition: state
+        entity_id: cover.c_garage_gate
+        state: 'open'
+      - condition: template
+        value_template: >
+           {%- if states.cover.c_garage_gate.last_changed -%}
+             {{ (as_timestamp(now()) - as_timestamp(states.cover.c_garage_gate.last_changed)) > 3600 }}
+           {%- else -%}
+             true
+           {%- endif -%}
+         
+  action:
+    - service: persistent_notification.create
+      data:
+        notification_id: "gate"
+        title: "Brama Garażowa"
+        message: "Brama garażowa otwarta"
+    
+    - service: notify.telegram
+      data:
+       title: '*Brama Garażowa*'
+       message: 'Brama garażowa otwarta. Robi się późno!'
+       data:
+         inline_keyboard:
+           - 'Zamknij:/close_gate'
+             
+    - service: tts.amazon_polly_say
+      entity_id: 
+        - media_player.mpd_kitchen
+        - media_player.mpd_wc
+        - media_player.mpd_terrace
+      data:
+        message: "<speak>Brama garażowa otwarta dłużej niż godzinę. Robi się późno.</speak>"
+        
+      
+- alias: Close Garage Gate
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/close_gate'
+  action:
+    - service: notify.telegram
+      data:
+        title: '*Brama Garażowa*'
+        message: "Zamykam bramę garażową."
+        
+    - service: cover.close_cover
+      entity_id: cover.c_garage_gate
+      
+- alias: Terrace open all air in
+  trigger:
+    platform: state
+    entity_id: binary_sensor.d_terrace
+    from: 'off'
+    to: 'on'
+    for:
+      minutes: 2
+
+  condition:
+    condition: or
+    conditions:
+    - condition: time
+      after: '4:00:00'
+      before: '10:00:00'
+    - condition: template
+      value_template: "{{ states.sensor.buderus_outside_temperature.state|float + 1 < states.sensor.upperfloor_mean_temperature.state|float }}"
+
+    
+  action:
+    # switch recu on
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4387
+        value: 1
+        
+    # mode manual
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4208
+        value: 1
+    
+    # no special mode - open window
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4224
+        value: 10
+        
+    - service: notify.telegram
+      data:
+        title: '*Rekuperator*'
+        message: "Drzwi tarasowe otwarte"
+        
+    - service: logbook.log
+      data:
+        name: "Rekuperator: "
+        message: "Drzwi tarasowe otwarte. Pełny wywiew."
+      
+
+      
+- alias: Switch to air from outside
+  trigger:
+    platform: template
+    value_template: "{{ states.sensor.buderus_outside_temperature.state|float + 1 < states.sensor.upperfloor_mean_temperature.state|float }}"
+  action:
+    # switch recu on
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4387
+        value: 1
+        
+    # mode manual
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4208
+        value: 1
+    
+    # airflow
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4210
+        value: 100
+    
+    # no special mode
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4224
+        value: 0
+        
+    # enable bypass
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4320
+        value: 0
+        
+    - service: notify.telegram
+      data:
+        title: '*Rekuperator*'
+        message: "Włączam wyciąg powietrza"
+        
+    - service: tts.amazon_polly_say
+      entity_id:
+        - media_player.mpd_kitchen
+        - media_player.mpd_wc
+        - media_player.mpd_terrace
+      data:
+        message: "<speak>Włączam wyciąg powietrza. Zalecam otwarcie okien i tarasu.</speak>"
+        
+- alias: Switch recuperator off
+  
+  trigger:
+  - platform: template
+    value_template: "{{ states.sensor.buderus_outside_temperature.state|float + 1 > states.sensor.upperfloor_mean_temperature.state|float }}"
+
+  action:
+    # switch off
+    - service: ampio.modbus_send
+      data:
+        can_id: "0x1BC8"
+        address: 10
+        operation: 6
+        index: 4387
+        value: 0
+        
+    - service: notify.telegram
+      data:
+        title: '*Rekuperator*'
+        message: "Wyłączam rekuperator."
+
+    - service: tts.amazon_polly_say
+      entity_id: 
+        - media_player.mpd_kitchen
+        - media_player.mpd_wc
+      data:
+        message: "<speak>Temperatura na zewnątrz wzrosła powyżej temperatury w domu. Wyłączam rekuperator. Zalecam zamknięcie okien.</speak>"
+        
+- alias: Bypass On
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.recuperator_bypass
+      to: 'on'
+  action:
+    - service: notify.telegram
+      data:
+        title: '*Rekuperator*'
+        message: "Bypass włączony"
+        
+- alias: Bypass Off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.recuperator_bypass
+      to: 'off'
+  action:
+    - service: notify.telegram
+      data:
+        title: '*Rekuperator*'
+        message: "Bypass wyłączony"
+        
+- alias: Bath Start
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.t_bathtub_bottom
+      above: 27
+      for:
+        minutes: 2
+  action:
+    service: logbook.log
+    data:
+      name: "Łazienka główna: "
+      message: "Kąpiel rozpoczęta"
+      
+- alias: Bath Stop
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.t_bathtub_bottom
+      below: 26
+      for:
+        minutes: 2
+  action:
+    service: logbook.log
+    data:
+      name: "Łazienka główna: "
+      message: "Kąpiel zakończona"
+
+    
+- alias: Close all blind before sunrise
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    above: -10
+  condition:
+    condition: state
+    entity_id: sensor.season
+    state: 'summer'
+    
+  action:
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Zamykam wszystkie"
+    
+    - service: cover.close_cover
+      entity_id:
+        - cover.c_all
+    - delay:
+        minutes: 1
+        
+    - service: cover.close_cover_tilt
+      entity_id:
+        - cover.c_all
+  
+
+- alias: Close blind on North in Kitchen
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.azimuth }}'
+    above: 270
+  condition:
+    condition: state
+    entity_id: sensor.season
+    state: 'summer'
+  
+  action:
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Zamykam Północ"
+        
+    - service: cover.close_cover
+      entity_id:
+        - cover.c_north
+
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Otwieram Południe"
+        
+    - service: cover.open_cover_tilt
+      entity_id:
+        - cover.c_south
+    
+    - delay:
+        minutes: 1
+        
+    - service: cover.close_cover_tilt
+      entity_id:
+        - cover.c_north
+        
+- alias: Close blind on south
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.azimuth }}'
+    above: 90
+  condition:
+    condition: state
+    entity_id: sensor.season
+    state: 'summer'
+  
+  action:
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Zamykam w pralni, u Julii i Alicji"
+    
+    - service: cover.close_cover
+      entity_id:
+        - cover.c_alice
+        - cover.c_julia
+        - cover.c_washing
+
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Otwieram na północ i zachód"
+    
+    
+    - service: cover.open_cover_tilt
+      entity_id:
+        - cover.c_north
+        - cover.c_west
+    
+    - delay:
+        minutes: 1
+        
+    - service: cover.close_cover_tilt
+      entity_id:
+        - cover.c_alice
+        - cover.c_julia
+        - cover.c_washing
+        
+- alias: 'Close blind on south 130'
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.azimuth }}'
+    above: 130
+  condition:
+    condition: state
+    entity_id: sensor.season
+    state: 'summer'
+  
+  action:
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Zamykam w salone, biurze"
+        
+    - service: cover.close_cover
+      entity_id:
+        - cover.c_livingroom
+        - cover.c_office_west
+        
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Otwieram na północ i wschód"
+        
+    
+    - service: cover.open_cover_tilt
+      entity_id:
+        - cover.c_north
+        - cover.c_east
+    
+    - delay:
+        minutes: 1
+        
+    - service: cover.close_cover_tilt
+      entity_id:
+        - cover.c_livingroom
+        - cover.c_office_west
+        
+
+- alias: 'Close blind on West 180'
+  trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.azimuth }}'
+    above: 180
+  condition:
+    condition: state
+    entity_id: sensor.season
+    state: 'summer'
+  
+  action:
+    - service: logbook.log
+      data:
+        name: "Żaluzje: "
+        message: "Zamykam w sypialni, biurze i bonsai"
+        
+    - service: cover.close_cover
+      entity_id:
+        - cover.c_masterbedroom
+        - cover.c_office_north
+        - cover.c_bonsai
+
+    - delay:
+        minutes: 1
+        
+    - service: cover.close_cover_tilt
+      entity_id:
+        - cover.c_masterbedroom
+        - cover.c_office_north
+        - cover.c_bonsai
+    
+
+# - alias: Close covers on east
+#   trigger:
+#     - 
+        
+      
+      
+    

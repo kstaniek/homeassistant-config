@@ -1,0 +1,11 @@
+
+- platform: template
+  sensors:
+    recuperator_bypass:
+      friendly_name: Bypass
+      value_template: >-
+         {% if states.sensor.rec_bypas_state != None %}
+           {{ is_state('sensor.rec_bypas_state', '1') }}
+         {% else %}
+           unknown
+         {% endif %}

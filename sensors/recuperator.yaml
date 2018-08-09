@@ -1,0 +1,51 @@
+- platform: template
+  sensors:
+    recuperator_humidity:
+      friendly_name: "H₂O"
+      value_template: >-
+        {% if states.switch.s_recu_humidity != None %}
+          {% if is_state('switch.s_recu_humidity', 'on') %}H₂O{% else %}...{% endif %}
+        {% else %}
+        {% endif %}
+    
+    recuperator_bypass:
+      friendly_name: "Bypass"
+      value_template: >-
+        {% if states.sensor.rec_bypas_state != None %}
+          {% if is_state('sensor.rec_bypas_state', '1') %}BP{% else %}...{% endif %}
+        {% else %}
+        {% endif %}
+    
+    recuperator_special_mode:
+      friendly_name: "Tryb specialny"
+      value_template: >-
+        {% if states.sensor.rec_special_mode != None %}
+          {%- if is_state('sensor.rec_special_mode', '10') -%}
+            Otwarte okna
+          {%- elif is_state('sensor.rec_special_mode', '2') -%}
+            Kominek
+          {%- elif is_state('sensor.rec_special_mode', '7') -%}
+            Wietrzenie
+          {%- elif is_state('sensor.rec_special_mode', '11') -%}
+            Pusty dom
+          {%- elif is_state('sensor.rec_special_mode', '5') -%}
+            Wysoka wilgotność
+          {%- else -%}
+          {% endif %}
+        {% endif %}
+    
+    recuperator_mode:
+      friendly_name: "Tryb"
+      value_template: >-
+        {% if states.sensor.rec_mode != None %}
+          {%- if is_state('sensor.rec_mode', '0') -%}
+            Automatyczny
+          {%- elif is_state('sensor.rec_mode', '1') -%}
+            Ręczny
+          {%- elif is_state('sensor.rec_mode', '2') -%}
+            Chwilowy
+          {%- else -%}
+            Nieznany
+          {% endif %}
+        {% endif %}
+      

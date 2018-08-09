@@ -1,6 +1,6 @@
 default_view:
   view: yes
-  icon: mdi:home
+  icon: mdi:home-assistant
   entities:
     - device_tracker.emperor
     - device_tracker.petronella_bogini
@@ -13,6 +13,7 @@ default_view:
     - group.alarm
     - group.weather
     - calendar.dom
+    - group.group_iframe
     
 weather:
   view: no
@@ -30,6 +31,11 @@ weather:
     - sensor.smog_mean
     
 
+group_iframe:
+  name: ' '
+  entities:
+    - sensor.iframe_windy
+
 alarm:
   view: no
   name: Alarm
@@ -42,6 +48,7 @@ alarm:
 climate:
   view: yes
   name: Klimat
+  icon: mdi:weather-cloudy
   entities:
     - group.thermostats
     - group.recuperator
@@ -61,6 +68,7 @@ thermostats:
     - climate.h_master_bedroom
     - climate.h_room_alice
     - climate.h_bathroom
+
 
 recuperator:
   view: no
@@ -97,6 +105,7 @@ movement:
 occupancy:
   view: yes
   name: Obecność
+  icon: mdi:account-check
   entities:
   - group.movement 
   - group.room_occupancy
@@ -116,6 +125,7 @@ external_doors:
 system_info:
   view: yes
   name: System
+  icon: mdi:heart-pulse
   entities:
     - group.home_assistant
     - group.baranek
@@ -150,6 +160,7 @@ baranek:
 cameras:
   view: yes
   name: Kamery
+  icon: mdi:cctv
   entities:
     - camera.main_door_live
     - camera.wschodponoc_front
@@ -164,6 +175,7 @@ cameras:
 media:
   view: yes
   name: Media
+  icon: mdi:play-circle-outline
   entities:
     - group.players_mpd
     - group.players_squeezebox
@@ -195,6 +207,7 @@ players_squeezebox:
 rooms:
   view: yes
   name: Pokoje
+  icon: mdi:home-modern
   entities:
     - group.kitchen
     - group.salon
@@ -222,6 +235,7 @@ kitchen:
 covers:
   view: yes
   name: Żaluzje
+  icon: mdi:window-open
   entities:
     - cover.c_all
     - cover.c_upstairs
@@ -235,6 +249,7 @@ covers:
 buderus:
   view: yes
   name: Kocioł
+  icon: mdi:steam
   entities:
      - group.bd_system
      - group.bd_hs1
@@ -302,6 +317,7 @@ bd_dhw1:
 devices:
   view: yes
   name: Urządzenia
+  icon: mdi:cellphone-basic
   entities:
     - group.ipads
     - group.iphones
@@ -344,7 +360,9 @@ travel_from_home:
 config:
   view: yes
   name: Ustawienia
+  icon: mdi:settings
   entities:
+    - switch.developer_mode
     - input_boolean.trigger_first_morning
     
 l_salon_mled:
@@ -416,6 +434,12 @@ l_hol_mled1:
     - light.l_hol_mled4
     
     
-    
+developer:
+    name: Developer
+    view: false
+    icon: mdi:developer-board
+    entities:
+      - group.catchall
+      - group.deaditems  
 
       

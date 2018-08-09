@@ -54,8 +54,7 @@ def async_add_devices_discovery(hass, discovery_info, async_add_devices):
         async_add_devices([AmpioSwitch(hass, item)])
 
 
-
-class AmpioSwitch(SwitchDevice):
+class AmpioSwitch(Ampio, SwitchDevice):
     def __init__(self, hass, config):
         self.hass = hass
         self.config = config

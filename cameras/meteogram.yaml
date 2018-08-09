@@ -2,3 +2,6 @@
   name: Pogoda
   still_image_url: https://www.yr.no/place/Poland/Silesia/Siemianowice_Śląskie~7531569/meteogram.svg
   content_type: 'image/svg+xml'
+- platform: generic
+  still_image_url: 'http://meteo.org.pl/img/ra.gif'
+  name: meteo

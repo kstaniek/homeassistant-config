@@ -14,3 +14,20 @@
     - cpu_temp
     - drive_smart_status
     - drive_temp
+    
+- platform: qnap
+  host: 172.31.20.200
+  username: admin
+  password: admin
+  monitored_conditions:
+    - status
+    - cpu_usage
+    - memory_percent_used
+    - network_tx
+    - network_rx
+    - network_link_status
+    - volume_percentage_used
+    - system_temp
+    - cpu_temp
+    - drive_smart_status
+    - drive_temp

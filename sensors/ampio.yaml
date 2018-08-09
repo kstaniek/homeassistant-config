@@ -42,13 +42,32 @@
   platform: ampio
   item: 0x1bc8/value16b/2
   
-- name: rec_mode
+- name: rec_flow_rate
   platform: ampio
   item: 0x1bc8/value16b/3
 
 - name: rec_mode
   platform: ampio
   item: 0x1bc8/value16b/4
+  
+- name: rec_alarm_filter_presostat
+  platform: ampio
+  item: 0x1bc8/value16b/5
+  
+- name: rec_alarm_common
+  platform: ampio
+  item: 0x1bc8/value16b/6
+  
+- name: rec_supply_power
+  platform: ampio
+  item: 0x1bc8/value16b/7
+  unit_of_measurement: '%'
+  
+- name: rec_exhaust_power
+  platform: ampio
+  item: 0x1bc8/value16b/8
+  unit_of_measurement: '%'
+ 
   
   
 

@@ -23,3 +23,18 @@ night:
       entity_id: input_select.house_mode
       data:
         option: "Noc"
+        
+        
+goodnight_off:
+  sequence:
+    - service: scene.turn_on
+      entity_id: scene.goodnight
+    - service: media_player.turn_off
+      entity_id: 
+        - media_player.kuchnia
+        - media_player.taras
+        - media_player.wc
+    - service: alarm_control_panel.alarm_arm_home
+      entity_id:  alarm_control_panel.a_outside
+    - service: cover.close_cover_tilt
+      entity_id: cover.c_downstairs

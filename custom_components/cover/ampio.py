@@ -10,7 +10,7 @@ from homeassistant.components.cover import (PLATFORM_SCHEMA, CoverDevice, SUPPOR
 
 import homeassistant.helpers.config_validation as cv
 
-from homeassistant.const import (CONF_NAME, CONF_FRIENDLY_NAME, STATE_UNKNOWN, ATTR_FRIENDLY_NAME)
+from homeassistant.const import CONF_NAME
 
 from ..ampio import unpack_item_address
 from ..ampio import Ampio
@@ -50,7 +50,6 @@ def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
     return True
 
 
-
 class AmpioCover(Ampio, CoverDevice):
     def __init__(self, hass, config):
         self.hass = hass
@@ -75,12 +74,6 @@ class AmpioCover(Ampio, CoverDevice):
         self._attributes[ATTR_MODULE_NAME] = self.ampio.get_module_name(config[CONF_ITEM][0])
         self._attributes[ATTR_MODULE_PART_NUMBER] = self.ampio.get_module_part_number(config[CONF_ITEM][0])
         self._attributes[ATTR_CAN_ID] = config[CONF_ITEM][0]
-        # self.entity_id = ".".format(DOMAIN, self._name)
-        print("-" * 20)
-        print(self._name)
-        print(self.config)
-        print(self.unique_id)
-        print("-" * 20)
 
     @property
     def is_closed(self):
@@ -125,19 +118,14 @@ class AmpioCover(Ampio, CoverDevice):
 
     async def async_open_cover(self, **kwargs):
         """Open the cover."""
-        _LOGGER.error("Open cover: {}".format(kwargs))
         await self.ampio.send_open_cover(self._can_id, self._index)
 
     async def async_close_cover(self, **kwargs):
         """Close the cover."""
-        _LOGGER.error("close cover: {}".format(kwargs))
-
         await self.ampio.send_close_cover(self._can_id, self._index)
 
     async def async_stop_cover(self, **kwargs):
         """Stop the cover."""
-        _LOGGER.error("stop cover: {}".format(kwargs))
-
         await self.ampio.send_stop_cover(self._can_id, self._index)
 
     async def async_set_cover_position(self, **kwargs):

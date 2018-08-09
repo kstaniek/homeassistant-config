@@ -1,0 +1,7 @@
+send_modbus_data:
+  description: Send data to modbus module
+
+  fields:
+    index:
+      description: Modbus Register Index
+      example: 1230

@@ -1,0 +1,5 @@
+  javascript_version: latest
+  extra_html_url:
+    - /local/custom_ui/custom-weather-card.html
+    - /local/custom_ui/custom-weather-animated.html
+    - /local/custom_ui/more-info-my-custom-light.html
